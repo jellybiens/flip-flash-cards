@@ -27,7 +27,7 @@ module.exports = {
     // Allows for the use of imports
     allowImportExportEverywhere: true,
     project: './tsconfig.json',
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: '.',
   },
   rules: {
     'import/no-unresolved': 'error',
@@ -36,6 +36,7 @@ module.exports = {
     'comma-dangle': ['warn', 'always-multiline'],
     '@typescript-eslint/no-unused-vars': 'warn',
     'prettier/prettier': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/naming-convention': [
       'warn',
       {
@@ -71,8 +72,12 @@ module.exports = {
     'import/ignore': ['node_modules\\/(?!@storybook)', 'cypress'],
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.d.ts'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
         paths: ['node_modules/', 'node_modules/@types/'],
+      },
+      alias: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
+        map: [['@ui-kit', './packages/ui-kit/src']],
       },
     },
     'html/html-extensions': ['.html'],

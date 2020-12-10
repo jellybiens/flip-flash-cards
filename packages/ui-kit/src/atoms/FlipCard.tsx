@@ -1,15 +1,12 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
-
-type FlipCardProps = {
-  frontside: string;
-  backside: string;
-};
 
 const useStyles = makeStyles((theme: Theme) => {
   const FrontBackSizing: CSSProperties = {
     position: 'absolute',
+    border: '3px solid #000',
     width: '100%',
     height: '100%',
     '-webkit-backface-visibility': 'hidden' /* Safari */,
@@ -17,10 +14,9 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 
   return {
-    root: { backgroundColor: theme.palette.bg.main },
     flipCard: {
-      backgroundColor: theme.palette.bg.main,
-      border: '1px solid #f1f1f1',
+      width: 100,
+      height: 100,
       perspective: 1000,
     },
 
@@ -38,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
     /* Style the front side (fallback if image is missing) */
     flipCardFront: {
-      backgroundColor: '#bbb',
+      backgroundColor: theme.palette.bg.main,
       color: '#000',
       ...FrontBackSizing,
     },
@@ -46,31 +42,35 @@ const useStyles = makeStyles((theme: Theme) => {
     /* Style the back side */
     flipCardBack: {
       backgroundColor: '#037',
-      color: '#fff',
+      color: '#000',
       transform: 'rotateY(180deg)',
       ...FrontBackSizing,
     },
   };
 });
 
-export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside }) => {
+type FlipCardProps = {
+  index: number;
+  frontside: string;
+  backside: string;
+};
+
+export const FlipCard: React.FC<FlipCardProps> = ({ index, frontside, backside }) => {
   const cs = useStyles();
-  const [flipCard, setFlipCard] = React.useState(true);
+  const [flipCard, setFlipCard] = React.useState(false);
 
   return (
-    <Grid
-      className={cs.flipCard}
-      container
-      component={Paper}
-      item
-      xs={12}
-      onClick={() => setFlipCard(!flipCard)}
-    >
-      <Grid container item xs={12} className={flipCard && cs.flipCardInner}>
-        <Grid item xs={12} className={cs.flipCardFront}>
+    <Grid className={cs.flipCard} container item xs={12} onClick={() => setFlipCard(!flipCard)}>
+      <Grid
+        container
+        item
+        xs={12}
+        className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: flipCard })}
+      >
+        <Grid component={Paper} item xs={12} className={cs.flipCardFront}>
           {frontside}
         </Grid>
-        <Grid item xs={12} className={cs.flipCardBack}>
+        <Grid component={Paper} item xs={12} className={cs.flipCardBack}>
           {backside}
         </Grid>
       </Grid>
