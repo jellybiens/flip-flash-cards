@@ -6,6 +6,7 @@ declare module '@material-ui/core/styles/createPalette' {
     beta?: PaletteColorOptions;
     gamma?: PaletteColorOptions;
     omega?: PaletteColorOptions;
+    paper?: PaletteColorOptions;
     bg?: PaletteColorOptions;
   }
 
@@ -14,6 +15,7 @@ declare module '@material-ui/core/styles/createPalette' {
     beta?: PaletteColor;
     gamma?: PaletteColor;
     omega?: PaletteColor;
+    paper?: PaletteColor;
     bg?: PaletteColor;
   }
 }

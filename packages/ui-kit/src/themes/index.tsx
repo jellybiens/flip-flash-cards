@@ -11,6 +11,9 @@ export default createMuiTheme({
     bg: {
       main: '#ffe57f',
     },
+    paper: {
+      main: '#eee',
+    },
     alpha: {
       main: '#f44336',
     },
