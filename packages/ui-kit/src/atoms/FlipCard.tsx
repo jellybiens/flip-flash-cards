@@ -2,6 +2,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, Grid, Paper, Typography } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { CardSize, CardPixels } from '@types';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = 16;
@@ -16,15 +18,38 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 
   return {
-    sm: { height: 200, width: 200 },
-    md: { height: 350, width: 350 },
-    lg: { height: 500, width: 500 },
+    sm: { height: CardPixels.sm, width: CardPixels.sm },
+    md: { height: CardPixels.md, width: CardPixels.md },
+    lg: { height: CardPixels.lg, width: CardPixels.lg },
 
     flipCard: {
+      animation: '$fadeIn ease 0.5s',
       margin: 'auto',
       display: 'flex',
       perspective: 3000,
       transformStyle: 'preserve-3d',
+    },
+
+    '@keyframes fadeIn': {
+      '0%': { opacity: 0, transform: 'translateY(40px)' },
+      '100%': { opacity: 1, transform: 'translateY(0px)' },
+    },
+
+    rightSwipe: {
+      animation: '$rightSwipe ease 0.5s',
+    },
+    leftSwipe: {
+      animation: '$leftSwipe ease 0.5s',
+    },
+    '@keyframes rightSwipe': {
+      '0%': { opacity: 1, transform: 'translate(0vw, 0px) rotate(0deg)' },
+      '99%': { opacity: 0, transform: 'translate(200%, -20%) rotate(30deg)' },
+      '100%': { display: 'none' },
+    },
+    '@keyframes leftSwipe': {
+      '0%': { opacity: 1, transform: 'translate(0vw, 0px) rotate(0deg)' },
+      '99%': { opacity: 0, transform: 'translate(-200%, -20%) rotate(-30deg)' },
+      '100%': { display: 'none' },
     },
 
     /* This container is needed to position the front and back side */
@@ -94,34 +119,52 @@ type CardFaceImageProps = {
   imgLink: string;
 };
 
-type Sizes = 'sm' | 'md' | 'lg';
-
 type CardFaceProps = (CardFaceTextProps | CardFaceImageProps) & {
-  size: Sizes;
+  size: CardSize;
 };
 
-type FlipCardProps = {
-  index?: number;
+export type FlipCardProps = {
   frontside: CardFaceTextProps | CardFaceImageProps;
   backside: CardFaceTextProps | CardFaceImageProps;
-  size?: Sizes;
+  size?: CardSize;
 };
 
 const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" {...props} />;
 
-export const FlipCard: React.FC<FlipCardProps> = ({ index, frontside, backside, size = 'md' }) => {
+export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 'md' }) => {
   const cs = useStyles();
-  const [flipCard, setFlipCard] = React.useState(false);
+  const [rotate, setRotate] = React.useState(false);
+  const [rightSwipe, setRightSwipe] = React.useState(false);
+  const [leftSwipe, setLeftSwipe] = React.useState(false);
+
+  const handleKeyPress = (key) => {
+    switch (key) {
+      case 'space': {
+        setRotate(!rotate);
+        break;
+      }
+      case 'right': {
+        setRightSwipe(true);
+        break;
+      }
+      case 'left': {
+        setLeftSwipe(true);
+        break;
+      }
+    }
+  };
 
   return (
     <div
-      id={`${index}`}
-      className={clsx(cs[size], cs.flipCard)}
-      onClick={() => {
-        setFlipCard(!flipCard);
-      }}
+      className={clsx(cs[size], cs.flipCard, {
+        [cs.rightSwipe]: rightSwipe,
+        [cs.leftSwipe]: leftSwipe,
+      })}
+      onClick={() => setRotate(!rotate)}
     >
-      <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: flipCard })}>
+      <KeyboardEventHandler handleKeys={['space', 'right', 'left']} onKeyEvent={handleKeyPress} />
+
+      <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: rotate })}>
         <Grid item xs={12} component={PaperCard} className={cs.flipCardFront}>
           <CardFace {...frontside} size={size} />
         </Grid>

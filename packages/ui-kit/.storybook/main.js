@@ -1,3 +1,5 @@
+var path = require("path");
+
 module.exports = {
   webpackFinal: (config) => ({
     ...config,
@@ -6,6 +8,7 @@ module.exports = {
       alias: {
         ...config.resolve.alias,
         '@ui-kit': '../src',
+        "@types": path.resolve(__dirname, "../../types")
       },
     },
   }),

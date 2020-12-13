@@ -32,30 +32,32 @@ const cardProps1 = { frontside: frontside1, backside: backside1 };
 const cardProps2 = { frontside: frontside2, backside: backside2 };
 const cardProps3 = { frontside: backside3, backside: frontside3 };
 
+export const cardDeck = [cardProps1, cardProps2, cardProps3, cardProps1, cardProps2, cardProps3];
+
 const Story = () => {
   return (
     <Container title="Flipcard">
       <Grid container spacing={10} justify="center">
         <Grid item xs={3}>
-          <FlipCard index={0} {...cardProps1} size="sm" />
+          <FlipCard {...cardProps1} size="sm" />
         </Grid>
         <Grid item xs={3}>
-          <FlipCard index={0} {...cardProps2} size="sm" />
+          <FlipCard {...cardProps2} size="sm" />
         </Grid>
         <Grid item xs={3}>
-          <FlipCard index={0} {...cardProps3} size="sm" />
+          <FlipCard {...cardProps3} size="sm" />
         </Grid>
         <Grid item xs={6}>
-          <FlipCard index={0} {...cardProps1} size="md" />
+          <FlipCard {...cardProps1} size="md" />
         </Grid>
         <Grid item xs={6}>
-          <FlipCard index={0} {...cardProps2} size="md" />
+          <FlipCard {...cardProps2} size="md" />
         </Grid>
         <Grid item xs={6}>
-          <FlipCard index={0} {...cardProps1} size="lg" />
+          <FlipCard {...cardProps1} size="lg" />
         </Grid>
         <Grid item xs={6}>
-          <FlipCard index={0} {...cardProps2} size="lg" />
+          <FlipCard {...cardProps2} size="lg" />
         </Grid>
       </Grid>
     </Container>

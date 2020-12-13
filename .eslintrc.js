@@ -77,7 +77,8 @@ module.exports = {
       },
       alias: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
-        map: [['@ui-kit', './packages/ui-kit/src']],
+        map: [['@ui-kit', './packages/ui-kit/src'], 
+              ["@types", "./packages/types"]],
       },
     },
     'html/html-extensions': ['.html'],
