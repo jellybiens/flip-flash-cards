@@ -136,19 +136,27 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 
   const [rotate, setRotate] = React.useState(false);
   const [rightSwipe, setRightSwipe] = React.useState(false);
   const [leftSwipe, setLeftSwipe] = React.useState(false);
+  const [blockKeydown, setBlockKeydown] = React.useState(false);
 
   const handleKeyPress = (key) => {
     switch (key) {
       case 'space': {
-        setRotate(!rotate);
+        if (!blockKeydown) {
+          setRotate(!rotate);
+          setBlockKeydown(true);
+          setTimeout(() => setBlockKeydown(false), 800);
+        }
+
         break;
       }
       case 'right': {
         setRightSwipe(true);
+        setTimeout(() => setRightSwipe(false), 600);
         break;
       }
       case 'left': {
         setLeftSwipe(true);
+        setTimeout(() => setLeftSwipe(false), 600);
         break;
       }
     }
