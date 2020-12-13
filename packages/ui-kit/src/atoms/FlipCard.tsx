@@ -1,9 +1,10 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, Theme, Grid, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { CardSize, CardPixels } from '@types';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { CardFace, CardFaceImageProps, CardFaceTextProps } from './CardFace';
 
 const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = 16;
@@ -89,39 +90,8 @@ const useStyles = makeStyles((theme: Theme) => {
       transform: `translate3d(0px, 0px, -${WIDTH / 2}px) rotateY(180deg)`,
       ...FrontBackSizing,
     },
-
-    cardFace: { height: '100%', width: '100%', padding: '1%' },
-    textContainer: { height: '20%', width: '100%' },
-    typography: {
-      transform: 'translateY(-50%)',
-      top: '50%',
-      position: 'relative',
-    },
-    imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
-    imageContainer: {
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden',
-      borderRadius: 10,
-      borderStyle: 'groove inset',
-    },
-    faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
-    fullFace: { height: '100%', width: '100%', padding: '5%' },
   };
 });
-
-type CardFaceTextProps = {
-  text: string;
-  imgLink?: string;
-};
-type CardFaceImageProps = {
-  text?: string;
-  imgLink: string;
-};
-
-type CardFaceProps = (CardFaceTextProps | CardFaceImageProps) & {
-  size: CardSize;
-};
 
 export type FlipCardProps = {
   frontside: CardFaceTextProps | CardFaceImageProps;
@@ -144,19 +114,19 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 
         if (!blockKeydown) {
           setRotate(!rotate);
           setBlockKeydown(true);
-          setTimeout(() => setBlockKeydown(false), 800);
+          setTimeout(() => setBlockKeydown(false), 600);
         }
 
         break;
       }
       case 'right': {
         setRightSwipe(true);
-        setTimeout(() => setRightSwipe(false), 600);
+        setTimeout(() => setRightSwipe(false), 800);
         break;
       }
       case 'left': {
         setLeftSwipe(true);
-        setTimeout(() => setLeftSwipe(false), 600);
+        setTimeout(() => setLeftSwipe(false), 800);
         break;
       }
     }
@@ -181,41 +151,5 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 
         </Grid>
       </Grid>
     </div>
-  );
-};
-
-const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
-  const cs = useStyles();
-  const textVariant = (() => {
-    switch (size) {
-      case 'sm': {
-        return 'body1';
-      }
-      case 'md': {
-        return 'h4';
-      }
-      case 'lg': {
-        return 'h2';
-      }
-    }
-  })();
-
-  return (
-    <Grid container className={cs.cardFace}>
-      {imgLink && (
-        <Grid item xs={12} className={text ? cs.imageArea : cs.fullFace}>
-          <div className={cs.imageContainer}>
-            <img className={cs.faceImage} src={imgLink} />
-          </div>
-        </Grid>
-      )}
-      {text && (
-        <Grid item xs={12} className={imgLink ? cs.textContainer : cs.fullFace}>
-          <Typography className={cs.typography} variant={textVariant}>
-            {text}
-          </Typography>
-        </Grid>
-      )}
-    </Grid>
   );
 };
