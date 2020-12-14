@@ -17,12 +17,32 @@ const backside1 = {
 const Story = () => {
   return (
     <Container title="Flipcard">
-      <Grid container spacing={10} justify="center">
+      <Grid container spacing={0} justify="center">
         <Grid item xs={6}>
-          <CardFace {...frontside1} size="sm" />
+          <div
+            style={{
+              height: 300,
+              width: 300,
+              margin: 'auto',
+              textAlign: 'center',
+              backgroundColor: '#fff',
+            }}
+          >
+            <CardFace {...frontside1} size="sm" />
+          </div>
         </Grid>
         <Grid item xs={6}>
-          <CardFace {...backside1} size="sm" />
+          <div
+            style={{
+              height: 300,
+              width: 300,
+              margin: 'auto',
+              textAlign: 'center',
+              backgroundColor: '#fff',
+            }}
+          >
+            <CardFace {...backside1} size="sm" />
+          </div>
         </Grid>
       </Grid>
     </Container>
