@@ -24,8 +24,6 @@ const Story = () => {
               height: 300,
               width: 300,
               margin: 'auto',
-              textAlign: 'center',
-              backgroundColor: '#fff',
             }}
           >
             <CardFace {...frontside1} size="sm" />

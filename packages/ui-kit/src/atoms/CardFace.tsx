@@ -1,10 +1,16 @@
 import * as React from 'react';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Paper, Grid, Typography } from '@material-ui/core';
 import { CardSize } from '@types';
 
 const useStyles = makeStyles(() => {
   return {
-    cardFace: { height: '100%', width: '100%', padding: '1%' },
+    cardFace: {
+      height: '100%',
+      width: '100%',
+      padding: '1%',
+      borderRadius: 5,
+      textAlign: 'center',
+    },
     textContainer: { height: '20%', width: '100%' },
     typography: {
       transform: 'translateY(-50%)',
@@ -37,6 +43,8 @@ type CardFaceProps = (CardFaceTextProps | CardFaceImageProps) & {
   size: CardSize;
 };
 
+const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" {...props} />;
+
 export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
   const cs = useStyles();
   const textVariant = (() => {
@@ -54,7 +62,7 @@ export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
   })();
 
   return (
-    <Grid container className={cs.cardFace}>
+    <Grid container className={cs.cardFace} component={PaperCard}>
       {imgLink && (
         <Grid item xs={12} className={text ? cs.imageArea : cs.fullFace}>
           <div className={cs.imageContainer}>

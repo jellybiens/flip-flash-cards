@@ -1,21 +1,12 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { makeStyles, Theme, Grid } from '@material-ui/core';
 import { CardSize, CardPixels } from '@types';
 import { CardFace, CardFaceImageProps, CardFaceTextProps } from './CardFace';
 
 const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = 16;
   const OUTLINE_COLOUR = theme.palette.paper.main;
-
-  const FrontBackSizing: CSSProperties = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backfaceVisibility: 'hidden',
-    transformStyle: 'preserve-3d',
-  };
 
   return {
     sm: { height: CardPixels.sm, width: CardPixels.sm },
@@ -55,16 +46,22 @@ const useStyles = makeStyles((theme: Theme) => {
       transform: 'rotateY(180deg)',
     },
 
+    flipCardFace: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backfaceVisibility: 'hidden',
+      transformStyle: 'preserve-3d',
+    },
+
     /* Style the front side (fallback if image is missing) */
     flipCardFront: {
       transform: `translate3d(0px, 0px, ${WIDTH / 2}px)`,
-      ...FrontBackSizing,
     },
 
     /* Style the back side */
     flipCardBack: {
       transform: `translate3d(0px, 0px, -${WIDTH / 2}px) rotateY(180deg)`,
-      ...FrontBackSizing,
     },
   };
 });
@@ -74,8 +71,6 @@ export type FlipCardProps = {
   backside: CardFaceTextProps | CardFaceImageProps;
   size?: CardSize;
 };
-
-const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" {...props} />;
 
 export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 'md' }) => {
   const cs = useStyles();
@@ -98,10 +93,10 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontside, backside, size = 
   return (
     <div className={clsx(cs[size], cs.flipCard)} onClick={() => setRotate(!rotate)}>
       <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: rotate })}>
-        <Grid item xs={12} component={PaperCard} className={cs.flipCardFront}>
+        <Grid item xs={12} className={clsx(cs.flipCardFront, cs.flipCardFace)}>
           <CardFace {...frontside} size={size} />
         </Grid>
-        <Grid item xs={12} component={PaperCard} className={cs.flipCardBack}>
+        <Grid item xs={12} className={clsx(cs.flipCardBack, cs.flipCardFace)}>
           <CardFace {...backside} size={size} />
         </Grid>
       </Grid>
