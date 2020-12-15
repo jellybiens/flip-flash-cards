@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { makeStyles, Theme, ButtonBase, ButtonBaseProps, Hidden } from '@material-ui/core';
+import { makeStyles, ButtonBase, ButtonBaseProps } from '@material-ui/core';
 import { CardFace, CardFaceProps } from './CardFace';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles(() => {
   return {
     root: {
       height: '100%',
