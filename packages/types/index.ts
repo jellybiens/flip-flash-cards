@@ -1,7 +1,9 @@
 export type CardSize = 'sm' | 'md' | 'lg';
 
 export enum CardPixels {
-  sm = 200,
-  md = 350,
-  lg = 500,
+  xs = 250,
+  sm = 400,
+  md = 450,
+  lg = 600,
+  xl = 900,
 }
