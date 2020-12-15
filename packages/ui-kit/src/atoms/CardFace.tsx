@@ -42,7 +42,7 @@ export type CardFaceImageProps = {
   imgLink: string;
 };
 
-type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
+export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 
 const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" square {...props} />;
 
