@@ -1,25 +1,43 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, Grid } from '@material-ui/core';
-import { CardSize, CardPixels } from '@types';
 import { CardFace, CardFaceImageProps, CardFaceTextProps } from './CardFace';
+import { CardPixels } from '@types';
+import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 
 export const CARD_WIDTH = 16;
+
+export const FlipCardSizing = (theme: Theme): CreateCSSProperties => ({
+  [theme.breakpoints.only('xs')]: {
+    height: CardPixels.xs,
+    width: CardPixels.xs,
+  },
+  [theme.breakpoints.only('sm')]: {
+    height: CardPixels.sm,
+    width: CardPixels.sm,
+  },
+  [theme.breakpoints.only('md')]: {
+    height: CardPixels.md,
+    width: CardPixels.md,
+  },
+  [theme.breakpoints.only('lg')]: {
+    height: CardPixels.lg,
+    width: CardPixels.lg,
+  },
+  [theme.breakpoints.only('xl')]: {
+    height: CardPixels.xl,
+    width: CardPixels.xl,
+  },
+});
 
 const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = CARD_WIDTH;
   const OUTLINE_COLOUR = theme.palette.paper.main;
 
   return {
-    sm: { height: CardPixels.sm, width: CardPixels.sm },
-    md: { height: CardPixels.md, width: CardPixels.md },
-    lg: { height: CardPixels.lg, width: CardPixels.lg },
-
     flipCard: {
-      // height: '100% !important',
-      // width: '100% !important',
-      margin: 'auto',
-      display: 'flex',
+      height: '100%',
+      width: '100%',
       perspective: 3000,
       transformStyle: 'preserve-3d',
     },
@@ -34,7 +52,6 @@ const useStyles = makeStyles((theme: Theme) => {
       boxShadow: `grey 0px 6px 7px;`,
       '&::after': {
         backgroundColor: OUTLINE_COLOUR,
-        borderRadius: 5,
         bottom: 0,
         contain: 'content',
         content: '""',
@@ -74,26 +91,24 @@ export type FlipCardInnerProps = {
   setRotate?: () => void;
   frontside: CardFaceTextProps | CardFaceImageProps;
   backside: CardFaceTextProps | CardFaceImageProps;
-  size?: CardSize;
 };
 
 export const FlipCardInner: React.FC<FlipCardInnerProps> = ({
   rotate = false,
-  setRotate,
+  setRotate = () => null,
   frontside,
   backside,
-  size = 'md',
 }) => {
   const cs = useStyles();
 
   return (
-    <div className={clsx(cs[size], cs.flipCard)} onClick={() => setRotate()}>
+    <div className={cs.flipCard} onClick={() => setRotate()}>
       <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: rotate })}>
         <Grid item xs={12} className={clsx(cs.flipCardFront, cs.flipCardFace)}>
-          <CardFace {...frontside} size={size} />
+          <CardFace {...frontside} />
         </Grid>
         <Grid item xs={12} className={clsx(cs.flipCardBack, cs.flipCardFace)}>
-          <CardFace {...backside} size={size} />
+          <CardFace {...backside} />
         </Grid>
       </Grid>
     </div>

@@ -7,9 +7,9 @@ import { FlipCardSwitch } from '@ui-kit';
 const Story = () => {
   return (
     <Container title="Flipcard">
-      <Grid container spacing={10} justify="center">
-        <Grid item xs={12} justify="center">
-          <FlipCardSwitch size="sm" />
+      <Grid container spacing={2} justify="center">
+        <Grid item xs={12}>
+          <FlipCardSwitch />
         </Grid>
       </Grid>
     </Container>

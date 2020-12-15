@@ -1,4 +1,5 @@
-export { CardFace } from './atoms/CardFace';
-export { FlipCard } from './atoms/FlipCard';
-export { FlipCardDeck } from './atoms/FlipCardDeck';
-export { FlipCardSwitch } from './atoms/FlipCardSwitch';
+export * from './atoms/CardFace';
+export * from './atoms/FlipCardInner';
+export * from './atoms/FlipCard';
+export * from './atoms/FlipCardDeck';
+export * from './atoms/FlipCardSwitch';

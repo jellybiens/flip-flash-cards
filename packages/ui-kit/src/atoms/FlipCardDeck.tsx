@@ -1,16 +1,23 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
 import { Transition } from 'react-transition-group';
 import { FlipCard, FlipCardProps } from './FlipCard';
-import { CardSize } from '@types';
+import { FlipCardSizing } from './FlipCardInner';
 
 const MS = 500;
 const S = `${MS / 1000}`;
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
-    root: { position: 'absolute' },
+    root: {
+      position: 'relative',
+      margin: 'auto',
+      ...FlipCardSizing(theme),
+    },
+
+    transitionWrapper: { position: 'absolute', height: '100%', width: '100%' },
+    transitionInner: { position: 'absolute', height: '100%', width: '100%' },
 
     fadeIn: { animation: '' },
     'fadeIn-entering': { opacity: 0, transform: 'translateY(40px)' },
@@ -45,10 +52,9 @@ const useStyles = makeStyles(() => {
 
 type FlipCardDeckProps = {
   deck: FlipCardProps[];
-  size: CardSize;
 };
 
-export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck, size }) => {
+export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck }) => {
   const cs = useStyles();
   const [topCardIndex, setTopCardIndex] = React.useState<number>(0);
   const [direction, setDirection] = React.useState<'right' | 'left' | 'behind' | ''>('');
@@ -83,13 +89,13 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck, size }) => {
   }, [topCardIndex]);
 
   return (
-    <>
+    <div className={cs.root}>
       {deck.map(({ ...props }, i) => {
         return (
           <Transition
             appear
             key={i}
-            className={cs.root}
+            className={cs.transitionWrapper}
             in={i === topCardIndex}
             duration={{
               exit: MS,
@@ -103,18 +109,18 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck, size }) => {
             {(state) => (
               <div
                 className={clsx(
-                  cs.root,
+                  cs.transitionInner,
                   cs.fadeIn,
                   cs[`fadeIn-${state}`],
                   cs[`swipeOut-${state}${direction}`],
                 )}
               >
-                <FlipCard {...props} size={size} />
+                <FlipCard {...props} />
               </div>
             )}
           </Transition>
         );
       })}
-    </>
+    </div>
   );
 };

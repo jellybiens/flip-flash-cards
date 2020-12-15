@@ -1,8 +1,19 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from './helpers';
-import { CardFace } from '@ui-kit';
+import { CardFace, FlipCardSizing } from '@ui-kit';
+
+const useStyles = makeStyles((theme: Theme) => {
+  return {
+    root: {
+      margin: 'auto',
+      display: 'flex',
+      padding: theme.spacing(1),
+      ...FlipCardSizing(theme),
+    },
+  };
+});
 
 const frontside1 = {
   text: 'Spongebob',
@@ -15,31 +26,18 @@ const backside1 = {
 };
 
 const Story = () => {
+  const cs = useStyles();
   return (
     <Container title="Flipcard">
-      <Grid container spacing={0} justify="center">
-        <Grid item xs={6}>
-          <div
-            style={{
-              height: 300,
-              width: 300,
-              margin: 'auto',
-            }}
-          >
-            <CardFace {...frontside1} size="sm" />
+      <Grid container spacing={2} justify="center">
+        <Grid item xs={12}>
+          <div className={cs.root}>
+            <CardFace {...frontside1} />
           </div>
         </Grid>
-        <Grid item xs={6}>
-          <div
-            style={{
-              height: 300,
-              width: 300,
-              margin: 'auto',
-              textAlign: 'center',
-              backgroundColor: '#fff',
-            }}
-          >
-            <CardFace {...backside1} size="sm" />
+        <Grid item xs={12}>
+          <div className={cs.root}>
+            <CardFace {...backside1} />
           </div>
         </Grid>
       </Grid>

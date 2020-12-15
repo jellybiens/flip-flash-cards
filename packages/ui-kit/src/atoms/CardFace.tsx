@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { makeStyles, Paper, Grid, Typography } from '@material-ui/core';
-import { CardSize } from '@types';
+import { makeStyles, Theme, Paper, Grid, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     cardFace: {
       height: '100%',
       width: '100%',
       padding: '1%',
-      borderRadius: 5,
       textAlign: 'center',
     },
     textContainer: { height: '20%', width: '100%' },
@@ -16,7 +14,12 @@ const useStyles = makeStyles(() => {
       transform: 'translateY(-50%)',
       top: '50%',
       position: 'relative',
+
+      [theme.breakpoints.down('sm')]: { ...theme.typography.body1 },
+      [theme.breakpoints.up('md')]: { ...theme.typography.h4 },
+      [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
     },
+
     imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
     imageContainer: {
       height: '100%',
@@ -39,29 +42,12 @@ export type CardFaceImageProps = {
   imgLink: string;
 };
 
-type CardFaceProps = (CardFaceTextProps | CardFaceImageProps) & {
-  size: CardSize;
-};
+type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 
-const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" {...props} />;
+const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" square {...props} />;
 
-export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
+export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink }) => {
   const cs = useStyles();
-
-  // TODO: media queries for different sizing, should not be reliant on a prop
-  const textVariant = (() => {
-    switch (size) {
-      case 'sm': {
-        return 'body1';
-      }
-      case 'md': {
-        return 'h4';
-      }
-      case 'lg': {
-        return 'h2';
-      }
-    }
-  })();
 
   return (
     <Grid container className={cs.cardFace} component={PaperCard}>
@@ -74,9 +60,7 @@ export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
       )}
       {text && (
         <Grid item xs={12} className={imgLink ? cs.textContainer : cs.fullFace}>
-          <Typography className={cs.typography} variant={textVariant}>
-            {text}
-          </Typography>
+          <Typography className={cs.typography}>{text}</Typography>
         </Grid>
       )}
     </Grid>

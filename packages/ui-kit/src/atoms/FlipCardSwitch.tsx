@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core';
-import { CardSize, CardPixels } from '@types';
+import { makeStyles, Theme } from '@material-ui/core';
+import { CardPixels } from '@types';
 import { CARD_WIDTH as WIDTH, FlipCardInner } from './FlipCardInner';
 
 const cardInnerProps = {
@@ -9,25 +9,41 @@ const cardInnerProps = {
   backside: { text: 'Test', imgLink: undefined },
 };
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     backInset: {
       borderStyle: 'groove inset',
-      borderRadius: 5,
       position: 'relative',
       margin: 'auto',
-      boxShadow: `grey inset 0px 6px 7px;`,
+      boxShadow: `grey inset 0px 3px 3px;`,
       backgroundColor: 'rgb(0,0,0,0)',
+      [theme.breakpoints.down('xs')]: {
+        height: CardPixels.xs / 8 + 1,
+        width: (CardPixels.xs + WIDTH) / 2,
+      },
+      [theme.breakpoints.down('sm')]: {
+        height: CardPixels.sm / 8 + 1,
+        width: (CardPixels.sm + WIDTH) / 2,
+      },
+      [theme.breakpoints.up('md')]: {
+        height: CardPixels.md / 8 + 1,
+        width: (CardPixels.md + WIDTH) / 2,
+      },
+      [theme.breakpoints.up('lg')]: {
+        height: CardPixels.lg / 4 + 1,
+        width: (CardPixels.lg + WIDTH) / 2,
+      },
+      [theme.breakpoints.up('xl')]: {
+        height: CardPixels.xl / 4 + 1,
+        width: (CardPixels.xl + WIDTH) / 2,
+      },
     },
-    smBackInset: { height: CardPixels.sm / 2 + 1, width: CardPixels.sm + 2 + WIDTH / 2 },
-    mdBackInset: { height: CardPixels.md / 2 + 1, width: CardPixels.md + 2 + WIDTH / 2 },
-    lgBackInset: { height: CardPixels.lg / 2 + 1, width: CardPixels.lg + 2 + WIDTH / 2 },
 
     switchContainer: {
       height: '100%',
       width: '100%',
       position: 'absolute',
-      transition: 'transform 0.8s',
+      transition: 'transform 0.5s',
       transformStyle: 'preserve-3d',
     },
     switchToggle: {
@@ -41,19 +57,15 @@ const useStyles = makeStyles(() => {
   };
 });
 
-export type FlipCardProps = {
-  size?: CardSize;
-};
-
-export const FlipCardSwitch: React.FC<FlipCardProps> = ({ size = 'md' }) => {
+export const FlipCardSwitch: React.FC = () => {
   const cs = useStyles();
   const [toggle, setToggle] = React.useState(false);
 
   return (
-    <div className={clsx(cs.backInset, cs[`${size}BackInset`])} onClick={() => setToggle(!toggle)}>
+    <div className={cs.backInset} onClick={() => setToggle(!toggle)}>
       <div className={clsx(cs.switchContainer, { [cs.switchToggle]: toggle })}>
         <div className={cs.cardContainer}>
-          <FlipCardInner {...cardInnerProps} size={size} />
+          <FlipCardInner {...cardInnerProps} />
         </div>
       </div>
     </div>
