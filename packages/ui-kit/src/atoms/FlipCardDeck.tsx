@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => {
 });
 
 type FlipCardDeckProps = {
-  deck: Omit<FlipCardProps, 'size'>[];
+  deck: FlipCardProps[];
   size: CardSize;
 };
 
@@ -92,13 +92,9 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck, size }) => {
             className={cs.root}
             in={i === topCardIndex}
             duration={{
-              appear: 0,
-              enter: 0,
               exit: MS,
             }}
             timeout={{
-              appear: 0,
-              enter: 0,
               exit: MS,
             }}
             mountOnEnter

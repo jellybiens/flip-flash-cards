@@ -47,6 +47,8 @@ const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" {...prop
 
 export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, size }) => {
   const cs = useStyles();
+
+  // TODO: media queries for different sizing, should not be reliant on a prop
   const textVariant = (() => {
     switch (size) {
       case 'sm': {
