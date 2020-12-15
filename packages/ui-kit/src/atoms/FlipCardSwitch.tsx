@@ -18,19 +18,19 @@ const useStyles = makeStyles((theme: Theme) => {
       boxShadow: `grey inset 0px 3px 3px;`,
       backgroundColor: 'rgb(0,0,0,0)',
       [theme.breakpoints.down('xs')]: {
-        height: CardPixels.xs / 8 + 1,
+        height: CardPixels.xs / 8,
         width: (CardPixels.xs + WIDTH) / 2,
       },
       [theme.breakpoints.down('sm')]: {
-        height: CardPixels.sm / 8 + 1,
+        height: CardPixels.sm / 8,
         width: (CardPixels.sm + WIDTH) / 2,
       },
       [theme.breakpoints.up('md')]: {
-        height: CardPixels.md / 8 + 1,
+        height: CardPixels.md / 8,
         width: (CardPixels.md + WIDTH) / 2,
       },
       [theme.breakpoints.up('lg')]: {
-        height: CardPixels.lg / 4 + 1,
+        height: CardPixels.lg / 4,
         width: (CardPixels.lg + WIDTH) / 2,
       },
       [theme.breakpoints.up('xl')]: {
