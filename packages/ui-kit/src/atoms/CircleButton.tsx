@@ -1,4 +1,5 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { IconButton, IconButtonProps, makeStyles, Theme } from '@material-ui/core';
 import { CustomColours } from '../themes';
 import { IconNames, Icons } from '../definitions';
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => {
       [c]: {
         backgroundColor: theme.palette[c].main,
         color: theme.palette[c].contrastText,
-        '&:hover': { backgroundColor: theme.palette[c].light },
+        '&:hover': { backgroundColor: theme.palette[c].dark },
       },
     });
   });
@@ -21,6 +22,14 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: 'auto',
       display: 'flex',
       padding: theme.spacing(1),
+      boxShadow: `grey 0px 1px 3px;`,
+
+      '&:hover': {
+        transform: 'scale(1.02)',
+        '&:active': {
+          transform: 'scale(0.98)',
+        },
+      },
     },
     ...colourObjects,
   };
@@ -37,7 +46,7 @@ export const CircleButton: React.FC<CircleButtonProps> = ({ iconName, colour, ..
   const IconComponent = Icons[iconName];
 
   return (
-    <IconButton className={cs[colour]} aria-label={iconName} {...props}>
+    <IconButton className={clsx(cs.root, cs[colour])} aria-label={iconName} {...props}>
       <IconComponent fontSize="inherit" color="inherit" />
     </IconButton>
   );

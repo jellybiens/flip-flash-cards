@@ -36,4 +36,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add(title, Story);
+storiesOf('Core/Buttons', module).add(title, Story);

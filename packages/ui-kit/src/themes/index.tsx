@@ -25,12 +25,12 @@ enum Hues {
 }
 
 enum Contrast {
-  alpha = 'd',
+  alpha = 'l',
   bravo = 'l',
   charlie = 'l',
   delta = 'd',
   echo = 'd',
-  foxtrot = 'd',
+  foxtrot = 'l',
   golf = 'l',
   hotel = 'l',
   india = 'l',
@@ -44,7 +44,7 @@ colours.map((c) => {
       light: lighten(Hues[c], 0.25),
       main: Hues[c],
       dark: darken(Hues[c], 0.2),
-      contrastText: Contrast[c] === 'd' ? darken(Hues[c], 0.75) : lighten(Hues[c], 0.95),
+      contrastText: Contrast[c] === 'd' ? darken(Hues[c], 0.85) : lighten(Hues[c], 0.95),
     },
   });
 });
