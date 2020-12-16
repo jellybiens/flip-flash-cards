@@ -1,21 +1,27 @@
-import * as createPalette from '@material-ui/core/styles/createPalette';
+import '@material-ui/core/styles';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface PaletteOptions {
-    alpha?: PaletteColorOptions;
-    beta?: PaletteColorOptions;
-    gamma?: PaletteColorOptions;
-    omega?: PaletteColorOptions;
-    paper?: PaletteColorOptions;
-    bg?: PaletteColorOptions;
+    alpha?: PaletteOptions['primary'];
+    bravo?: PaletteColorOptions;
+    charlie?: PaletteColorOptions;
+    delta?: PaletteColorOptions;
+    echo?: PaletteColorOptions;
+    foxtrot?: PaletteColorOptions;
+    golf?: PaletteColorOptions;
+    hotel?: PaletteColorOptions;
+    india?: PaletteColorOptions;
   }
 
   interface Palette {
-    alpha?: PaletteColor;
-    beta?: PaletteColor;
-    gamma?: PaletteColor;
-    omega?: PaletteColor;
-    paper?: PaletteColor;
-    bg?: PaletteColor;
+    alpha?: Palette['primary'];
+    bravo?: PaletteColor;
+    charlie?: PaletteColor;
+    delta?: PaletteColor;
+    echo?: PaletteColor;
+    foxtrot?: PaletteColor;
+    golf?: PaletteColor;
+    hotel?: PaletteColor;
+    india?: PaletteColor;
   }
 }
