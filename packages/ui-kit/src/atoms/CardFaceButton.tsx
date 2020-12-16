@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => {
       height: '100%',
       width: '100%',
       borderStyle: 'groove inset',
-      boxShadow: `grey inset 0px 3px 3px;`,
+      boxShadow: `grey inset 0px 3px 3px, grey 0px 6px 7px;`,
       borderRadius: 5,
       overflow: 'hidden',
       '&:hover': {

@@ -32,7 +32,7 @@ export const FlipCardSizing = (theme: Theme): CreateCSSProperties => ({
 
 const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = CARD_WIDTH;
-  const OUTLINE_COLOUR = theme.palette.paper.main;
+  const OUTLINE_COLOUR = '#eee';
 
   return {
     flipCard: {
