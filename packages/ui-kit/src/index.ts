@@ -5,5 +5,6 @@ export * from './atoms/FlipCardInner';
 export * from './atoms/FlipCard';
 export * from './atoms/FlipCardDeck';
 export * from './atoms/FlipCardSwitch';
+export * from './atoms/ScoreBar';
 export * from './definitions';
 export * from './themes';

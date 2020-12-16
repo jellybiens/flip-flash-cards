@@ -2,26 +2,34 @@ import '@material-ui/core/styles';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface PaletteOptions {
-    alpha?: PaletteOptions['primary'];
-    bravo?: PaletteColorOptions;
-    charlie?: PaletteColorOptions;
-    delta?: PaletteColorOptions;
-    echo?: PaletteColorOptions;
-    foxtrot?: PaletteColorOptions;
-    golf?: PaletteColorOptions;
-    hotel?: PaletteColorOptions;
-    india?: PaletteColorOptions;
+    red?: PaletteColorOptions;
+    orange?: PaletteColorOptions;
+    yellow?: PaletteColorOptions;
+    green?: PaletteColorOptions;
+    turquoise?: PaletteColorOptions;
+    cyan?: PaletteColorOptions;
+    blue?: PaletteColorOptions;
+    purple?: PaletteColorOptions;
+    violet?: PaletteColorOptions;
+    gold?: PaletteColorOptions;
+    silver?: PaletteColorOptions;
+    bronze?: PaletteColorOptions;
+    dull?: PaletteColorOptions;
   }
 
   interface Palette {
-    alpha?: Palette['primary'];
-    bravo?: PaletteColor;
-    charlie?: PaletteColor;
-    delta?: PaletteColor;
-    echo?: PaletteColor;
-    foxtrot?: PaletteColor;
-    golf?: PaletteColor;
-    hotel?: PaletteColor;
-    india?: PaletteColor;
+    red?: PaletteColor;
+    orange?: PaletteColor;
+    yellow?: PaletteColor;
+    green?: PaletteColor;
+    turquoise?: PaletteColor;
+    cyan?: PaletteColor;
+    blue?: PaletteColor;
+    purple?: PaletteColor;
+    violet?: PaletteColor;
+    gold?: PaletteColor;
+    silver?: PaletteColor;
+    bronze?: PaletteColor;
+    dull?: PaletteColor;
   }
 }
