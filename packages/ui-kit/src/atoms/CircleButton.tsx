@@ -1,64 +1,44 @@
 import * as React from 'react';
 import { IconButton, IconButtonProps, makeStyles, Theme } from '@material-ui/core';
-import * as SvgIcons from '@material-ui/icons';
-
-const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
-  search: SvgIcons.Search,
-  add: SvgIcons.Add,
-  remove: SvgIcons.Remove,
-  addImage: SvgIcons.AddPhotoAlternate,
-  image: SvgIcons.Image,
-  save: SvgIcons.Backup,
-  pencil: SvgIcons.Create,
-  brush: SvgIcons.Brush,
-  bin: SvgIcons.Delete,
-
-  tick: SvgIcons.Check,
-  cross: SvgIcons.Clear,
-  next: SvgIcons.NavigateNext,
-  prev: SvgIcons.Undo,
-
-  starFilled: SvgIcons.Star,
-  starUnfulled: SvgIcons.StarBorder,
-  share: SvgIcons.Share,
-
-  account: SvgIcons.AccountCircle,
-  menu: SvgIcons.Reorder,
-  cog: SvgIcons.Settings,
-
-  practice: SvgIcons.FitnessCenter,
-  gTranslate: SvgIcons.GTranslate,
-  diplomaHat: SvgIcons.School,
-};
+import { CustomColours } from '../themes';
+import { IconNames, Icons } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {
+  const colours = Object.keys(CustomColours).map((k: unknown) => k as CustomColours);
+  let colourObjects = {};
+  colours.map((c) => {
+    colourObjects = Object.assign(colourObjects, {
+      [c]: {
+        backgroundColor: theme.palette[c].main,
+        color: theme.palette[c].contrastText,
+        '&:hover': { backgroundColor: theme.palette[c].light },
+      },
+    });
+  });
+
   return {
     root: {
       margin: 'auto',
       display: 'flex',
       padding: theme.spacing(1),
     },
+    ...colourObjects,
   };
 });
 
-const iconNames = Object.keys(Icons);
-const namesArray = [...iconNames] as const;
-type IconNames = typeof namesArray[number];
-
-// type IconNames = keyof typeof Icons;
-
-export type CircleButtonProps = Omit<IconButtonProps, 'aria-label'> & {
-  iconComponent: IconNames;
+export type CircleButtonProps = Omit<IconButtonProps, 'color' | 'aria-label'> & {
+  iconName: IconNames;
+  colour: CustomColours;
 };
 
-export const CircleButton: React.FC<CircleButtonProps> = ({ iconComponent, ...props }) => {
+export const CircleButton: React.FC<CircleButtonProps> = ({ iconName, colour, ...props }) => {
   const cs = useStyles();
 
-  const IconComponent = Icons[iconComponent];
+  const IconComponent = Icons[iconName];
 
   return (
-    <IconButton aria-label={iconComponent} {...props}>
-      <IconComponent fontSize="inherit" />
+    <IconButton className={cs[colour]} aria-label={iconName} {...props}>
+      <IconComponent fontSize="inherit" color="inherit" />
     </IconButton>
   );
 };
