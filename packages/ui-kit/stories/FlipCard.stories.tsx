@@ -4,6 +4,8 @@ import { Grid } from '@material-ui/core';
 import { Container } from './helpers';
 import { FlipCard } from '@ui-kit';
 
+const title = 'FlipCard';
+
 const frontside1 = {
   text: 'Spongebob',
   imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
@@ -36,7 +38,7 @@ export const cardDeck = [cardProps1, cardProps2, cardProps3, cardProps1, cardPro
 
 const Story = () => {
   return (
-    <Container title="Flipcard">
+    <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
           <FlipCard {...cardProps1} />
@@ -52,4 +54,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add('FlipCard', Story);
+storiesOf('Core/Atoms', module).add(title, Story);

@@ -4,9 +4,11 @@ import { Grid } from '@material-ui/core';
 import { Container } from './helpers';
 import { FlipCardSwitch } from '@ui-kit';
 
+const title = 'FlipCardSwitch';
+
 const Story = () => {
   return (
-    <Container title="Flipcard">
+    <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
           <FlipCardSwitch />
@@ -16,4 +18,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add('FlipCardSwitch', Story);
+storiesOf('Core/Atoms', module).add(title, Story);

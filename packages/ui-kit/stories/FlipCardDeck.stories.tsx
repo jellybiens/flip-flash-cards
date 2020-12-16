@@ -5,6 +5,8 @@ import { Container } from './helpers';
 import { FlipCardDeck } from '@ui-kit';
 import { cardDeck } from './FlipCard.stories';
 
+const title = 'FlipCardDeck';
+
 const SizeTest = () => (
   <Grid item xs={12} sm={6} md={4} lg={2} xl={1}>
     <div style={{ height: 100, width: 100, backgroundColor: '#000' }}></div>
@@ -13,7 +15,7 @@ const SizeTest = () => (
 
 const Story = () => {
   return (
-    <Container title="Flipcard">
+    <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
           <FlipCardDeck deck={cardDeck} />
@@ -35,4 +37,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add('FlipCardDeck', Story);
+storiesOf('Core/Atoms', module).add(title, Story);

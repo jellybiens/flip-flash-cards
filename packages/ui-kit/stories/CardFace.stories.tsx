@@ -4,6 +4,8 @@ import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from './helpers';
 import { CardFace, FlipCardSizing } from '@ui-kit';
 
+const title = 'CardFace';
+
 const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
@@ -28,7 +30,7 @@ const backside1 = {
 const Story = () => {
   const cs = useStyles();
   return (
-    <Container title="Flipcard">
+    <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
           <div className={cs.root}>
@@ -45,4 +47,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add('CardFace', Story);
+storiesOf('Core/Atoms', module).add(title, Story);
