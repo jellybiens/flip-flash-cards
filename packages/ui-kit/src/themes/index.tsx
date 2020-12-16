@@ -2,26 +2,26 @@ import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
 
 export enum CustomColours {
   alpha = 'alpha',
-  bravo = 'bravo',
-  charlie = 'charlie',
   delta = 'delta',
   echo = 'echo',
+  charlie = 'charlie',
+  india = 'india',
+  hotel = 'hotel',
+  bravo = 'bravo',
   foxtrot = 'foxtrot',
   golf = 'golf',
-  hotel = 'hotel',
-  india = 'india',
 }
 
 enum Hues {
   alpha = '#f44336',
-  bravo = '#2196f3',
-  charlie = '#4caf50',
   delta = '#ff9800',
   echo = '#ffeb3b',
+  charlie = '#4caf50',
+  india = '#009688',
+  hotel = '#00bcd4',
+  bravo = '#2196f3',
   foxtrot = '#9c27b0',
   golf = '#673ab7',
-  hotel = '#00bcd4',
-  india = '#009688',
 }
 
 enum Contrast {

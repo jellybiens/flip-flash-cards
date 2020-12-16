@@ -16,13 +16,13 @@ const Story = () => {
         {IconKeys.map((icon: IconNames) => {
           c = c < 8 ? c + 1 : 0;
           return (
-            <Grid item xs={3} container spacing={6}>
+            <Grid item xs={4} container spacing={6}>
               <Grid item xs={6} container>
                 <Grid item xs={12}>
-                  Icon: {icon}
+                  <code>iconName={icon}</code>
                 </Grid>
                 <Grid item xs={12}>
-                  Colour: {colours[c]}
+                  <code>colour={colours[c]}</code>
                 </Grid>
               </Grid>
               <Grid item xs={6}>
