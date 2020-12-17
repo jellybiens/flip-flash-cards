@@ -7,13 +7,6 @@ import { ScoreBar } from '@ui-kit';
 const title = 'ScoreBar';
 
 const Story = () => {
-  const [score, setScore] = React.useState(0);
-
-  const buttons = [];
-  for (let i = 0; i <= 100; i = i + 10) {
-    buttons.push(<button onClick={() => setScore(i)}>{i}</button>);
-  }
-
   return (
     <Container title={title}>
       <Grid container spacing={2} justify="center">
@@ -49,7 +42,7 @@ const ScoreBarManipulator = () => {
         {buttons} Score: {score}
       </Grid>
       <Grid item xs={12}>
-        <ScoreBar score={score} afterAnimationHandler={() => alert(score)} />
+        <ScoreBar score={score} afterAnimationHandler={() => null} />
         <br />
         <br />
         <br />

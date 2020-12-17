@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from './helpers';
-import { FlipCard } from '@ui-kit';
+import { FlipCardSizing, FlipCard } from '@ui-kit';
 
 const title = 'FlipCard';
 
@@ -36,18 +36,43 @@ const cardProps3 = { frontside: backside3, backside: frontside3 };
 
 export const cardDeck = [cardProps1, cardProps2, cardProps3, cardProps1, cardProps2, cardProps3];
 
+const useStyles = makeStyles((theme: Theme) => {
+  return {
+    root: {
+      margin: 'auto',
+      display: 'flex',
+      padding: theme.spacing(1),
+      ...FlipCardSizing(theme),
+    },
+  };
+});
+
 const Story = () => {
+  const cs = useStyles();
+  const [rotate1, setRotate1] = React.useState(false);
+  const [rotate2, setRotate2] = React.useState(false);
+  const [rotate3, setRotate3] = React.useState(false);
+  const flipProps1 = { rotate: rotate1, setRotate: () => setRotate1(!rotate1) };
+  const flipProps2 = { rotate: rotate2, setRotate: () => setRotate2(!rotate2) };
+  const flipProps3 = { rotate: rotate3, setRotate: () => setRotate3(!rotate3) };
+
   return (
     <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
-          <FlipCard {...cardProps1} />
+          <div className={cs.root}>
+            <FlipCard {...cardProps1} {...flipProps1} />
+          </div>
         </Grid>
         <Grid item xs={12}>
-          <FlipCard {...cardProps2} />
+          <div className={cs.root}>
+            <FlipCard {...cardProps2} {...flipProps2} />
+          </div>
         </Grid>
         <Grid item xs={12}>
-          <FlipCard {...cardProps3} />
+          <div className={cs.root}>
+            <FlipCard {...cardProps3} {...flipProps3} />
+          </div>
         </Grid>
       </Grid>
     </Container>

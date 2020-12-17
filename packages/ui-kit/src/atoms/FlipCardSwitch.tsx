@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import { CardPixels } from '@types';
-import { CARD_WIDTH as WIDTH, FlipCardInner } from './FlipCardInner';
+import { CARD_WIDTH as WIDTH, FlipCard } from './FlipCard';
 
 const cardInnerProps = {
   frontside: { text: 'Learn', imgLink: undefined },
@@ -65,7 +65,7 @@ export const FlipCardSwitch: React.FC = () => {
     <div className={cs.backInset} onClick={() => setToggle(!toggle)}>
       <div className={clsx(cs.switchContainer, { [cs.switchToggle]: toggle })}>
         <div className={cs.cardContainer}>
-          <FlipCardInner {...cardInnerProps} />
+          <FlipCard {...cardInnerProps} />
         </div>
       </div>
     </div>

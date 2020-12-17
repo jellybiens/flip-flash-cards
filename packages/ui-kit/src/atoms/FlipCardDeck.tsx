@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import { Transition } from 'react-transition-group';
 import { FlipCard, FlipCardProps } from './FlipCard';
-import { FlipCardSizing } from './FlipCardInner';
+import { FlipCardSizing } from '../definitions';
 
 const MS = 500;
 const S = `${MS / 1000}`;
@@ -54,26 +54,55 @@ type FlipCardDeckProps = {
   deck: FlipCardProps[];
 };
 
+// TODO: seperate into 2 decks, EXAM and PRACTISE
+//
+// EXAM will have no keyboard controls for the flipping and
+// swiping of cards, it will be done based on the parent telling
+// the deck if the user got a wrong or right answer based on and input
+// the deck will also end after input of the final card
+//
+// PRACTISE will have keyboard inputs to navigate through the deck
+// and to flip the cards
+// It will also rotate through the deck, once at the final card, the
+// first card will be shown again, navigation will go backwards and
+// forwards through the deck also ( perhaps an option to shuffle? )
+// also flipCard setRotate event will be applied to the deck state
+//
 export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck }) => {
   const cs = useStyles();
+  const [rotate, setRotate] = React.useState<boolean[]>([]);
   const [topCardIndex, setTopCardIndex] = React.useState<number>(0);
-  const [direction, setDirection] = React.useState<'right' | 'left' | 'behind' | ''>('');
+  const [keyDownTimeout, setKeyDownTimeout] = React.useState(false);
+  const [direction, setDirection] = React.useState<'right' | 'left' | ''>('');
 
   const setNewDirection = (dir) => {
     setDirection(dir);
-    setTimeout(() => setDirection(''), MS);
+    setTimeout(() => {
+      setDirection('');
+    }, MS);
   };
 
   const handleKeyPress = (e: KeyboardEvent) => {
+    e.preventDefault();
     switch (e.key) {
+      case ' ': {
+        const newRotate = [...rotate];
+        newRotate[topCardIndex] = !newRotate[topCardIndex];
+        setRotate(newRotate);
+        break;
+      }
       case 'ArrowRight': {
+        if (keyDownTimeout) break;
         setNewDirection('right');
-        setTopCardIndex(topCardIndex + 1);
+        const nextIndex = topCardIndex + 1 === deck.length ? 0 : topCardIndex + 1;
+        setTopCardIndex(nextIndex);
         break;
       }
       case 'ArrowLeft': {
+        if (keyDownTimeout) break;
         setNewDirection('left');
-        setTopCardIndex(topCardIndex + 1);
+        const nextIndex = topCardIndex + 1 === deck.length ? 0 : topCardIndex + 1;
+        setTopCardIndex(nextIndex);
         break;
       }
     }
@@ -86,7 +115,7 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [topCardIndex]);
+  }, [topCardIndex, rotate, keyDownTimeout]);
 
   return (
     <div className={cs.root}>
@@ -105,6 +134,8 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck }) => {
             }}
             mountOnEnter
             unmountOnExit
+            onExiting={() => setKeyDownTimeout(true)}
+            onExited={() => setKeyDownTimeout(false)}
           >
             {(state) => (
               <div
@@ -115,7 +146,8 @@ export const FlipCardDeck: React.FC<FlipCardDeckProps> = ({ deck }) => {
                   cs[`swipeOut-${state}${direction}`],
                 )}
               >
-                <FlipCard {...props} />
+                {i}
+                <FlipCard {...props} rotate={rotate[i]} />
               </div>
             )}
           </Transition>
