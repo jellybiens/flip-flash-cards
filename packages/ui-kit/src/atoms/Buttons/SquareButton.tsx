@@ -15,6 +15,7 @@ export const SquareButton: React.FC<SquareButtonProps> = ({
   startIcon,
   endIcon,
   colour,
+  className,
   ...props
 }) => {
   const cs = useStyles();
@@ -27,5 +28,5 @@ export const SquareButton: React.FC<SquareButtonProps> = ({
     endIcon: endIcon && <EndIcon fontSize="inherit" color="inherit" />,
   };
 
-  return <Button className={clsx(cs.root, cs[colour])} {...iconProps} {...props} />;
+  return <Button className={clsx(cs.root, cs[colour], className)} {...iconProps} {...props} />;
 };

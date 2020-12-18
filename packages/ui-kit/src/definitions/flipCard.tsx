@@ -24,3 +24,34 @@ export const FlipCardSizing = (theme: Theme): CreateCSSProperties => ({
     width: CardPixels.xl,
   },
 });
+
+type FlipCardFaceStyleProps = {
+  cardFace: CreateCSSProperties;
+  bottomContainer: CreateCSSProperties;
+  imageArea: CreateCSSProperties;
+  imageContainer: CreateCSSProperties;
+  faceImage: CreateCSSProperties;
+  fullFace: CreateCSSProperties;
+};
+
+export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
+  cardFace: {
+    height: '100%',
+    width: '100%',
+    padding: '1%',
+    textAlign: 'center',
+  },
+  bottomContainer: { height: '20%', width: '100%' },
+  imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
+  imageContainer: {
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
+    borderRadius: 10,
+    borderStyle: 'groove inset',
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+  },
+  faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
+  fullFace: { height: '100%', width: '100%', padding: '5%' },
+};

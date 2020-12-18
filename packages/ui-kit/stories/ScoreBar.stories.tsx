@@ -33,7 +33,11 @@ const ScoreBarManipulator = () => {
 
   const buttons = [];
   for (let i = 0; i <= 100; i = i + 10) {
-    buttons.push(<button onClick={() => setScore(i)}>{i}</button>);
+    buttons.push(
+      <button key={i} onClick={() => setScore(i)}>
+        {i}
+      </button>,
+    );
   }
 
   return (

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from './helpers';
-import { Button, IconKeys, IconNames } from '@ui-kit';
+import { ResponsiveButton, IconKeys, IconNames } from '@ui-kit';
 import { CustomColours } from '../src/themes';
 
 const title = 'ResponsiveButton';
@@ -19,15 +19,15 @@ const Story = () => {
           c = c < 8 ? c + 1 : 0;
           return (
             <>
-              <Grid item xs={3} key={i}>
-                <Button iconName={icon} colour={colours[c]}>
+              <Grid item xs={3} key={`${i}-iconName-${icon}-${colours[c]}`}>
+                <ResponsiveButton iconName={icon} colour={colours[c]}>
                   {icon} {colours[c]}
-                </Button>
+                </ResponsiveButton>
               </Grid>
-              <Grid item xs={3} key={i}>
-                <Button startIcon={icon} colour={colours[c]}>
+              <Grid item xs={3} key={`${i}-startIcon-${icon}-${colours[c]}`}>
+                <ResponsiveButton startIcon={icon} colour={colours[c]}>
                   {icon} {colours[c]}
-                </Button>
+                </ResponsiveButton>
               </Grid>
             </>
           );

@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { makeStyles, Theme, Paper, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Theme, Grid, Typography } from '@material-ui/core';
+import { PaperCard } from './PaperCard';
+import { FlipCardFaceStyles } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
-    cardFace: {
-      height: '100%',
-      width: '100%',
-      padding: '1%',
-      textAlign: 'center',
-    },
-    textContainer: { height: '20%', width: '100%' },
+    ...FlipCardFaceStyles,
     typography: {
       transform: 'translateY(-50%)',
       top: '50%',
@@ -19,17 +15,6 @@ const useStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.up('md')]: { ...theme.typography.h4 },
       [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
     },
-
-    imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
-    imageContainer: {
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden',
-      borderRadius: 10,
-      borderStyle: 'groove inset',
-    },
-    faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
-    fullFace: { height: '100%', width: '100%', padding: '5%' },
   };
 });
 
@@ -44,8 +29,6 @@ export type CardFaceImageProps = {
 
 export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 
-const PaperCard: React.FC = ({ ...props }) => <Paper variant="outlined" square {...props} />;
-
 export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink }) => {
   const cs = useStyles();
 
@@ -59,7 +42,7 @@ export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink }) => {
         </Grid>
       )}
       {text && (
-        <Grid item xs={12} className={imgLink ? cs.textContainer : cs.fullFace}>
+        <Grid item xs={12} className={imgLink ? cs.bottomContainer : cs.fullFace}>
           <Typography className={cs.typography}>{text}</Typography>
         </Grid>
       )}

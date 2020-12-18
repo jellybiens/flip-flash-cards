@@ -27,7 +27,12 @@ type ButtonProps3 = Omit<SquareButtonProps, 'startIcon' | 'endIcon'> &
 
 type ButtonProps = ButtonProps1 | ButtonProps2 | ButtonProps3;
 
-export const Button: React.FC<ButtonProps> = ({ iconName, startIcon, endIcon, ...props }) => {
+export const ResponsiveButton: React.FC<ButtonProps> = ({
+  iconName,
+  startIcon,
+  endIcon,
+  ...props
+}) => {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down('xs'));
 

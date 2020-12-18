@@ -10,13 +10,18 @@ export type CircleButtonProps = Omit<IconButtonProps, 'color' | 'aria-label'> & 
   colour: CustomColours;
 };
 
-export const CircleButton: React.FC<CircleButtonProps> = ({ iconName, colour, ...props }) => {
+export const CircleButton: React.FC<CircleButtonProps> = ({
+  iconName,
+  colour,
+  className,
+  ...props
+}) => {
   const cs = useStyles();
 
   const IconComponent = Icons[iconName];
 
   return (
-    <IconButton className={clsx(cs.root, cs[colour])} aria-label={iconName} {...props}>
+    <IconButton className={clsx(cs.root, cs[colour], className)} aria-label={iconName} {...props}>
       <IconComponent fontSize="inherit" color="inherit" />
     </IconButton>
   );
