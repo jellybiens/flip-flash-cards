@@ -7,6 +7,7 @@ import { CircleButton, ResponsiveButton } from '../atoms/Buttons';
 import { CustomColours } from '../themes';
 import { FlipCardFaceStyles } from '../definitions';
 import clsx from 'clsx';
+import { ContactsOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -57,7 +58,7 @@ export type CardFaceInputProps = {
 type CardFacePropsFieldValues = {
   text?: string;
   imgLink?: string;
-  imgFile?: string;
+  imgFile?: File;
 };
 
 export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus }) => {
@@ -112,6 +113,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
                     helpers.setValue({
                       ...field.value,
                       imgLink: URL.createObjectURL(e.target.files[0]),
+                      imgFile: e.target.files[0],
                     });
                   }}
                 />

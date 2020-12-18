@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 type CardFacePropsFieldValues = {
-  text: string;
-  imgLink: string;
+  text?: string;
+  imgLink?: string;
+  imgFile?: File;
 };
 
 type InitVals = {
@@ -32,10 +33,12 @@ const initialValues: InitVals = {
   frontface: {
     text: '',
     imgLink: '',
+    imgFile: null,
   },
   backface: {
     text: '',
     imgLink: '',
+    imgFile: null,
   },
 };
 
