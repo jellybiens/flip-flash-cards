@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { makeStyles, Grid, InputAdornment } from '@material-ui/core';
+import { makeStyles, Theme, Grid, InputAdornment } from '@material-ui/core';
 import { PaperCard } from '../atoms/PaperCard';
 import { useField } from 'formik';
 import { TextField } from './TextField';
-import { SquareButton, CircleButton } from '../atoms/Buttons';
+import { CircleButton, ResponsiveButton } from '../atoms/Buttons';
 import { CustomColours } from '../themes';
 import { FlipCardFaceStyles } from '../definitions';
 import clsx from 'clsx';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     ...FlipCardFaceStyles,
     evenSplitContainer: {
@@ -20,8 +20,25 @@ const useStyles = makeStyles(() => {
       top: '50%',
       position: 'relative',
     },
+    textFieldInput: {
+      textAlign: 'center',
+      [theme.breakpoints.only('sm')]: {
+        fontSize: '1em',
+      },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.5em',
+      },
+    },
     buttons: {
-      transform: 'translateY(50%)',
+      [theme.breakpoints.only('sm')]: {
+        transform: 'translateY(-50%)',
+      },
+      [theme.breakpoints.only('sm')]: {
+        transform: 'translateY(0%)',
+      },
+      [theme.breakpoints.up('md')]: {
+        transform: 'translateY(50%)',
+      },
       position: 'relative',
       top: '50%',
       width: '80%',
@@ -34,17 +51,20 @@ const useStyles = makeStyles(() => {
 
 export type CardFaceInputProps = {
   name: string;
+  makeFocus?: React.MutableRefObject<HTMLInputElement>;
 };
 
 type CardFacePropsFieldValues = {
-  text: string;
-  imgLink: string;
+  text?: string;
+  imgLink?: string;
+  imgFile?: string;
 };
 
-export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name }) => {
+export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus }) => {
   const cs = useStyles();
   const [field, , helpers] = useField<CardFacePropsFieldValues>(name);
   const [showInput, setShowInput] = React.useState(false);
+  const uploadInput = React.useRef<HTMLInputElement>();
 
   const showButtons = !field.value.imgLink && !showInput;
 
@@ -72,26 +92,38 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name }) => {
             <>
               <Grid item xs={6}>
                 <div className={cs.buttons}>
-                  <SquareButton
+                  <ResponsiveButton
                     fullWidth
                     startIcon="addImage"
                     colour={CustomColours.green}
                     onClick={() => setShowInput(true)}
                   >
                     Paste Image Link
-                  </SquareButton>
+                  </ResponsiveButton>
                 </div>
               </Grid>
               <Grid item xs={6}>
+                <input
+                  hidden
+                  ref={uploadInput}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  onChange={(e) => {
+                    helpers.setValue({
+                      ...field.value,
+                      imgLink: URL.createObjectURL(e.target.files[0]),
+                    });
+                  }}
+                />
                 <div className={cs.buttons}>
-                  <SquareButton
+                  <ResponsiveButton
                     fullWidth
                     startIcon="save"
                     colour={CustomColours.cyan}
-                    onClick={() => setShowInput(true)}
+                    onClick={() => uploadInput.current.click()}
                   >
                     Upload Image
-                  </SquareButton>
+                  </ResponsiveButton>
                 </div>
               </Grid>
             </>
@@ -101,8 +133,10 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name }) => {
             <Grid item xs={12}>
               <div className={cs.buttons}>
                 <TextField
+                  focused
                   className={cs.textField}
                   name={`${name}.imgLink`}
+                  variant="outlined"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -147,6 +181,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name }) => {
           className={clsx({ [cs.textField]: !!field.value.imgLink })}
           label="Card Text"
           name={`${name}.text`}
+          inputProps={{ className: cs.textFieldInput, ref: makeFocus }}
         />
       </Grid>
     </Grid>

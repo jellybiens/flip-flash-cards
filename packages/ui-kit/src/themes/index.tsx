@@ -64,7 +64,7 @@ colours.map((c) => {
 export default createMuiTheme({
   palette: {
     primary: {
-      main: '#84ffff',
+      main: '#000',
     },
     secondary: {
       main: '#0c103d',

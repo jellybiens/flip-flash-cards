@@ -28,26 +28,35 @@ type InitVals = {
   backface: CardFacePropsFieldValues;
 };
 
+const initialValues: InitVals = {
+  frontface: {
+    text: '',
+    imgLink: '',
+  },
+  backface: {
+    text: '',
+    imgLink: '',
+  },
+};
+
 const Story = () => {
   const cs = useStyles();
-  const initialValues = {
-    frontface: {
-      text: '',
-      imgLink: '',
-    },
-  };
+  const loadFocus = React.useRef<HTMLInputElement>();
+
+  React.useEffect(() => loadFocus.current.focus(), []);
+
   return (
     <Container title={title}>
       <Formik initialValues={initialValues} onSubmit={() => Promise.resolve(false)}>
         {({ handleSubmit, values }) => (
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <div className={cs.root}>
-                  <CardFaceInput name="frontface" />
+                  <CardFaceInput makeFocus={loadFocus} name="frontface" />
                 </div>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <code>{JSON.stringify(values)}</code>
               </Grid>
             </Grid>

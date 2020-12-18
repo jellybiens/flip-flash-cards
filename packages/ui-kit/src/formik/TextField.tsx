@@ -3,7 +3,7 @@ import { TextField as MuiTextField, TextFieldProps } from '@material-ui/core';
 import { Field } from 'formik';
 
 // TODO: add formik props
-export const TextField: React.FC<Omit<TextFieldProps, 'variant'>> = (props) => {
+export const TextField: React.FC<TextFieldProps> = (props) => {
   return (
     <Field name={props.name}>
       {({
@@ -26,7 +26,6 @@ export const TextField: React.FC<Omit<TextFieldProps, 'variant'>> = (props) => {
             helperText={error}
             disabled={props.disabled ?? isSubmitting}
             {...props}
-            variant="outlined"
           />
         );
       }}

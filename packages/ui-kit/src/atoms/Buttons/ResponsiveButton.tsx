@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMediaQuery, useTheme } from '@material-ui/core';
+import { Tooltip, useMediaQuery, useTheme } from '@material-ui/core';
 import { SquareButton, SquareButtonProps } from './SquareButton';
 import { CircleButton, CircleButtonProps } from './CircleButton';
 import { IconNames } from '../../definitions';
@@ -40,5 +40,12 @@ export const ResponsiveButton: React.FC<ButtonProps> = ({
     if (iconName) return <CircleButton iconName={iconName} {...props} />;
     else return <SquareButton {...{ startIcon, endIcon }} {...props} />;
   }
-  return <CircleButton iconName={iconName || startIcon || endIcon} {...props} />;
+  console.log(props.children);
+  return (
+    <Tooltip title={props.children} open={true} placement="top" arrow>
+      <div>
+        <CircleButton iconName={iconName || startIcon || endIcon} {...props} />
+      </div>
+    </Tooltip>
+  );
 };
