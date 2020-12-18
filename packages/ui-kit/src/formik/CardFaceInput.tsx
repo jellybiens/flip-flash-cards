@@ -7,7 +7,6 @@ import { CircleButton, ResponsiveButton } from '../atoms/Buttons';
 import { CustomColours } from '../themes';
 import { FlipCardFaceStyles } from '../definitions';
 import clsx from 'clsx';
-import { ContactsOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -55,6 +54,7 @@ export type CardFaceInputProps = {
   makeFocus?: React.MutableRefObject<HTMLInputElement>;
 };
 
+// TODO: update with global type
 type CardFacePropsFieldValues = {
   text?: string;
   imgLink?: string;

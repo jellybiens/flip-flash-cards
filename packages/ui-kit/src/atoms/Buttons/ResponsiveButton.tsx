@@ -40,7 +40,7 @@ export const ResponsiveButton: React.FC<ButtonProps> = ({
     if (iconName) return <CircleButton iconName={iconName} {...props} />;
     else return <SquareButton {...{ startIcon, endIcon }} {...props} />;
   }
-  console.log(props.children);
+
   return (
     <Tooltip title={props.children} open={true} placement="top" arrow>
       <div>

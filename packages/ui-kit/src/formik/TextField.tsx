@@ -2,7 +2,6 @@ import * as React from 'react';
 import { TextField as MuiTextField, TextFieldProps } from '@material-ui/core';
 import { Field } from 'formik';
 
-// TODO: add formik props
 export const TextField: React.FC<TextFieldProps> = (props) => {
   return (
     <Field name={props.name}>

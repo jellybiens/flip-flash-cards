@@ -7,6 +7,7 @@ export * from './atoms/FlipCardSwitch';
 export * from './atoms/ScoreBar';
 
 export * from './formik/CardFaceInput';
+export * from './formik/CardFaceInputArray';
 export * from './formik/TextField';
 
 export * from './definitions';
