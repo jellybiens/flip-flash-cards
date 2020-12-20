@@ -2,10 +2,10 @@ import * as React from 'react';
 import { makeStyles, Theme, Grid } from '@material-ui/core';
 import { CardFaceInput } from './CardFaceInput';
 import { CircleButton } from '../atoms/Buttons';
-import { CustomColours } from '../themes';
 import { FlipCardFieldValues } from '@types';
 import { FieldArray, Form, Formik } from 'formik';
 import { FlipCardSizing } from '../definitions';
+import { CardFaceButton } from '../atoms/CardFaceButton';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -60,14 +60,14 @@ export const CardFaceInputArray: React.FC = () => {
                           <Grid item xs={1}>
                             <CircleButton
                               iconName="bin"
-                              colour={CustomColours.red}
+                              colour="red"
                               onClick={() => arrayHelpers.remove(i)}
                             />
                           </Grid>
                           <Grid item xs={1}>
                             <CircleButton
                               iconName="add"
-                              colour={CustomColours.blue}
+                              colour="blue"
                               onClick={() => arrayHelpers.push(initialCardValues)}
                             />
                           </Grid>
@@ -76,9 +76,10 @@ export const CardFaceInputArray: React.FC = () => {
                     </>
                   ) : (
                     <Grid item xs={12}>
-                      <button type="button" onClick={() => arrayHelpers.push(initialCardValues)}>
-                        Add a card
-                      </button>
+                      <CardFaceButton
+                        imgLink="https://image.flaticon.com/icons/png/512/60/60807.png"
+                        onClick={() => arrayHelpers.push(initialCardValues)}
+                      />
                     </Grid>
                   )}
                   <Grid item xs={12}>

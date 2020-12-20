@@ -7,7 +7,7 @@ module.exports = {
       ...config.resolve,
       alias: {
         ...config.resolve.alias,
-        '@ui-kit': '../src',
+        '@ui-kit': path.resolve(__dirname, "../src"),
         "@types": path.resolve(__dirname, "../../types")
       },
     },

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
-import { Container } from './helpers';
+import { Container } from '../helpers';
 import { SquareButton, IconKeys, IconNames } from '@ui-kit';
-import { CustomColours } from '../src/themes';
+import { Hues, CustomColours } from '../../src/themes';
 
 const title = 'SquareButton';
 
-const colours = Object.keys(CustomColours).map((k: unknown) => k as CustomColours);
+const colours = Object.keys(Hues).map((k: unknown) => k as CustomColours);
 
 const Story = () => {
   return (

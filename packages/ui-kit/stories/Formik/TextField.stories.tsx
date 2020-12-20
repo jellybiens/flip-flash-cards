@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
-import { Container } from './helpers';
+import { Container } from '../helpers';
 import { TextField } from '@ui-kit';
 import { Form, Formik, FormikHelpers } from 'formik';
 
@@ -17,8 +17,6 @@ const Story = () => {
     firstname: '',
     lastname: '',
   };
-
-  const [error, setErrors] = React.useState({});
 
   return (
     <Container title={title}>

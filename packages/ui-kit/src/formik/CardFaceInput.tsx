@@ -4,7 +4,6 @@ import { PaperCard } from '../atoms/PaperCard';
 import { useField } from 'formik';
 import { TextField } from './TextField';
 import { CircleButton, ResponsiveButton } from '../atoms/Buttons';
-import { CustomColours } from '../themes';
 import { FlipCardFaceStyles } from '../definitions';
 import clsx from 'clsx';
 
@@ -15,34 +14,62 @@ const useStyles = makeStyles((theme: Theme) => {
       height: '50%',
       width: '50%',
     },
-    textField: {
+    textFieldContainer: {
       transform: 'translateY(-50%)',
-      top: '50%',
       position: 'relative',
+    },
+    textField: {
+      top: '50%',
     },
     textFieldInput: {
       textAlign: 'center',
-      [theme.breakpoints.only('sm')]: {
+      [theme.breakpoints.only('xs')]: {
         fontSize: '1em',
       },
       [theme.breakpoints.up('sm')]: {
         fontSize: '1.5em',
       },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: '2.25em',
+      },
+      [theme.breakpoints.only('xl')]: {
+        fontSize: '3em',
+      },
     },
     buttons: {
-      [theme.breakpoints.only('sm')]: {
+      [theme.breakpoints.up('xs')]: {
         transform: 'translateY(-50%)',
       },
-      [theme.breakpoints.only('sm')]: {
-        transform: 'translateY(0%)',
+      [theme.breakpoints.up('sm')]: {
+        transform: 'translateY(-25%)',
       },
-      [theme.breakpoints.up('md')]: {
-        transform: 'translateY(50%)',
+      [theme.breakpoints.only('sm')]: {
+        '& button': { fontSize: '0.65em', whiteSpace: 'nowrap' },
+      },
+      [theme.breakpoints.up('lg')]: {
+        transform: 'translateY(50%) scale(1.5)',
       },
       position: 'relative',
       top: '50%',
       width: '80%',
-      left: '10%',
+      maxWidth: 180,
+      margin: 'auto',
+    },
+    pasteTextfield: {
+      [theme.breakpoints.only('xs')]: {
+        fontSize: '1em',
+      },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.5em',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '60%',
+      },
+      transform: 'translateY(-50%)',
+      position: 'relative',
+      top: '50%',
+      width: '80%',
+      margin: 'auto',
     },
     backButton: { margin: '-50px -30px 0', transform: 'scale(0.8)', zIndex: 100 },
     binButton: { position: 'absolute', top: 5, right: 5 },
@@ -65,12 +92,21 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
   const cs = useStyles();
   const [field, , helpers] = useField<CardFacePropsFieldValues>(name);
   const [showInput, setShowInput] = React.useState(false);
+  const [imageSrcValid, setImageSrcValid] = React.useState(false);
   const uploadInput = React.useRef<HTMLInputElement>();
 
-  const showButtons = !field.value.imgLink && !showInput;
+  React.useEffect(() => {
+    const tester = new Image();
+    tester.onload = () => setImageSrcValid(true);
+    tester.onerror = () => setImageSrcValid(false);
+    tester.src = field.value.imgLink;
+  }, [field.value.imgLink]);
+
+  const showButtons = !imageSrcValid && !showInput;
 
   const revertImageInput = () => {
     setShowInput(false);
+    setImageSrcValid(false);
     helpers.setValue({ ...field.value, imgLink: '' });
   };
 
@@ -80,15 +116,11 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
         item
         xs={12}
         className={clsx({
-          [cs.imageArea]: !!field.value.imgLink,
-          [cs.evenSplitContainer]: !field.value.imgLink,
+          [cs.imageArea]: !!imageSrcValid,
+          [cs.evenSplitContainer]: !imageSrcValid,
         })}
       >
-        <Grid
-          container
-          style={{ border: !field.value.imgLink && 'unset' }}
-          className={cs.imageContainer}
-        >
+        <Grid container style={{ border: !imageSrcValid && 'unset' }} className={cs.imageContainer}>
           {showButtons && (
             <>
               <Grid item xs={6}>
@@ -96,7 +128,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
                   <ResponsiveButton
                     fullWidth
                     startIcon="addImage"
-                    colour={CustomColours.green}
+                    colour="green"
                     onClick={() => setShowInput(true)}
                   >
                     Paste Image Link
@@ -121,7 +153,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
                   <ResponsiveButton
                     fullWidth
                     startIcon="save"
-                    colour={CustomColours.cyan}
+                    colour="cyan"
                     onClick={() => uploadInput.current.click()}
                   >
                     Upload Image
@@ -131,10 +163,12 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
             </>
           )}
 
-          {showInput && !field.value.imgLink && (
+          {showInput && !imageSrcValid && (
             <Grid item xs={12}>
-              <div className={cs.buttons}>
+              <div className={cs.pasteTextfield}>
                 <TextField
+                  label="Image Link"
+                  fullWidth
                   focused
                   className={cs.textField}
                   name={`${name}.imgLink`}
@@ -144,7 +178,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
                       <InputAdornment position="start">
                         <CircleButton
                           iconName="prev"
-                          colour={CustomColours.dull}
+                          colour="dull"
                           size="small"
                           onClick={revertImageInput}
                           className={cs.backButton}
@@ -157,13 +191,13 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
             </Grid>
           )}
 
-          {!!field.value.imgLink && (
+          {!!imageSrcValid && (
             <Grid item xs={12}>
               <img className={cs.faceImage} src={field.value.imgLink} />
               <CircleButton
                 className={cs.binButton}
                 iconName="bin"
-                colour={CustomColours.red}
+                colour="red"
                 size="small"
                 onClick={revertImageInput}
               />
@@ -175,12 +209,12 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
         item
         xs={12}
         className={clsx({
-          [cs.bottomContainer]: !!field.value.imgLink,
-          [cs.evenSplitContainer]: !field.value.imgLink,
+          [cs.bottomContainer]: !!imageSrcValid,
+          [cs.evenSplitContainer]: !imageSrcValid,
         })}
       >
         <TextField
-          className={clsx({ [cs.textField]: !!field.value.imgLink })}
+          className={clsx(cs.textFieldContainer, { [cs.textField]: !!imageSrcValid })}
           label="Card Text"
           name={`${name}.text`}
           inputProps={{ className: cs.textFieldInput, ref: makeFocus }}

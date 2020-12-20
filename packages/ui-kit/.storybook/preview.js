@@ -1,11 +1,18 @@
 import React from 'react';
-import { Divider, Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { CircleButton } from '../src'
 import theme from '../src/themes';
+
 
 const scaleFactor = 0.5;
 
 const useStyles = makeStyles(() => ({
+  viewButton:{
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  },
   root:{
     display: 'flex', width: '100%'
   },
@@ -41,6 +48,7 @@ const useStyles = makeStyles(() => ({
 export const decorators = [
   (Story) => {
     const cs = useStyles();
+    const [view, setView] = React.useState(false);
     const [rotate, setRotate] = React.useState([false, false, true, false, false]);
     const rotateScreen = (i) => {
       const screens = [...rotate];
@@ -48,9 +56,30 @@ export const decorators = [
       setRotate(screens);
     }
 
+    if(view) {
+      return (
+          <MuiThemeProvider theme={theme}>
+              <CircleButton
+                iconName="flip" 
+                colour="cyan"
+                onClick={() => setView(!view)}
+                className={cs.viewButton} 
+              />
+              <Story />
+          </MuiThemeProvider>
+      );
+    }
+
     return (
-    <>
       <div className={cs.root}>
+        <MuiThemeProvider theme={theme}>
+          <CircleButton
+            iconName="flip" 
+            colour="cyan"
+            onClick={() => setView(!view)}
+            className={cs.viewButton} 
+          />
+        </MuiThemeProvider>
         <div
           className={cs.container}
         >
@@ -108,7 +137,6 @@ export const decorators = [
           })}
         </div>
       </div>
-    </>
   )},
 ];
 

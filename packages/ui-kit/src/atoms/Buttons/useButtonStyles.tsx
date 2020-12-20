@@ -1,8 +1,8 @@
 import { makeStyles, Theme } from '@material-ui/core';
-import { CustomColours } from '../../themes';
+import { CustomColours, Hues } from '../../themes';
 
 export const useStyles = makeStyles((theme: Theme) => {
-  const colours = Object.keys(CustomColours).map((k: unknown) => k as CustomColours);
+  const colours = Object.keys(Hues).map((k: unknown) => k as CustomColours);
   let colourObjects = {};
   colours.map((c) => {
     colourObjects = Object.assign(colourObjects, {

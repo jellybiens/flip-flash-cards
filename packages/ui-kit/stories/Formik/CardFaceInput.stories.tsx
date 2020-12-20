@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
-import { Container } from './helpers';
+import { Container } from '../helpers';
 import { CardFaceInput, FlipCardSizing } from '@ui-kit';
 import { Form, Formik } from 'formik';
 

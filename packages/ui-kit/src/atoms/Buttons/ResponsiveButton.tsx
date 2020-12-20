@@ -42,10 +42,11 @@ export const ResponsiveButton: React.FC<ButtonProps> = ({
   }
 
   return (
-    <Tooltip title={props.children} open={props.children} placement="top" arrow>
-      <div>
-        <CircleButton iconName={iconName || startIcon || endIcon} {...props} />
-      </div>
-    </Tooltip>
+    // TODO: make tooltip nicer
+    // <Tooltip title={props.children} open={!!props.children} placement="top" arrow>
+    //   <div>
+    <CircleButton iconName={iconName || startIcon || endIcon} {...props} />
+    //   </div>
+    // </Tooltip>
   );
 };

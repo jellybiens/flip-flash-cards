@@ -1,22 +1,21 @@
 import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
 
-export enum CustomColours {
-  red = 'red',
-  orange = 'orange',
-  yellow = 'yellow',
-  green = 'green',
-  turquoise = 'turquoise',
-  cyan = 'cyan',
-  blue = 'blue',
-  purple = 'purple',
-  violet = 'violet',
-  gold = 'gold',
-  silver = 'silver',
-  bronze = 'bronze',
-  dull = 'dull',
-}
+export type CustomColours =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'turquoise'
+  | 'cyan'
+  | 'blue'
+  | 'purple'
+  | 'violet'
+  | 'gold'
+  | 'silver'
+  | 'bronze'
+  | 'dull';
 
-enum Hues {
+export enum Hues {
   red = '#f44336',
   orange = '#ff9800',
   yellow = '#ffeb3b',
