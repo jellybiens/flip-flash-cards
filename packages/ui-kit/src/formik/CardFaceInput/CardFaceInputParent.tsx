@@ -1,6 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { Grid, InputAdornment } from '@material-ui/core';
+import { CardFaceFieldValues } from '@types';
+import { Grid, InputAdornment, Typography } from '@material-ui/core';
 import { PaperCard } from '../../atoms/PaperCard';
 import { useField } from 'formik';
 import { TextField } from '../TextField';
@@ -12,19 +13,12 @@ import { ImageDisplay } from './ImageDisplay';
 
 export type CardFaceInputProps = {
   name: string;
-  makeFocus?: React.MutableRefObject<HTMLInputElement>;
+  backsideRef?: React.MutableRefObject<HTMLInputElement>;
 };
 
-// TODO: update with global type
-export type CardFacePropsFieldValues = {
-  text?: string;
-  imgLink?: string;
-  imgFile?: File;
-};
-
-export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus }) => {
+export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, backsideRef }) => {
   const cs = useStyles();
-  const [field, , helpers] = useField<CardFacePropsFieldValues>(name);
+  const [field, , helpers] = useField<CardFaceFieldValues>(name);
   const [showInput, setShowInput] = React.useState(false);
   const [imageSrcValid, setImageSrcValid] = React.useState(false);
 
@@ -45,6 +39,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
 
   return (
     <Grid container className={cs.cardFace} component={PaperCard}>
+      <Typography className={cs.sideText}>
+        {!backsideRef ? 'Frontside Display' : 'Backside Display'}
+      </Typography>
       <Grid
         item
         xs={12}
@@ -55,7 +52,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
       >
         <Grid container style={{ border: !imageSrcValid && 'unset' }} className={cs.imageContainer}>
           {showButtons && (
-            <ImageButtonsInput handleShowInput={() => setShowInput(true)} fieldName={name} />
+            <>
+              <ImageButtonsInput handleShowInput={() => setShowInput(true)} fieldName={name} />
+            </>
           )}
 
           {showInput && !imageSrcValid && (
@@ -87,7 +86,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
           )}
 
           {!!imageSrcValid && (
-            <ImageDisplay handleRevertImage={revertImageInput} imgLink={field.value.imgLink} />
+            <>
+              <ImageDisplay handleRevertImage={revertImageInput} imgLink={field.value.imgLink} />
+            </>
           )}
         </Grid>
       </Grid>
@@ -104,7 +105,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, makeFocus })
           className={clsx(cs.textFieldContainer, { [cs.textField]: !!imageSrcValid })}
           label="Card Text"
           name={`${name}.text`}
-          inputProps={{ className: cs.textFieldInput, ref: makeFocus }}
+          inputProps={{ className: cs.textFieldInput, ref: backsideRef }}
         />
       </Grid>
     </Grid>

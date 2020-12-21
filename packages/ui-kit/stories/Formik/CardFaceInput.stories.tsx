@@ -1,22 +1,11 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Grid, makeStyles, Theme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Container } from '../helpers';
-import { CardFaceInput, FlipCardSizing } from '@ui-kit';
+import { CardFaceInput } from '@ui-kit';
 import { Form, Formik } from 'formik';
 
 const title = 'CardFaceInput';
-
-const useStyles = makeStyles((theme: Theme) => {
-  return {
-    root: {
-      margin: 'auto',
-      display: 'flex',
-      padding: theme.spacing(1),
-      ...FlipCardSizing(theme),
-    },
-  };
-});
 
 type CardFacePropsFieldValues = {
   text?: string;
@@ -43,7 +32,6 @@ const initialValues: InitVals = {
 };
 
 const Story = () => {
-  const cs = useStyles();
   const loadFocus = React.useRef<HTMLInputElement>();
 
   React.useEffect(() => loadFocus.current.focus(), []);
@@ -55,9 +43,7 @@ const Story = () => {
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
               <Grid item xs={12} sm={6}>
-                <div className={cs.root}>
-                  <CardFaceInput makeFocus={loadFocus} name="frontface" />
-                </div>
+                <CardFaceInput makeFocus={loadFocus} name="frontface" />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <code>{JSON.stringify(values)}</code>

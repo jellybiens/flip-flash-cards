@@ -22,17 +22,14 @@ export enum CardPixels {
 
 // export type CardFrontFieldValues = ForceCardFaceTextValue | ForceCardFaceImageValue;
 
-export type CardFrontFieldValues = {
+export type CardFaceFieldValues = {
   text: string;
   imgLink: string;
   imgFile: File;
 };
 
-export type CardBackFieldValues = CardFrontFieldValues & {
-  answer: string;
-};
-
 export type FlipCardFieldValues = {
-  front: CardFrontFieldValues;
-  back: CardBackFieldValues;
+  front: CardFaceFieldValues;
+  back: CardFaceFieldValues;
+  answer: string;
 };

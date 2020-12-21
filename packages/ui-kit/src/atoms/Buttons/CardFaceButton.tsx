@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { makeStyles, ButtonBase, ButtonBaseProps } from '@material-ui/core';
-import { CardFace, CardFaceProps } from './CardFace';
+import { CardFace, CardFaceProps } from '../CardFace';
 
 const useStyles = makeStyles(() => {
   return {

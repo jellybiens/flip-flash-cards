@@ -1,0 +1,1 @@
+export { CardFaceInputArray } from './CardFaceInputArray';

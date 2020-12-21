@@ -1,18 +1,19 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, Grid } from '@material-ui/core';
-import { CardFace, CardFaceImageProps, CardFaceTextProps } from './CardFace';
+import { makeStyles, Grid, Theme } from '@material-ui/core';
+import { FlipCardSizing } from '../definitions';
 
 export const CARD_WIDTH = 16;
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   const WIDTH = CARD_WIDTH;
   const OUTLINE_COLOUR = '#eee';
 
   return {
     flipCard: {
-      height: '100%',
-      width: '100%',
+      ...FlipCardSizing(theme),
+      position: 'relative',
+      margin: 'auto',
       perspective: 3000,
       transformStyle: 'preserve-3d',
     },
@@ -64,26 +65,25 @@ const useStyles = makeStyles(() => {
 export type FlipCardProps = {
   rotate?: boolean;
   setRotate?: () => void;
-  frontside: CardFaceTextProps | CardFaceImageProps;
-  backside: CardFaceTextProps | CardFaceImageProps;
+  className?: string;
 };
 
 export const FlipCard: React.FC<FlipCardProps> = ({
   rotate = false,
   setRotate = () => null,
-  frontside,
-  backside,
+  className,
+  children,
 }) => {
   const cs = useStyles();
 
   return (
-    <div className={cs.flipCard} onClick={() => setRotate()}>
+    <div className={clsx(cs.flipCard, className)} onClick={() => setRotate()}>
       <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: rotate })}>
         <Grid item xs={12} className={clsx(cs.flipCardFront, cs.flipCardFace)}>
-          <CardFace {...frontside} />
+          {children[0]}
         </Grid>
         <Grid item xs={12} className={clsx(cs.flipCardBack, cs.flipCardFace)}>
-          <CardFace {...backside} />
+          {children[1]}
         </Grid>
       </Grid>
     </div>

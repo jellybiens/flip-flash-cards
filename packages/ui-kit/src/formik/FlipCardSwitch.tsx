@@ -2,12 +2,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import { CardPixels } from '@types';
-import { CARD_WIDTH as WIDTH, FlipCard } from './FlipCard';
-
-const cardInnerProps = {
-  frontside: { text: 'Learn', imgLink: undefined },
-  backside: { text: 'Test', imgLink: undefined },
-};
+import { CARD_WIDTH as WIDTH, FlipCard } from '../atoms/FlipCard';
+import { CardFace } from '../atoms/CardFace';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -54,8 +50,15 @@ const useStyles = makeStyles((theme: Theme) => {
       height: '100%',
       width: '50%',
     },
+    override: {
+      height: '100% !important',
+      width: '100% !important',
+    },
   };
 });
+
+const frontsideText = 'Learn';
+const backsideText = 'Test';
 
 export const FlipCardSwitch: React.FC = () => {
   const cs = useStyles();
@@ -65,7 +68,10 @@ export const FlipCardSwitch: React.FC = () => {
     <div className={cs.backInset} onClick={() => setToggle(!toggle)}>
       <div className={clsx(cs.switchContainer, { [cs.switchToggle]: toggle })}>
         <div className={cs.cardContainer}>
-          <FlipCard {...cardInnerProps} />
+          <FlipCard className={cs.override}>
+            <CardFace text={frontsideText} />
+            <CardFace text={backsideText} />
+          </FlipCard>
         </div>
       </div>
     </div>

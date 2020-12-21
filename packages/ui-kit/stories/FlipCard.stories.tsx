@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from './helpers';
-import { FlipCardSizing, FlipCard } from '@ui-kit';
+import { CardFace, FlipCard } from '@ui-kit';
 
 const title = 'FlipCard';
 
@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: 'auto',
       display: 'flex',
       padding: theme.spacing(1),
-      ...FlipCardSizing(theme),
     },
   };
 });
@@ -60,19 +59,22 @@ const Story = () => {
     <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
-          <div className={cs.root}>
-            <FlipCard {...cardProps1} {...flipProps1} />
-          </div>
+          <FlipCard {...flipProps1}>
+            <CardFace {...cardProps1.frontside} />
+            <CardFace {...cardProps1.backside} />
+          </FlipCard>
         </Grid>
         <Grid item xs={12}>
-          <div className={cs.root}>
-            <FlipCard {...cardProps2} {...flipProps2} />
-          </div>
+          <FlipCard {...flipProps2}>
+            <CardFace {...cardProps2.frontside} />
+            <CardFace {...cardProps2.backside} />
+          </FlipCard>
         </Grid>
         <Grid item xs={12}>
-          <div className={cs.root}>
-            <FlipCard {...cardProps3} {...flipProps3} />
-          </div>
+          <FlipCard {...flipProps3}>
+            <CardFace {...cardProps3.frontside} />
+            <CardFace {...cardProps3.backside} />
+          </FlipCard>
         </Grid>
       </Grid>
     </Container>

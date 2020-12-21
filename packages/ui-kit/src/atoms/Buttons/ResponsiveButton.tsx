@@ -37,9 +37,13 @@ export const ResponsiveButton: React.FC<ButtonProps> = ({
   const small = useMediaQuery(theme.breakpoints.down('xs'));
 
   if (!small) {
-    if (iconName) return <CircleButton iconName={iconName} {...props} />;
-    else return <SquareButton {...{ startIcon, endIcon }} {...props} />;
+    if (iconName) {
+      delete props.fullWidth;
+      return <CircleButton iconName={iconName} {...props} />;
+    } else return <SquareButton {...{ startIcon, endIcon }} {...props} />;
   }
+
+  delete props.fullWidth;
 
   return (
     // TODO: make tooltip nicer

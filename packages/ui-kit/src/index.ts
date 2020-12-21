@@ -1,14 +1,19 @@
 export * from './atoms/CardFace';
-export * from './atoms/CardFaceButton';
+export * from './atoms/Buttons/CardFaceButton';
 export * from './atoms/Buttons';
 export * from './atoms/FlipCard';
-export * from './atoms/FlipCardDeck';
-export * from './atoms/FlipCardSwitch';
 export * from './atoms/ScoreBar';
+
+export * from './molecules/ChallengeDeck';
 
 export * from './formik/CardFaceInput';
 export * from './formik/CardFaceInputArray';
+export * from './formik/FlipCardSwitch';
+export * from './formik/FormikCreateDeckWrapper';
 export * from './formik/TextField';
+
+export * from './transitions/ChallengeDeckTransitions';
+export * from './transitions/LessonDeckTransitions';
 
 export * from './definitions';
 export * from './themes';

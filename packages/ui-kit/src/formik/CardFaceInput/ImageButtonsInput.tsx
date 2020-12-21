@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { Grid } from '@material-ui/core';
 import { ResponsiveButton } from '../../atoms/Buttons';
 import { useStyles } from './useCardStyles';
-import { CardFacePropsFieldValues } from './CardFaceInputParent';
+import { CardFaceFieldValues } from '@types';
 
 type ImageButtonsInputProps = {
   handleShowInput: () => void;
@@ -15,7 +15,7 @@ export const ImageButtonsInput: React.FC<ImageButtonsInputProps> = ({
   fieldName,
 }) => {
   const cs = useStyles();
-  const [field, , helpers] = useField<CardFacePropsFieldValues>(fieldName);
+  const [field, , helpers] = useField<CardFaceFieldValues>(fieldName);
   const uploadInput = React.useRef<HTMLInputElement>();
 
   return (
@@ -56,3 +56,4 @@ export const ImageButtonsInput: React.FC<ImageButtonsInputProps> = ({
     </>
   );
 };
+// TODO: Button Text

@@ -4,6 +4,12 @@ import { FlipCardFaceStyles } from '../../definitions';
 export const useStyles = makeStyles((theme: Theme) => {
   return {
     ...FlipCardFaceStyles,
+    sideText: {
+      position: 'absolute',
+      top: 0,
+      left: '50%',
+      transform: 'translateX(-50%)',
+    },
     evenSplitContainer: {
       height: '50%',
       width: '50%',

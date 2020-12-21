@@ -18,4 +18,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add(title, Story);
+storiesOf('Core/Formik', module).add(title, Story);

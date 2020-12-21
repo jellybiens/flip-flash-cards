@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
 export const decorators = [
   (Story) => {
     const cs = useStyles();
-    const [view, setView] = React.useState(false);
+    const [view, setView] = React.useState(true);
     const [rotate, setRotate] = React.useState([false, false, true, false, false]);
     const rotateScreen = (i) => {
       const screens = [...rotate];

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from './helpers';
-import { FlipCardDeck } from '@ui-kit';
+import { ChallengeDeck } from '@ui-kit';
 import { cardDeck } from './FlipCard.stories';
 
 const title = 'FlipCardDeck';
@@ -18,7 +18,7 @@ const Story = () => {
     <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
-          <FlipCardDeck deck={cardDeck} />
+          <ChallengeDeck deck={cardDeck} />
         </Grid>
         <SizeTest />
         <SizeTest />
@@ -37,4 +37,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add(title, Story);
+storiesOf('Core/Molecules', module).add(title, Story);
