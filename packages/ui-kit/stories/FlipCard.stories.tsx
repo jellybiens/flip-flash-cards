@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 const Story = () => {
-  const cs = useStyles();
   const [rotate1, setRotate1] = React.useState(false);
   const [rotate2, setRotate2] = React.useState(false);
   const [rotate3, setRotate3] = React.useState(false);

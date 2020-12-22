@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "@types/lodash": "^4.14.165",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.9.0",
     "eslint": "^7.15.0",

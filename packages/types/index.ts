@@ -29,7 +29,7 @@ export type CardFaceFieldValues = {
 };
 
 export type FlipCardFieldValues = {
-  cardId: number;
+  cardId: string;
   front: CardFaceFieldValues;
   back: CardFaceFieldValues;
   answer: string;

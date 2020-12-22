@@ -34,8 +34,8 @@ const useStyles = makeStyles(() => {
 });
 
 type LessonDeckTransitionsProps = Omit<TransitionProps, 'timeout'> & {
-  index: number;
-  topCardIndex: number;
+  index: string;
+  topCardIndex: string;
 };
 
 export const LessonDeckTransitions: React.FC<LessonDeckTransitionsProps> = ({

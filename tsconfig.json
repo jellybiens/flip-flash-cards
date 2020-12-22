@@ -10,6 +10,9 @@
       "@ui-kit": ["./packages/ui-kit/src"],
       "@types": ["./packages/types"]
     },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "target": "es5"
   },
   "exclude": ["node_modules"]

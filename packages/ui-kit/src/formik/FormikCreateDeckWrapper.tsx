@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { FlipCardFieldValues } from '@types';
 import { Formik, Form, FormikConfig } from 'formik';
+import { uniqueId } from 'lodash';
 
-export const initialCardValues: FlipCardFieldValues = {
+export const initialCardValues = (): FlipCardFieldValues => ({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  cardId: uniqueId('card-') as string,
   front: {
-    text: '',
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    text: uniqueId('card-') as string,
     imgLink: '',
     imgFile: null,
   },
@@ -14,7 +18,7 @@ export const initialCardValues: FlipCardFieldValues = {
     imgFile: null,
   },
   answer: '',
-};
+});
 
 type FormikCreateDeckWrapperProps = Omit<
   FormikConfig<{ deckCards: FlipCardFieldValues[] }>,
@@ -24,7 +28,7 @@ type FormikCreateDeckWrapperProps = Omit<
 };
 
 export const FormikCreateDeckWrapper: React.FC<FormikCreateDeckWrapperProps> = ({
-  initialValues = [initialCardValues],
+  initialValues = [initialCardValues()],
   children,
   ...props
 }) => {

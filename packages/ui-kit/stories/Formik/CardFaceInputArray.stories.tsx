@@ -3,12 +3,18 @@ import { storiesOf } from '@storybook/react';
 import { Container } from '../helpers';
 import { FormikCreateDeckWrapper, CardFaceInputArray } from '@ui-kit';
 import { FlipCardFieldValues } from '@types';
+import { uniqueId } from 'lodash';
 
 const title = 'CardFaceInputArray';
 
+const generateString = (): string => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  return uniqueId('card-') as string;
+};
+
 const initialCardValues: FlipCardFieldValues[] = [
   {
-    cardId: 123,
+    cardId: generateString(),
     front: {
       text: 'Spongebob',
       imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
@@ -22,7 +28,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     answer: '',
   },
   {
-    cardId: 234,
+    cardId: generateString(),
     front: {
       text: '11111',
       imgLink: '',
@@ -36,7 +42,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     answer: '',
   },
   {
-    cardId: 345,
+    cardId: generateString(),
     front: {
       text: '2222',
       imgLink: '',
@@ -50,7 +56,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     answer: '',
   },
   {
-    cardId: 456,
+    cardId: generateString(),
     front: {
       text: '3333',
       imgLink: '',

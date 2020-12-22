@@ -33,7 +33,7 @@ export const CardFaceInputArray: React.FC = () => {
   const [topCardId, setTopCardId] = React.useState(deckCards[0].cardId);
 
   const [rotate, setRotate] = React.useState<{ [key: string]: boolean }>({});
-  const handleRotateCard = (i: number) => {
+  const handleRotateCard = (i: string) => {
     const newRotate = { ...rotate };
     newRotate[i] = !newRotate[i];
     setRotate(newRotate);
@@ -53,6 +53,13 @@ export const CardFaceInputArray: React.FC = () => {
   const setTopCard = (i: number) => {
     setTopCardId(deckCards[topCardIndex + i].cardId);
     setTopCardIndex(topCardIndex + i);
+  };
+
+  const addNewCard = (arrayHelpersPush: ArrayHelpers['push']) => {
+    const newCard = initialCardValues();
+    arrayHelpersPush(newCard);
+    setTopCardId(newCard.cardId);
+    setTopCardIndex(topCardIndex + 1);
   };
 
   return (
@@ -90,14 +97,12 @@ export const CardFaceInputArray: React.FC = () => {
 
           <>
             <NavigationButtons
-              {...{
-                topCardIndex,
-                totalCards,
-              }}
+              topCardIndex={topCardIndex}
+              totalCards={totalCards}
               handleRotate={() => handleRotateCard(topCardId)}
               gotoPreviousCard={() => setTopCard(-1)}
               gotoNextCard={() => setTopCard(1)}
-              addNewCard={() => arrayHelpers.push(initialCardValues)}
+              addNewCard={() => addNewCard(arrayHelpers.push)}
             />
           </>
         </Grid>
