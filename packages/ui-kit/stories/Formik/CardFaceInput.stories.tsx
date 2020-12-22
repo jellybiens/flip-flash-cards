@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from '../helpers';
-import { CardFaceInput } from '@ui-kit';
+import { CardFaceInput, FlipCard } from '@ui-kit';
 import { Form, Formik } from 'formik';
 
 const title = 'CardFaceInput';
@@ -32,10 +32,6 @@ const initialValues: InitVals = {
 };
 
 const Story = () => {
-  const loadFocus = React.useRef<HTMLInputElement>();
-
-  React.useEffect(() => loadFocus.current.focus(), []);
-
   return (
     <Container title={title}>
       <Formik initialValues={initialValues} onSubmit={() => Promise.resolve(false)}>
@@ -43,7 +39,9 @@ const Story = () => {
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
               <Grid item xs={12} sm={6}>
-                <CardFaceInput makeFocus={loadFocus} name="frontface" />
+                <FlipCard>
+                  <CardFaceInput name="frontface" />
+                </FlipCard>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <code>{JSON.stringify(values)}</code>

@@ -61,7 +61,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, backsideRef 
             <Grid item xs={12}>
               <div className={cs.pasteTextfield}>
                 <TextField
-                  label="Image Link"
+                  label="&nbsp;Image Link"
                   fullWidth
                   focused
                   className={cs.textField}

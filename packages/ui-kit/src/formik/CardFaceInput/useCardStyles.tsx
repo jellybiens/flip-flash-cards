@@ -9,6 +9,21 @@ export const useStyles = makeStyles((theme: Theme) => {
       top: 0,
       left: '50%',
       transform: 'translateX(-50%)',
+      [theme.breakpoints.only('xs')]: {
+        ...theme.typography.body2,
+      },
+      [theme.breakpoints.up('sm')]: {
+        ...theme.typography.body1,
+      },
+      [theme.breakpoints.up('md')]: {
+        ...theme.typography.body1,
+      },
+      [theme.breakpoints.up('lg')]: {
+        ...theme.typography.h6,
+      },
+      [theme.breakpoints.only('xl')]: {
+        ...theme.typography.h4,
+      },
     },
     evenSplitContainer: {
       height: '50%',
@@ -56,22 +71,35 @@ export const useStyles = makeStyles((theme: Theme) => {
       margin: 'auto',
     },
     pasteTextfield: {
-      [theme.breakpoints.only('xs')]: {
-        fontSize: '1em',
-      },
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.5em',
-      },
-      [theme.breakpoints.up('lg')]: {
-        width: '60%',
-      },
       transform: 'translateY(-50%)',
       position: 'relative',
       top: '50%',
       width: '80%',
       margin: 'auto',
     },
-    backButton: { margin: '-50px -30px 0', transform: 'scale(0.6)', zIndex: 100 },
+    backButton: {
+      zIndex: 100,
+      [theme.breakpoints.only('xs')]: {
+        margin: '-50px -30px 0',
+        transform: 'scale(0.6)',
+      },
+      [theme.breakpoints.up('sm')]: {
+        margin: '-60px -30px 0',
+        transform: 'scale(0.7)',
+      },
+      [theme.breakpoints.up('md')]: {
+        margin: '-70px -30px 0',
+        transform: 'scale(0.8)',
+      },
+      [theme.breakpoints.up('lg')]: {
+        margin: '-80px -30px 0',
+        transform: 'scale(0.9)',
+      },
+      [theme.breakpoints.only('xl')]: {
+        margin: '-90px -30px 0',
+        transform: 'scale(1)',
+      },
+    },
     binButton: { position: 'absolute', top: 5, right: 5 },
   };
 });

@@ -2,6 +2,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Grid, Theme } from '@material-ui/core';
 import { FlipCardSizing } from '../definitions';
+import { CardFaceProps } from './CardFace';
+import { CardFaceInputProps } from '../formik/CardFaceInput/CardFaceInputParent';
 
 export const CARD_WIDTH = 16;
 
@@ -62,10 +64,15 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
+// wont actually do what you would expect when adding children
+type CardFaceChildren = React.ReactElement<CardFaceProps> | React.ReactElement<CardFaceInputProps>;
+
 export type FlipCardProps = {
   rotate?: boolean;
   setRotate?: () => void;
   className?: string;
+  children: CardFaceChildren | [CardFaceChildren, CardFaceChildren];
+  // but this will at least restrict the children to a max of 2
 };
 
 export const FlipCard: React.FC<FlipCardProps> = ({
@@ -80,11 +87,13 @@ export const FlipCard: React.FC<FlipCardProps> = ({
     <div className={clsx(cs.flipCard, className)} onClick={() => setRotate()}>
       <Grid container className={clsx(cs.flipCardInner, { [cs.flipCardRotate]: rotate })}>
         <Grid item xs={12} className={clsx(cs.flipCardFront, cs.flipCardFace)}>
-          {children[0]}
+          {children[0] || children}
         </Grid>
-        <Grid item xs={12} className={clsx(cs.flipCardBack, cs.flipCardFace)}>
-          {children[1]}
-        </Grid>
+        {children[1] && (
+          <Grid item xs={12} className={clsx(cs.flipCardBack, cs.flipCardFace)}>
+            {children[1]}
+          </Grid>
+        )}
       </Grid>
     </div>
   );
