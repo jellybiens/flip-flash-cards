@@ -8,6 +8,7 @@ const title = 'CardFaceInputArray';
 
 const initialCardValues: FlipCardFieldValues[] = [
   {
+    cardId: 123,
     front: {
       text: 'Spongebob',
       imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
@@ -15,6 +16,48 @@ const initialCardValues: FlipCardFieldValues[] = [
     },
     back: {
       text: 'Squarepants',
+      imgLink: '',
+      imgFile: null,
+    },
+    answer: '',
+  },
+  {
+    cardId: 234,
+    front: {
+      text: '11111',
+      imgLink: '',
+      imgFile: null,
+    },
+    back: {
+      text: '11111',
+      imgLink: '',
+      imgFile: null,
+    },
+    answer: '',
+  },
+  {
+    cardId: 345,
+    front: {
+      text: '2222',
+      imgLink: '',
+      imgFile: null,
+    },
+    back: {
+      text: '2222',
+      imgLink: '',
+      imgFile: null,
+    },
+    answer: '',
+  },
+  {
+    cardId: 456,
+    front: {
+      text: '3333',
+      imgLink: '',
+      imgFile: null,
+    },
+    back: {
+      text: '33333',
       imgLink: '',
       imgFile: null,
     },

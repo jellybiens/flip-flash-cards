@@ -1,42 +1,45 @@
 import * as React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { CircleButton } from '../../atoms/Buttons';
-import { ArrayHelpers } from 'formik';
-import { initialCardValues } from '../FormikCreateDeckWrapper';
 
 type ArrayNavigationButtons = {
   topCardIndex: number;
-  setTopCardIndex: (i: number) => void;
   totalCards: number;
-  arrayHelpers: ArrayHelpers;
+  handleRotate: () => void;
+  gotoNextCard: () => void;
+  gotoPreviousCard: () => void;
+  addNewCard: () => void;
 };
 
 export const NavigationButtons: React.FC<ArrayNavigationButtons> = ({
   topCardIndex: i,
-  setTopCardIndex,
   totalCards,
-  arrayHelpers,
+  handleRotate,
+  gotoNextCard,
+  gotoPreviousCard,
+  addNewCard,
 }) => {
   return (
     <>
+      <Grid item xs={12}>
+        <CircleButton iconName="rotate" colour="cyan" onClick={handleRotate} />
+      </Grid>
       <Grid item xs={3}>
-        {i > 0 && ( // Previous Button
-          <CircleButton iconName="prev" colour="green" onClick={() => setTopCardIndex(i - 1)} />
-        )}
+        {i > 0 && <CircleButton iconName="prev" colour="green" onClick={gotoPreviousCard} />}
       </Grid>
       <Grid item xs={3}>
         <Typography>{`Card #${i + 1} of ${totalCards}`}</Typography>
       </Grid>
       <Grid item xs={3}>
         {i < totalCards - 1 ? ( // Next Button
-          <CircleButton iconName="next" colour="green" onClick={() => setTopCardIndex(i + 1)} />
+          <CircleButton iconName="next" colour="green" onClick={gotoNextCard} />
         ) : i < 11 ? ( // Add Button
           <CircleButton
             iconName="add"
             colour="blue"
             onClick={() => {
-              arrayHelpers.push(initialCardValues);
-              setTopCardIndex(i + 1);
+              addNewCard();
+              gotoNextCard();
             }}
           />
         ) : (

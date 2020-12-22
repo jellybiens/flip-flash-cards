@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { FlipCardFieldValues } from '@types';
-import { FieldArray, useFormikContext } from 'formik';
+import { initialCardValues } from '../FormikCreateDeckWrapper';
+import { Grid, makeStyles, Theme } from '@material-ui/core';
+import { FieldArray, useField } from 'formik';
 import { TextField } from '../TextField';
 import { LessonDeckTransitions } from '../../transitions/LessonDeckTransitions';
 import { FlipCardInput } from './FlipCardInput';
 import { NavigationButtons } from './NavigationButtons';
 import { FlipCardSizing } from '../../definitions';
 import { CircleButton } from '../../atoms/Buttons';
+import { pop, shift } from '../../definitions/deckShift';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -25,13 +27,33 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const CardFaceInputArray: React.FC = () => {
   const cs = useStyles();
-  const [rotate, setRotate] = React.useState<boolean[]>([]);
 
-  const [topCardIndex, setTopCardIndex] = React.useState(0);
-  const {
-    values: { deckCards },
-  } = useFormikContext<{ deckCards: FlipCardFieldValues[] }>();
+  const [{ value: deckCards }, , helpers] = useField<FlipCardFieldValues[]>('deckCards');
   const totalCards = deckCards.length;
+  const [topCardIndex, setTopCardIndex] = React.useState(0);
+  const [cardIndexOrder, setCardIndexOrder] = React.useState(deckCards.map(({ cardId }) => cardId));
+
+  const [rotate, setRotate] = React.useState<{ [key: string]: boolean }>({});
+
+  const handleRotateCard = (i: number) => {
+    const newRotate = { ...rotate };
+    newRotate[i] = !newRotate[i];
+    setRotate(newRotate);
+  };
+  const handleRemoveCard = (i: number) => {
+    const newRotate = { ...rotate };
+    delete newRotate[i];
+    setRotate(newRotate);
+  };
+
+  const handleTopCardChange = (next) => {
+    let cardOrder = [...cardIndexOrder];
+    if (next) cardOrder = pop(cardOrder);
+    else cardOrder = shift(cardOrder);
+    const tci = deckCards.map(({ cardId }) => cardId).indexOf(cardOrder[0]);
+    setTopCardIndex(tci);
+    setCardIndexOrder([...cardOrder]);
+  };
 
   return (
     <FieldArray name="deckCards">
@@ -40,9 +62,9 @@ export const CardFaceInputArray: React.FC = () => {
           <Grid item xs={12} md={6}>
             <div className={cs.deckWrapper}>
               <div className={cs.deckContainer}>
-                {deckCards.map((_, i) => (
-                  <LessonDeckTransitions key={i} index={i} topCardIndex={topCardIndex}>
-                    <FlipCardInput index={i} rotate={rotate[i]} />
+                {deckCards.map(({ cardId }, i) => (
+                  <LessonDeckTransitions key={i} index={i} topCardIndex={cardIndexOrder[0]}>
+                    <FlipCardInput index={i} rotate={rotate[cardId]} />
                   </LessonDeckTransitions>
                 ))}
               </div>
@@ -56,24 +78,28 @@ export const CardFaceInputArray: React.FC = () => {
                   />
                 </div>
               </div>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={6} container spacing={2}>
-            <Grid item xs={12}>
               <CircleButton
-                iconName="rotate"
-                colour="cyan"
+                iconName="bin"
+                colour="red"
                 onClick={() => {
-                  const newRotate = [...rotate];
-                  newRotate[topCardIndex] = !newRotate[topCardIndex];
-                  setRotate(newRotate);
+                  handleRemoveCard(topCardIndex);
+                  arrayHelpers.remove(topCardIndex);
                 }}
               />
-            </Grid>
+            </div>
           </Grid>
 
           <>
-            <NavigationButtons {...{ topCardIndex, setTopCardIndex, totalCards, arrayHelpers }} />
+            <NavigationButtons
+              {...{
+                topCardIndex,
+                totalCards,
+              }}
+              handleRotate={() => handleRotateCard(topCardIndex)}
+              gotoPreviousCard={() => handleTopCardChange(-1)}
+              gotoNextCard={() => handleTopCardChange(1)}
+              addNewCard={() => arrayHelpers.push(initialCardValues)}
+            />
           </>
         </Grid>
       )}
