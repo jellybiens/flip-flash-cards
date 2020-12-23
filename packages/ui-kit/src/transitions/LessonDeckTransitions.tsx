@@ -4,43 +4,43 @@ import { makeStyles } from '@material-ui/core';
 import { Transition } from 'react-transition-group';
 import { TransitionProps } from 'react-transition-group/Transition';
 
-const MS = 500;
-const S = `${MS / 1000}`;
+const MS = 700;
+const S_IN = `${MS / 950}`;
+const S_OUT = `${MS / 1000}`;
 
 const useStyles = makeStyles(() => {
   return {
     transitionInner: { position: 'absolute', height: '100%', width: '100%' },
 
     in: { animation: '' },
-    'in-entering': { opacity: 0, transform: 'translateX(40px)' },
-    'in-entered': { animation: `$in ease ${S}s` },
+    'prev-entering': { animation: `$shuffle ease ${S_IN}s` },
 
-    '@keyframes in': {
-      '0%': { opacity: 0, transform: 'translateX(40px)' },
-      '100%': { opacity: 1, transform: 'translateX(0px)' },
+    'next-exiting': {
+      animation: `$shuffle ease ${S_OUT}s`,
+      animationDirection: 'reverse',
     },
 
-    'out-exiting': {
-      opacity: 0,
-      transform: 'translateX(0px)',
-      animation: `$out ease ${S}s`,
-    },
-
-    '@keyframes out': {
-      '0%': { opacity: 1, transform: 'translateX(0px)' },
-      '100%': { opacity: 0, transform: 'translateX(-40px)' },
+    '@keyframes shuffle': {
+      '0%': { zIndex: 0, transform: 'translateX(0px) rotate(0deg) scale(0.9)' },
+      '49.5%': { zIndex: 0, transform: 'translateX(110%) rotate(35deg) scale(0.95)' },
+      '50.5%': { zIndex: 100, transform: 'translateX(110%) rotate(35deg) scale(1)' },
+      '100%': { zIndex: 100, transform: 'translateX(0px) rotate(0deg) scale(1)' },
     },
   };
 });
 
+export type CardAction = 'next' | 'prev' | 'remove' | 'create';
+
 type LessonDeckTransitionsProps = Omit<TransitionProps, 'timeout'> & {
   index: string;
   topCardIndex: string;
+  cardAction: CardAction;
 };
 
 export const LessonDeckTransitions: React.FC<LessonDeckTransitionsProps> = ({
   index: i,
   topCardIndex: tci,
+  cardAction: action,
   children,
   ...props
 }) => {
@@ -50,21 +50,26 @@ export const LessonDeckTransitions: React.FC<LessonDeckTransitionsProps> = ({
     <Transition
       appear
       in={i === tci}
+      // duration={{
+      //   exit: MS,
+      // }}
+      // timeout={{
+      //   exit: MS,
+      // }}
       duration={MS}
-      timeout={{
-        exit: MS,
-      }}
+      timeout={MS}
       mountOnEnter
       unmountOnExit
       {...props}
-      // onExiting={() => setKeyDownTimeout(true)}
-      // onExited={() => setKeyDownTimeout(false)}
     >
-      {(state) => (
-        <div className={clsx(cs.transitionInner, cs.in, cs[`in-${state}`], cs[`out-${state}`])}>
-          {children}
-        </div>
-      )}
+      {(state) => {
+        console.log(tci, `${action}-${state}`);
+        return (
+          <div className={clsx(cs.transitionInner, cs.in, cs[`${action}-${state}`])}>
+            {children}
+          </div>
+        );
+      }}
     </Transition>
   );
 };

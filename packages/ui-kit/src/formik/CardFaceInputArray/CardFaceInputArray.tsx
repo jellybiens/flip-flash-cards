@@ -4,7 +4,7 @@ import { initialCardValues } from '../FormikCreateDeckWrapper';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { ArrayHelpers, FieldArray, useField } from 'formik';
 import { TextField } from '../TextField';
-import { LessonDeckTransitions } from '../../transitions/LessonDeckTransitions';
+import { CardAction, LessonDeckTransitions } from '../../transitions/LessonDeckTransitions';
 import { FlipCardInput } from './FlipCardInput';
 import { NavigationButtons } from './NavigationButtons';
 import { FlipCardSizing } from '../../definitions';
@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme: Theme) => {
     correctAnswerContainer: {
       margin: `${theme.spacing(2.5)}px auto`,
     },
+    nextCardContainer: {
+      position: 'absolute',
+      margin: 'auto',
+      ...FlipCardSizing(theme),
+    },
   };
 });
 
@@ -32,11 +37,13 @@ export const CardFaceInputArray: React.FC = () => {
   const [topCardIndex, setTopCardIndex] = React.useState(0);
   const [topCardId, setTopCardId] = React.useState(deckCards[0].cardId);
 
+  const [action, setAction] = React.useState<CardAction>('next');
+
   const [rotate, setRotate] = React.useState<{ [key: string]: boolean }>({});
   const handleRotateCard = (i: string) => {
     const newRotate = { ...rotate };
-    newRotate[i] = !newRotate[i];
-    setRotate(newRotate);
+    newRotate[i] = !rotate[i];
+    setRotate({ ...newRotate });
   };
 
   const handleRemoveCard = (i: number, arrayHelpers: ArrayHelpers) => {
@@ -46,13 +53,15 @@ export const CardFaceInputArray: React.FC = () => {
 
     const cardIndex = Math.floor(topCardIndex);
 
-    arrayHelpers.remove(cardIndex);
     setTopCardId(deckCards[cardIndex + 1].cardId);
+    setTimeout(() => arrayHelpers.remove(cardIndex), 500);
   };
 
   const setTopCard = (i: number) => {
-    setTopCardId(deckCards[topCardIndex + i].cardId);
+    setAction(i === 1 ? 'next' : 'prev');
+
     setTopCardIndex(topCardIndex + i);
+    setTopCardId(deckCards[topCardIndex + i].cardId);
   };
 
   const addNewCard = (arrayHelpersPush: ArrayHelpers['push']) => {
@@ -69,8 +78,23 @@ export const CardFaceInputArray: React.FC = () => {
           <Grid item xs={12} md={6}>
             <div className={cs.deckWrapper}>
               <div className={cs.deckContainer}>
+                <div className={cs.nextCardContainer}>
+                  {topCardIndex + 1 === deckCards.length ? (
+                    <FlipCardInput index={0} rotate={rotate[deckCards[0].cardId]} />
+                  ) : (
+                    <FlipCardInput
+                      index={topCardIndex + 1}
+                      rotate={rotate[deckCards[topCardIndex + 1].cardId]}
+                    />
+                  )}
+                </div>
                 {deckCards.map(({ cardId }, i) => (
-                  <LessonDeckTransitions key={cardId} index={cardId} topCardIndex={topCardId}>
+                  <LessonDeckTransitions
+                    key={cardId}
+                    index={cardId}
+                    topCardIndex={topCardId}
+                    cardAction={action}
+                  >
                     <FlipCardInput index={i} rotate={rotate[cardId]} />
                   </LessonDeckTransitions>
                 ))}

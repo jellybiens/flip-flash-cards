@@ -7,7 +7,7 @@ import { FlipCard } from '../../atoms/FlipCard';
 
 type FlipCardInputProps = {
   index: number;
-  rotate: boolean;
+  rotate?: boolean;
 };
 
 let typeingTimeout = null;

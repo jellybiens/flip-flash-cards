@@ -60,7 +60,7 @@ export const TextField: React.FC<TextFieldProps> = ({ InputProps, ...props }) =>
     classes: {
       //root: cs.root,
       input: cs.resize,
-      formControl: cs.labelSpacing,
+      root: cs.labelSpacing,
       ...InputProps?.classes,
     },
   };
