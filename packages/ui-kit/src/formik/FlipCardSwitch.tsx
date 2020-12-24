@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import { CardPixels } from '@types';
-import { CARD_WIDTH as WIDTH, FlipCard } from '../atoms/FlipCard';
+import { CARD_WIDTH as WIDTH, FlipCardWrapper } from '../atoms/FlipCardWrapper';
 import { CardFace } from '../atoms/CardFace';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
   };
 });
-
+//TODO: translations learn test challenge
 const frontsideText = 'Learn';
 const backsideText = 'Test';
 
@@ -68,10 +68,10 @@ export const FlipCardSwitch: React.FC = () => {
     <div className={cs.backInset} onClick={() => setToggle(!toggle)}>
       <div className={clsx(cs.switchContainer, { [cs.switchToggle]: toggle })}>
         <div className={cs.cardContainer}>
-          <FlipCard className={cs.override}>
+          <FlipCardWrapper className={cs.override}>
             <CardFace text={frontsideText} />
             <CardFace text={backsideText} />
-          </FlipCard>
+          </FlipCardWrapper>
         </div>
       </div>
     </div>

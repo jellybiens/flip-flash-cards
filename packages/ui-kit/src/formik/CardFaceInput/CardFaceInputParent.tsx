@@ -13,10 +13,11 @@ import { ImageDisplay } from './ImageDisplay';
 
 export type CardFaceInputProps = {
   name: string;
+  cardIndex: number;
   backsideRef?: React.MutableRefObject<HTMLInputElement>;
 };
 
-export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, backsideRef }) => {
+export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, backsideRef }) => {
   const cs = useStyles();
   const [field, , helpers] = useField<CardFaceFieldValues>(name);
   const [showInput, setShowInput] = React.useState(false);
@@ -39,6 +40,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, backsideRef 
 
   return (
     <Grid container className={cs.cardFace} component={PaperCard}>
+      <Typography className={cs.numberText}>Card #{cardIndex + 1}</Typography>
       <Typography className={cs.sideText}>
         {!backsideRef ? 'Frontside Display' : 'Backside Display'}
       </Typography>

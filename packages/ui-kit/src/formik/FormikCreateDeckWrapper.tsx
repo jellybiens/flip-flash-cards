@@ -5,10 +5,10 @@ import { uniqueId } from 'lodash';
 
 export const initialCardValues = (): FlipCardFieldValues => ({
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  cardId: uniqueId('card-') as string,
+  cardId: uniqueId('card-'),
   front: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    text: uniqueId('card-') as string,
+    text: uniqueId('card-'),
     imgLink: '',
     imgFile: null,
   },
@@ -26,6 +26,7 @@ type FormikCreateDeckWrapperProps = Omit<
 > & {
   initialValues?: FlipCardFieldValues[];
 };
+//TODO: import onSubmit
 
 export const FormikCreateDeckWrapper: React.FC<FormikCreateDeckWrapperProps> = ({
   initialValues = [initialCardValues()],

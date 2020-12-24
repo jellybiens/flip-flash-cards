@@ -1,11 +1,11 @@
 export type CardSize = 'sm' | 'md' | 'lg';
 
 export enum CardPixels {
-  xs = 250,
-  sm = 350,
-  md = 450,
-  lg = 600,
-  xl = 750,
+  xs = 200,
+  sm = 300,
+  md = 400,
+  lg = 500,
+  xl = 600,
 }
 
 // TODO: Validation - possible logic for validation, types may not need it
@@ -32,5 +32,22 @@ export type FlipCardFieldValues = {
   cardId: string;
   front: CardFaceFieldValues;
   back: CardFaceFieldValues;
+  answer: string;
+};
+
+export type CardFaceTextProps = {
+  text: string;
+  imgLink?: string;
+};
+export type CardFaceImageProps = {
+  text?: string;
+  imgLink: string;
+};
+
+export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
+
+export type FlipCardProps = {
+  front: CardFaceProps;
+  back: CardFaceProps;
   answer: string;
 };

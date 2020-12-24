@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from '../helpers';
-import { CardFaceInput, FlipCard } from '@ui-kit';
+import { CardFaceInput, FlipCardWrapper } from '@ui-kit';
 import { Form, Formik } from 'formik';
 
 const title = 'CardFaceInput';
@@ -39,9 +39,9 @@ const Story = () => {
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
               <Grid item xs={12} sm={6}>
-                <FlipCard>
+                <FlipCardWrapper>
                   <CardFaceInput name="frontface" />
-                </FlipCard>
+                </FlipCardWrapper>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <code>{JSON.stringify(values)}</code>

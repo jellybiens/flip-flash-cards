@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Container } from '../helpers';
-import { FormikCreateDeckWrapper, CardFaceInputArray } from '@ui-kit';
+import { FormikCreateDeckWrapper, FlipCardInputArray } from '@ui-kit';
 import { FlipCardFieldValues } from '@types';
 import { uniqueId } from 'lodash';
 
@@ -9,7 +9,7 @@ const title = 'CardFaceInputArray';
 
 const generateString = (): string => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  return uniqueId('card-') as string;
+  return uniqueId('card-');
 };
 
 const initialCardValues: FlipCardFieldValues[] = [
@@ -77,7 +77,7 @@ const Story = () => {
   return (
     <Container title={title}>
       <FormikCreateDeckWrapper initialValues={initialCardValues} onSubmit={handleSubmit}>
-        <CardFaceInputArray />
+        <FlipCardInputArray />
       </FormikCreateDeckWrapper>
     </Container>
   );

@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { FlipCardProps } from '@types';
 import { makeStyles, Theme } from '@material-ui/core';
 import { ChallengeDeckTransitions } from '../transitions/ChallengeDeckTransitions';
-import { FlipCard, FlipCardProps } from '../atoms/FlipCard';
-import { CardFace } from '../atoms/CardFace';
+import { FlipCard } from '../molecules/FlipCard';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -89,10 +89,7 @@ export const ChallengeDeck: React.FC<ChallengeDeckProps> = ({ deck }) => {
             onExited={() => setKeyDownTimeout(false)}
           >
             {i}
-            <FlipCard {...props} rotate={rotate[i]}>
-              <CardFace {...props.frontside} />
-              <CardFace {...props.backside} />
-            </FlipCard>
+            <FlipCard rotate={rotate[i]} {...props} />
           </ChallengeDeckTransitions>
         );
       })}

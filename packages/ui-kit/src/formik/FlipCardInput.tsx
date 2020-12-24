@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { FlipCardFieldValues } from '@types';
 import { useField } from 'formik';
-import { Grid } from '@material-ui/core';
-import { CardFaceInput } from '../CardFaceInput';
-import { FlipCard } from '../../atoms/FlipCard';
+import { FlipCardWrapper, FlipCardWrapperProps } from '../atoms/FlipCardWrapper';
+import { CardFaceInput } from './CardFaceInput';
+import { CircleButton } from '../atoms/Buttons';
 
-type FlipCardInputProps = {
+export type FlipCardInputProps = FlipCardWrapperProps & {
   index: number;
   rotate?: boolean;
 };
 
 let typeingTimeout = null;
 
-export const FlipCardInput: React.FC<FlipCardInputProps> = ({ index: i, rotate }) => {
+export const FlipCardInput: React.FC<FlipCardInputProps> = ({ index: i, rotate, ...props }) => {
   const backsideRef = React.useRef<HTMLInputElement>();
   const [, , helpers] = useField<FlipCardFieldValues['answer']>(`deckCards.${i}.answer`);
 
@@ -27,13 +27,11 @@ export const FlipCardInput: React.FC<FlipCardInputProps> = ({ index: i, rotate }
   }, [backsideRef.current?.value]);
 
   return (
-    <Grid container spacing={2} justify="center">
-      <Grid item xs={12}>
-        <FlipCard rotate={rotate}>
-          <CardFaceInput name={`deckCards.${i}.front`} />
-          <CardFaceInput name={`deckCards.${i}.back`} backsideRef={backsideRef} />
-        </FlipCard>
-      </Grid>
-    </Grid>
+    <>
+      <FlipCardWrapper rotate={rotate} {...props}>
+        <CardFaceInput name={`deckCards.${i}.front`} cardIndex={i} />
+        <CardFaceInput name={`deckCards.${i}.back`} cardIndex={i} backsideRef={backsideRef} />
+      </FlipCardWrapper>
+    </>
   );
 };

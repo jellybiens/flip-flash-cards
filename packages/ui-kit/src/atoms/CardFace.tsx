@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CardFaceProps } from '@types';
 import { makeStyles, Theme, Grid, Typography } from '@material-ui/core';
 import { PaperCard } from './PaperCard';
 import { FlipCardFaceStyles } from '../definitions';
@@ -17,17 +18,6 @@ const useStyles = makeStyles((theme: Theme) => {
     },
   };
 });
-
-export type CardFaceTextProps = {
-  text: string;
-  imgLink?: string;
-};
-export type CardFaceImageProps = {
-  text?: string;
-  imgLink: string;
-};
-
-export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 
 export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink }) => {
   const cs = useStyles();

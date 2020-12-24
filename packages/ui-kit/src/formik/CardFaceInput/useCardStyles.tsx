@@ -2,28 +2,38 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { FlipCardFaceStyles } from '../../definitions';
 
 export const useStyles = makeStyles((theme: Theme) => {
+  const typographySizing = {
+    [theme.breakpoints.only('xs')]: {
+      ...theme.typography.body2,
+    },
+    [theme.breakpoints.up('sm')]: {
+      ...theme.typography.body1,
+    },
+    [theme.breakpoints.up('md')]: {
+      ...theme.typography.body1,
+    },
+    [theme.breakpoints.up('lg')]: {
+      ...theme.typography.h6,
+    },
+    [theme.breakpoints.only('xl')]: {
+      ...theme.typography.h4,
+    },
+  };
+
   return {
     ...FlipCardFaceStyles,
+    numberText: {
+      position: 'absolute',
+      top: 0,
+      left: 3,
+      ...typographySizing,
+    },
     sideText: {
       position: 'absolute',
       top: 0,
       left: '50%',
       transform: 'translateX(-50%)',
-      [theme.breakpoints.only('xs')]: {
-        ...theme.typography.body2,
-      },
-      [theme.breakpoints.up('sm')]: {
-        ...theme.typography.body1,
-      },
-      [theme.breakpoints.up('md')]: {
-        ...theme.typography.body1,
-      },
-      [theme.breakpoints.up('lg')]: {
-        ...theme.typography.h6,
-      },
-      [theme.breakpoints.only('xl')]: {
-        ...theme.typography.h4,
-      },
+      ...typographySizing,
     },
     evenSplitContainer: {
       height: '50%',
