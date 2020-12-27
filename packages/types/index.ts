@@ -32,7 +32,6 @@ export type FlipCardFieldValues = {
   cardId: string;
   front: CardFaceFieldValues;
   back: CardFaceFieldValues;
-  answer: string;
 };
 
 export type CardFaceTextProps = {
@@ -49,5 +48,4 @@ export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 export type FlipCardProps = {
   front: CardFaceProps;
   back: CardFaceProps;
-  answer: string;
 };

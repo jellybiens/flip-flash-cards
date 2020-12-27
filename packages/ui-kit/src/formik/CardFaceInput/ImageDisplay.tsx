@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { CircleButton } from '../../atoms/Buttons';
-import { useStyles } from './useCardStyles';
+import { FlipCardFaceStyles } from '../../definitions';
+
+export const useStyles = makeStyles(() => ({
+  ...FlipCardFaceStyles,
+  binButton: { position: 'absolute', top: 5, right: 5 },
+}));
 
 type ImageDisplayProps = {
   handleRevertImage: () => void;

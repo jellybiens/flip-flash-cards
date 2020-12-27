@@ -17,7 +17,6 @@ export const initialCardValues = (): FlipCardFieldValues => ({
     imgLink: '',
     imgFile: null,
   },
-  answer: '',
 });
 
 type FormikCreateDeckWrapperProps = Omit<

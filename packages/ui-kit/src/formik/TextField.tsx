@@ -6,64 +6,39 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
-      padding: 8,
+      padding: 7,
       borderRadius: 8,
       backgroundColor: '#fbfbfb', //theme.palette.silver.light,
-    },
-    resize: {
-      [theme.breakpoints.only('xs')]: {
-        fontSize: '1em',
-      },
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.5em',
-      },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: '2.25em',
-      },
-      [theme.breakpoints.only('xl')]: {
-        fontSize: '3em',
-      },
-    },
-    reset: {
-      fontSize: '1em',
-    },
-    shrink: {
-      [theme.breakpoints.up('lg')]: {
-        transform: 'translate(14px, -11px) scale(0.75) !important',
-        fontSize: '2em',
-      },
-    },
-    labelSpacing: {
-      '& > fieldset': {
-        '& > legend': {
-          '& > span': {
-            [theme.breakpoints.up('lg')]: {
-              fontSize: '2em',
-            },
-          },
+      '& input': {
+        [theme.breakpoints.only('xs')]: {
+          padding: '10px 0',
         },
       },
     },
-    helperResize: {
+    scale: {
+      [theme.breakpoints.only('xs')]: {
+        transform: 'scale(0.7)',
+      },
+      [theme.breakpoints.up('sm')]: {
+        transform: 'scale(0.9)',
+      },
+      [theme.breakpoints.up('md')]: {
+        transform: 'scale(1.1)',
+      },
       [theme.breakpoints.up('lg')]: {
-        fontSize: '1.25em ',
+        transform: 'scale(1.25)',
+      },
+      [theme.breakpoints.only('xl')]: {
+        transform: 'scale(1.4)',
       },
     },
   };
 });
 
-export const TextField: React.FC<TextFieldProps> = ({ InputProps, ...props }) => {
+export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => {
   const cs = useStyles();
 
-  const InputProperties: Partial<TextFieldProps['InputProps']> = {
-    ...InputProps,
-    classes: {
-      //root: cs.root,
-      input: cs.resize,
-      root: cs.labelSpacing,
-      ...InputProps?.classes,
-    },
-  };
+  const outlined = props.variant === 'outlined';
 
   return (
     <Field name={props.name}>
@@ -86,26 +61,11 @@ export const TextField: React.FC<TextFieldProps> = ({ InputProps, ...props }) =>
             error={touched && !!error}
             helperText={error}
             disabled={props.disabled ?? isSubmitting}
-            InputProps={InputProperties}
-            InputLabelProps={{
-              ...props?.InputLabelProps,
-              classes: {
-                root: cs.resize,
-                shrink: clsx(cs.reset, cs.shrink),
-                focused: clsx(cs.reset, cs.shrink),
-              },
-            }}
-            FormHelperTextProps={{
-              ...props?.FormHelperTextProps,
-              classes: {
-                root: cs.helperResize,
-              },
-            }}
             {...props}
           />
         );
 
-        return props.variant === 'outlined' ? <div className={cs.root}>{TextBox}</div> : TextBox;
+        return <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>{TextBox}</div>;
       }}
     </Field>
   );

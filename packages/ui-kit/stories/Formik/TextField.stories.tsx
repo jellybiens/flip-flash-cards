@@ -37,7 +37,7 @@ const Story = () => {
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
               <Grid item xs={12}>
-                <TextField name="firstname" label="Firstname" />
+                <TextField variant="outlined" name="firstname" label="Firstname" />
               </Grid>
               <Grid item xs={12}>
                 <TextField name="lastname" label="Lastname" />

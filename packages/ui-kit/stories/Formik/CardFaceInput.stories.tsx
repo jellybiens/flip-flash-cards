@@ -40,7 +40,8 @@ const Story = () => {
             <Grid container spacing={2} justify="center">
               <Grid item xs={12} sm={6}>
                 <FlipCardWrapper>
-                  <CardFaceInput name="frontface" />
+                  <CardFaceInput cardIndex={0} name="frontface" front />
+                  <CardFaceInput cardIndex={0} name="backface" back />
                 </FlipCardWrapper>
               </Grid>
               <Grid item xs={12} sm={6}>

@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { FlipCardFieldValues } from '@types';
+import { CardPixels, FlipCardFieldValues } from '@types';
 import { initialCardValues } from '../FormikCreateDeckWrapper';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { ArrayHelpers, FieldArray, useField } from 'formik';
-import { TextField } from '../TextField';
 import { CardAction } from '../../transitions/LoopingDeckTransition';
 import { NavigationButtons } from './NavigationButtons';
 import { FlipCardSizing } from '../../definitions';
@@ -16,18 +15,8 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: 'auto',
       ...FlipCardSizing(theme),
     },
-    correctAnswerWrapper: {
-      display: 'flex',
-      width: '100%',
-    },
-    correctAnswerContainer: {
-      margin: `${theme.spacing(2.5)}px auto`,
-    },
     buttonsWrapper: {
       height: '100%',
-    },
-    buttonsContainer: {
-      width: '100%',
       margin: 'auto',
     },
   };
@@ -91,38 +80,27 @@ export const FlipCardInputArray: React.FC = () => {
     }
     setTimeout(() => remove(cardIndex), 700);
   };
-
+  //TODO: make grid item full height of card input and margin auto buttons
+  // make buttons nicer order and change scale size with new card sizes
+  // test error outputs for when info is missing
+  // animation different for new card add if possible
   return (
     <FieldArray name="deckCards">
       {(arrayHelpers) => (
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <LoopingDeck type="input" {...{ deckCards, topCardIndex, topCardId, rotate, action }} />
           </Grid>
-          <Grid item xs={12} md={6} className={cs.buttonsWrapper} style={{ margin: 'auto' }}>
-            <Grid container className={cs.buttonsContainer} spacing={2}>
-              <Grid item xs={12}>
-                <div className={cs.correctAnswerWrapper}>
-                  <div className={cs.correctAnswerContainer}>
-                    <TextField
-                      fullWidth
-                      label="Correct Answer"
-                      name={`deckCards.${topCardIndex}.answer`}
-                      variant="outlined"
-                    />
-                  </div>
-                </div>
-              </Grid>
-              <NavigationButtons
-                topCardIndex={topCardIndex}
-                totalCards={totalCards}
-                handleRotate={() => handleRotateCard(topCardId)}
-                gotoPreviousCard={() => setTopCard(-1)}
-                gotoNextCard={() => setTopCard(1)}
-                addNewCard={() => addNewCard(arrayHelpers.push)}
-                removeCard={() => handleRemoveCard(topCardIndex, arrayHelpers)}
-              />
-            </Grid>
+          <Grid item xs={12} className={cs.buttonsWrapper}>
+            <NavigationButtons
+              topCardIndex={topCardIndex}
+              totalCards={totalCards}
+              handleRotate={() => handleRotateCard(topCardId)}
+              gotoPreviousCard={() => setTopCard(-1)}
+              gotoNextCard={() => setTopCard(1)}
+              addNewCard={() => addNewCard(arrayHelpers.push)}
+              removeCard={() => handleRemoveCard(topCardIndex, arrayHelpers)}
+            />
           </Grid>
         </Grid>
       )}

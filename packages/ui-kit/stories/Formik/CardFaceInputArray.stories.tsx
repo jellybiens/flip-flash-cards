@@ -4,6 +4,7 @@ import { Container } from '../helpers';
 import { FormikCreateDeckWrapper, FlipCardInputArray } from '@ui-kit';
 import { FlipCardFieldValues } from '@types';
 import { uniqueId } from 'lodash';
+import { FormikHelpers } from 'formik';
 
 const title = 'CardFaceInputArray';
 
@@ -25,7 +26,6 @@ const initialCardValues: FlipCardFieldValues[] = [
       imgLink: '',
       imgFile: null,
     },
-    answer: '',
   },
   {
     cardId: generateString(),
@@ -39,7 +39,6 @@ const initialCardValues: FlipCardFieldValues[] = [
       imgLink: '',
       imgFile: null,
     },
-    answer: '',
   },
   {
     cardId: generateString(),
@@ -53,7 +52,6 @@ const initialCardValues: FlipCardFieldValues[] = [
       imgLink: '',
       imgFile: null,
     },
-    answer: '',
   },
   {
     cardId: generateString(),
@@ -67,17 +65,26 @@ const initialCardValues: FlipCardFieldValues[] = [
       imgLink: '',
       imgFile: null,
     },
-    answer: '',
   },
 ];
 
 const Story = () => {
-  const handleSubmit = (values) => Promise.resolve(console.log(JSON.stringify(values, null, 2)));
+  const handleSubmit = (
+    values: { deckCards },
+    helpers: FormikHelpers<{ deckCards: FlipCardFieldValues[] }>,
+  ) => {
+    alert(JSON.stringify(values));
+    helpers.setErrors({
+      deckCards: [{ front: { text: 'Incorrect' } }, {}, { back: { text: 'Incorrect' } }],
+    });
+    return Promise.resolve(false);
+  };
 
   return (
     <Container title={title}>
       <FormikCreateDeckWrapper initialValues={initialCardValues} onSubmit={handleSubmit}>
         <FlipCardInputArray />
+        <button type="submit">Set Errors</button>
       </FormikCreateDeckWrapper>
     </Container>
   );
