@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { FlipCardFieldValues } from '@types';
+import { FlipCardProps } from '@types';
 import { makeStyles, Theme } from '@material-ui/core';
+import { TransitionProps } from 'react-transition-group/Transition';
 import { FlipCardSizing } from '../definitions';
-import { CardAction, LoopingDeckTransition } from '../transitions/LoopingDeckTransition';
+import { LoopingDeckTransition } from '../transitions/LoopingDeckTransition';
+import { LinearDeckTransition } from '../transitions/LinearDeckTransition';
 import { FlipCardInput } from '../formik/FlipCardInput';
-import { FlipCard } from '../molecules/FlipCard';
+import { FlipCard } from './FlipCard';
+import { CardAction } from '../definitions/cardDeck';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -26,28 +29,30 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-type LoopingDeckProps = {
-  deckCards: FlipCardFieldValues[];
-  topCardIndex: number;
+type CardDeckProps = {
+  deckCards: FlipCardProps[];
+  topCardIndex: number; // used for setting the card to be seen behind the current
   topCardId: string;
   rotate: { [key: string]: boolean };
   action: CardAction;
-  type: 'display' | 'input';
+  type: 'challenge' | 'review' | 'input';
+  DeckTransitionProps?: Partial<TransitionProps>;
 };
 
-export const LoopingDeck: React.FC<LoopingDeckProps> = ({
+export const CardDeck: React.FC<CardDeckProps> = ({
   deckCards,
   topCardIndex: tci,
   topCardId,
   rotate,
   action,
   type,
+  DeckTransitionProps,
 }) => {
   const cs = useStyles();
 
   const cardBehindTop = (() => {
     const i = tci + 1 === deckCards.length ? 0 : tci + 1;
-    if (type === 'display') {
+    if (type === 'review' || type === 'challenge') {
       return (
         <FlipCard
           className={cs.removeTransitionBelow}
@@ -69,23 +74,26 @@ export const LoopingDeck: React.FC<LoopingDeckProps> = ({
     }
   })();
 
+  const DeckTransition = type === 'challenge' ? LinearDeckTransition : LoopingDeckTransition;
+
   return (
     <div className={cs.deckWrapper}>
       <div className={cs.deckContainer}>
-        <div className={cs.nextCardContainer}>{cardBehindTop}</div>
+        {type !== 'challenge' && <div className={cs.nextCardContainer}>{cardBehindTop}</div>}
         {deckCards.map(({ cardId, front, back }, i) => (
-          <LoopingDeckTransition
+          <DeckTransition
             key={cardId}
             index={cardId}
             topCardIndex={topCardId}
-            cardAction={action}
+            action={action}
+            {...(!!DeckTransitionProps && DeckTransitionProps)}
           >
-            {type === 'display' ? (
+            {type !== 'input' ? (
               <FlipCard rotate={rotate[cardId]} front={front} back={back} />
             ) : (
               <FlipCardInput index={i} rotate={rotate[cardId]} />
             )}
-          </LoopingDeckTransition>
+          </DeckTransition>
         ))}
       </div>
     </div>

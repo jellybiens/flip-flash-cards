@@ -2,7 +2,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from './helpers';
-import { ChallengeDeck } from '@ui-kit';
+import { ReviewDeck, ChallengeDeck } from '@ui-kit';
 import { cardDeck } from './Atoms/FlipCardWrapper.stories';
 
 const title = 'FlipCardDeck';
@@ -18,7 +18,10 @@ const Story = () => {
     <Container title={title}>
       <Grid container spacing={2} justify="center">
         <Grid item xs={12}>
-          <ChallengeDeck deck={cardDeck} />
+          <ReviewDeck deckCards={cardDeck} />
+        </Grid>
+        <Grid item xs={12}>
+          <ChallengeDeck deckCards={cardDeck} />
         </Grid>
         <SizeTest />
         <SizeTest />

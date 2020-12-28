@@ -3,7 +3,7 @@ import { FlipCardProps } from '@types';
 import { FlipCardWrapper, FlipCardWrapperProps } from '../atoms/FlipCardWrapper';
 import { CardFace } from '../atoms/CardFace';
 
-export const FlipCard: React.FC<Omit<FlipCardProps, 'answer'> & FlipCardWrapperProps> = ({
+export const FlipCard: React.FC<Omit<FlipCardProps, 'cardId'> & FlipCardWrapperProps> = ({
   front,
   back,
   ...props

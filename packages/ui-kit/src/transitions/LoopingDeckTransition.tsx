@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 import { Transition } from 'react-transition-group';
 import { TransitionProps } from 'react-transition-group/Transition';
+import { CardAction } from '../definitions/cardDeck';
 
 const MS = 700;
 const S_IN = `${MS / 950}`;
@@ -46,18 +47,16 @@ const useStyles = makeStyles(() => {
   };
 });
 
-export type CardAction = 'next' | 'prev' | 'remove' | 'create';
-
 type LoopingDeckTransitionProps = Omit<TransitionProps, 'timeout'> & {
   index: string;
   topCardIndex: string;
-  cardAction: CardAction;
+  action: CardAction;
 };
 
 export const LoopingDeckTransition: React.FC<LoopingDeckTransitionProps> = ({
   index: i,
   topCardIndex: tci,
-  cardAction: action,
+  action,
   children,
   ...props
 }) => {

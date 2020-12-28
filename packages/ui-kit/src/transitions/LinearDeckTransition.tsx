@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 import { Transition } from 'react-transition-group';
 import { TransitionProps } from 'react-transition-group/Transition';
+import { CardAction } from '../definitions/cardDeck';
 
 const MS = 500;
 const S = `${MS / 1000}`;
@@ -42,16 +43,16 @@ const useStyles = makeStyles(() => {
   };
 });
 
-type ChallengeDeckTransitionsProps = Omit<TransitionProps, 'timeout'> & {
-  index: number;
-  topCardIndex: number;
-  direction: 'right' | 'left';
+type LinearDeckTransitionProps = Omit<TransitionProps, 'timeout'> & {
+  index: string;
+  topCardIndex: string;
+  action: CardAction;
 };
 
-export const ChallengeDeckTransitions: React.FC<ChallengeDeckTransitionsProps> = ({
+export const LinearDeckTransition: React.FC<LinearDeckTransitionProps> = ({
   index: i,
   topCardIndex: tci,
-  direction: dir,
+  action,
   children,
   ...props
 }) => {
@@ -79,7 +80,7 @@ export const ChallengeDeckTransitions: React.FC<ChallengeDeckTransitionsProps> =
             cs.transitionWrapper,
             cs.fadeIn,
             cs[`fadeIn-${state}`],
-            cs[`swipeOut-${state}${dir}`],
+            cs[`swipeOut-${state}${action}`],
           )}
         >
           {children}

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { CardPixels, FlipCardFieldValues } from '@types';
+import { FlipCardFieldValues } from '@types';
 import { initialCardValues } from '../FormikCreateDeckWrapper';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { ArrayHelpers, FieldArray, useField } from 'formik';
-import { CardAction } from '../../transitions/LoopingDeckTransition';
 import { NavigationButtons } from './NavigationButtons';
 import { FlipCardSizing } from '../../definitions';
-import { LoopingDeck } from '../../molecules/LoopingDeck';
+import { CardDeck } from '../../molecules/CardDeck';
+import { CardAction } from '../../definitions/cardDeck';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -80,16 +80,13 @@ export const FlipCardInputArray: React.FC = () => {
     }
     setTimeout(() => remove(cardIndex), 700);
   };
-  //TODO: make grid item full height of card input and margin auto buttons
-  // make buttons nicer order and change scale size with new card sizes
-  // test error outputs for when info is missing
-  // animation different for new card add if possible
+
   return (
     <FieldArray name="deckCards">
       {(arrayHelpers) => (
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <LoopingDeck type="input" {...{ deckCards, topCardIndex, topCardId, rotate, action }} />
+            <CardDeck type="input" {...{ deckCards, topCardIndex, topCardId, rotate, action }} />
           </Grid>
           <Grid item xs={12} className={cs.buttonsWrapper}>
             <NavigationButtons

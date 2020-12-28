@@ -34,18 +34,13 @@ export type FlipCardFieldValues = {
   back: CardFaceFieldValues;
 };
 
-export type CardFaceTextProps = {
+export type CardFaceProps = {
   text: string;
   imgLink?: string;
 };
-export type CardFaceImageProps = {
-  text?: string;
-  imgLink: string;
-};
-
-export type CardFaceProps = CardFaceTextProps | CardFaceImageProps;
 
 export type FlipCardProps = {
+  cardId: string;
   front: CardFaceProps;
   back: CardFaceProps;
 };
