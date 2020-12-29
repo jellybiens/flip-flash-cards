@@ -81,3 +81,9 @@ export function useWindowSize(): HeightWidth {
 
   return windowSize;
 }
+
+export const SizeTest: React.FC = () => (
+  <Grid item xs={12} sm={6} md={4} lg={2} xl={1}>
+    <div style={{ height: 100, width: 100, backgroundColor: '#000' }}></div>
+  </Grid>
+);

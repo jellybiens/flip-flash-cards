@@ -2,6 +2,8 @@ import * as React from 'react';
 import { CardDeck } from '../molecules/CardDeck';
 import { CardAction } from '../definitions/cardDeck';
 import { FlipCardProps } from '@types';
+import { Grid } from '@material-ui/core';
+import { NavigationButtons } from './NavigationButtons';
 
 type ReviewDeckProps = {
   deckCards: FlipCardProps[];
@@ -72,15 +74,26 @@ export const ReviewDeck: React.FC<ReviewDeckProps> = ({ deckCards }) => {
   };
 
   return (
-    <div onClick={() => handleRotateCard(topCardId)}>
-      <CardDeck
-        type="review"
-        {...{ deckCards, topCardIndex, topCardId, rotate, action }}
-        DeckTransitionProps={{
-          onExiting: () => setKeyDownTimeout(true),
-          onExited: () => setKeyDownTimeout(false),
-        }}
-      />
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <CardDeck
+          type="review"
+          {...{ deckCards, topCardIndex, topCardId, rotate, action }}
+          DeckTransitionProps={{
+            onExiting: () => setKeyDownTimeout(true),
+            onExited: () => setKeyDownTimeout(false),
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <NavigationButtons
+          topCardIndex={topCardIndex}
+          totalCards={totalCards}
+          handleRotate={() => handleRotateCard(topCardId)}
+          gotoPreviousCard={() => setTopCard(-1)}
+          gotoNextCard={() => setTopCard(1)}
+        />
+      </Grid>
+    </Grid>
   );
 };

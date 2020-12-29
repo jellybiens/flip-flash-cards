@@ -17,35 +17,28 @@ const back1 = {
     'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',
 };
 const front2 = {
-  text: 'Spongebob',
+  text: 'Patrick',
+  imgLink:
+    'https://external-preview.redd.it/TR1L3T91nzSrjq8Jpdo2B6r2VVuWZ4-kLTzOl1O5Bx0.png?auto=webp&s=b4661499712698340cd88068e1360b0db585f8e8',
 };
 const back2 = {
-  text: 'Spongebob',
-  imgLink:
-    'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',
+  text: 'Patrick',
 };
 const front3 = {
-  text: 'Spongebob',
-  imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
+  text: 'Squidward',
+  imgLink: 'https://i.ytimg.com/vi/5SbOeQp1EiI/maxresdefault.jpg',
 };
 const back3 = {
-  text: 'Spongebob',
+  text: 'Squidward',
   imgLink:
-    'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',
+    'https://imgix.bustle.com/uploads/image/2019/11/16/8b29e56f-ec06-4c20-84b8-16d101911649-c001d474a8fb12c64fdeaa6bf2b007a4.jpg?w=1020&h=574&fit=crop&crop=faces&auto=format%2Ccompress',
 };
 
 const cardProps1 = { cardId: 'qwe', front: front1, back: back1, answer: '' };
 const cardProps2 = { cardId: 'rty', front: front2, back: back2, answer: '' };
 const cardProps3 = { cardId: 'uio', front: back3, back: front3, answer: '' };
 
-export const cardDeck: FlipCardProps[] = [
-  cardProps1,
-  cardProps2,
-  cardProps3,
-  cardProps1,
-  cardProps2,
-  cardProps3,
-];
+export const cardDeck: FlipCardProps[] = [cardProps1, cardProps2, cardProps3];
 
 const Story = () => {
   const [rotate1, setRotate1] = React.useState(false);

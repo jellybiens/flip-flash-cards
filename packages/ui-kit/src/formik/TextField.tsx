@@ -6,6 +6,7 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
+      width: 'fit-content',
       padding: 7,
       borderRadius: 8,
       backgroundColor: '#fbfbfb', //theme.palette.silver.light,
@@ -40,11 +41,19 @@ export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => 
 
   const outlined = props.variant === 'outlined';
 
+  if (!props.name) {
+    return (
+      <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>
+        <MuiTextField {...props} />
+      </div>
+    );
+  }
+
   return (
     <Field name={props.name}>
       {({
         field: { name, onChange, onBlur, onFocus, ...field },
-        form: { isSubmitting }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+        form: { isSubmitting },
         meta: { touched, error },
       }) => {
         const fieldProps = {
@@ -54,18 +63,18 @@ export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => 
           ...field,
         };
 
-        const TextBox = (
-          <MuiTextField
-            {...fieldProps}
-            name={name}
-            error={touched && !!error}
-            helperText={error}
-            disabled={props.disabled ?? isSubmitting}
-            {...props}
-          />
+        return (
+          <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>
+            <MuiTextField
+              {...fieldProps}
+              name={name}
+              error={touched && !!error}
+              helperText={error}
+              disabled={props.disabled ?? isSubmitting}
+              {...props}
+            />
+          </div>
         );
-
-        return <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>{TextBox}</div>;
       }}
     </Field>
   );

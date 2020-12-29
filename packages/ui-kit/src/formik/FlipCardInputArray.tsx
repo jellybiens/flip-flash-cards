@@ -1,20 +1,14 @@
 import * as React from 'react';
 import { FlipCardFieldValues } from '@types';
-import { initialCardValues } from '../FormikCreateDeckWrapper';
-import { Grid, makeStyles, Theme } from '@material-ui/core';
+import { initialCardValues } from './FormikCreateDeckWrapper';
+import { Grid, makeStyles } from '@material-ui/core';
 import { ArrayHelpers, FieldArray, useField } from 'formik';
-import { NavigationButtons } from './NavigationButtons';
-import { FlipCardSizing } from '../../definitions';
-import { CardDeck } from '../../molecules/CardDeck';
-import { CardAction } from '../../definitions/cardDeck';
+import { NavigationButtons } from '../molecules/NavigationButtons';
+import { CardDeck } from '../molecules/CardDeck';
+import { CardAction } from '../definitions/cardDeck';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles(() => {
   return {
-    nextCardContainer: {
-      position: 'absolute',
-      margin: 'auto',
-      ...FlipCardSizing(theme),
-    },
     buttonsWrapper: {
       height: '100%',
       margin: 'auto',
@@ -76,7 +70,6 @@ export const FlipCardInputArray: React.FC = () => {
       setTopCardIndex(0);
     } else {
       setTopCardId(deckCards[cardIndex + 1].cardId);
-      setTopCardIndex(cardIndex + 1);
     }
     setTimeout(() => remove(cardIndex), 700);
   };
@@ -90,6 +83,7 @@ export const FlipCardInputArray: React.FC = () => {
           </Grid>
           <Grid item xs={12} className={cs.buttonsWrapper}>
             <NavigationButtons
+              creatingDeck
               topCardIndex={topCardIndex}
               totalCards={totalCards}
               handleRotate={() => handleRotateCard(topCardId)}

@@ -7,6 +7,7 @@ export * from './atoms/ScoreBar';
 export * from './molecules/ChallengeDeck';
 export * from './molecules/ReviewDeck';
 export * from './molecules/FlipCard';
+export * from './molecules/NavigationButtons';
 
 export * from './formik/CardFaceInput';
 export * from './formik/FlipCardInputArray';

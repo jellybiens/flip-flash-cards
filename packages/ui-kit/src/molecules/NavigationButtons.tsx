@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
-import { CircleButton, ResponsiveButton } from '../../atoms/Buttons';
-import { FlipCardSizing } from '../../definitions';
+import { CircleButton, ResponsiveButton } from '../atoms/Buttons';
+import { FlipCardSizing } from '../definitions';
 import { CardPixels } from '@types';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-type ArrayNavigationButtons = {
+type LoopingDeckNavigationButtonsInput = {
+  creatingDeck: true;
   topCardIndex: number;
   totalCards: number;
   handleRotate: () => void;
@@ -65,7 +66,23 @@ type ArrayNavigationButtons = {
   removeCard: () => void;
 };
 
-export const NavigationButtons: React.FC<ArrayNavigationButtons> = ({
+type LoopingDeckNavigationButtonsReview = {
+  creatingDeck?: false;
+  topCardIndex: number;
+  totalCards: number;
+  handleRotate: () => void;
+  gotoNextCard: () => void;
+  gotoPreviousCard: () => void;
+  addNewCard?: undefined;
+  removeCard?: undefined;
+};
+
+type LoopingDeckNavigationButtonsProps =
+  | LoopingDeckNavigationButtonsInput
+  | LoopingDeckNavigationButtonsReview;
+
+export const NavigationButtons: React.FC<LoopingDeckNavigationButtonsProps> = ({
+  creatingDeck = false,
   topCardIndex: i,
   totalCards,
   handleRotate,
@@ -103,32 +120,37 @@ export const NavigationButtons: React.FC<ArrayNavigationButtons> = ({
           </ResponsiveButton>
         </div>
       </Grid>
-      <Grid item xs={6} className={cs.gridItem}>
-        <div className={cs.buttonWrapper}>
-          <ResponsiveButton
-            fullWidth
-            startIcon="bin"
-            colour="red"
-            disabled={totalCards < 4}
-            onClick={removeCard}
-          >
-            Remove
-          </ResponsiveButton>
-        </div>
-      </Grid>
-      <Grid item xs={6} className={cs.gridItem}>
-        <div className={cs.buttonWrapper}>
-          <ResponsiveButton
-            fullWidth
-            endIcon="add"
-            colour="blue"
-            disabled={i >= 11}
-            onClick={addNewCard}
-          >
-            Add Card
-          </ResponsiveButton>
-        </div>
-      </Grid>
+
+      {creatingDeck && (
+        <>
+          <Grid item xs={6} className={cs.gridItem}>
+            <div className={cs.buttonWrapper}>
+              <ResponsiveButton
+                fullWidth
+                startIcon="bin"
+                colour="red"
+                disabled={totalCards < 4}
+                onClick={removeCard}
+              >
+                Remove
+              </ResponsiveButton>
+            </div>
+          </Grid>
+          <Grid item xs={6} className={cs.gridItem}>
+            <div className={cs.buttonWrapper}>
+              <ResponsiveButton
+                fullWidth
+                endIcon="add"
+                colour="blue"
+                disabled={i >= 11}
+                onClick={addNewCard}
+              >
+                Add Card
+              </ResponsiveButton>
+            </div>
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 };
