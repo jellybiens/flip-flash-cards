@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     ...FlipCardFaceStyles,
     typography: {
-      [theme.breakpoints.only('xs')]: { ...theme.typography.body1 },
-      [theme.breakpoints.only('sm')]: { ...theme.typography.h5 },
-      [theme.breakpoints.up('md')]: { ...theme.typography.h4 },
+      [theme.breakpoints.only('xs')]: { ...theme.typography.h5 },
+      [theme.breakpoints.only('sm')]: { ...theme.typography.h4 },
+      [theme.breakpoints.up('md')]: { ...theme.typography.h3 },
       [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
     },
   };

@@ -55,5 +55,5 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
     borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
-  fullFace: { height: '100%', width: '100%', padding: '5%' },
+  fullFace: { height: '100%', width: '100%', padding: '5%', display: 'flex' },
 };

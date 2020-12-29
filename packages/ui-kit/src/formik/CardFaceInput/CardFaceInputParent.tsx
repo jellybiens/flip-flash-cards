@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { CardFaceFieldValues, CardPixels } from '@types';
+import { CardFaceFieldValues } from '@types';
 import { Grid, InputAdornment, makeStyles, Theme, Typography } from '@material-ui/core';
 import { PaperCard } from '../../atoms/PaperCard';
 import { useField } from 'formik';
@@ -30,6 +30,13 @@ export const useStyles = makeStyles((theme: Theme) => {
     },
   };
 
+  const textFieldScaling = {
+    [theme.breakpoints.only('sm')]: { transform: 'scale(0.9)' },
+    [theme.breakpoints.only('md')]: { transform: 'scale(1.2)' },
+    [theme.breakpoints.only('lg')]: { transform: 'scale(1.5)' },
+    [theme.breakpoints.only('xl')]: { transform: 'scale(1.8)' },
+  };
+
   return {
     ...FlipCardFaceStyles,
     numberText: {
@@ -38,82 +45,44 @@ export const useStyles = makeStyles((theme: Theme) => {
       left: 3,
       ...typographySizing,
     },
-    sideText: {
-      position: 'absolute',
-      top: 0,
-      left: '50%',
-      width: 500,
-      transform: 'translateX(-50%)',
-      ...typographySizing,
-    },
     evenSplitContainer: {
       height: '50%',
       width: '50%',
     },
-    imagePasteFieldPosition: {
+    imageFieldContainer: {
+      height: 'auto',
+      width: 'auto',
+      display: 'flex',
+    },
+    imageFieldWrapper: {
       margin: 'auto',
+      [theme.breakpoints.only('xs')]: { transform: 'scale(0.8)' },
+      ...textFieldScaling,
     },
-    textFieldSizeOverride: {
+    adornmentWrapper: {
+      transform: 'scale(0.7) translate(-5px, -20px)',
+      zIndex: 10,
+    },
+    cardTextInputWrapper: {
+      transformOrigin: 'top',
+      margin: '0 auto',
       [theme.breakpoints.only('xs')]: {
-        transform: 'scale(0.55)',
+        transform: 'scale(0.8)',
+        '& input': { padding: 0 },
+        '& p': { margin: 0 },
       },
+      ...textFieldScaling,
     },
-    textFieldInput: {
+    labelRoot: { [theme.breakpoints.only('xs')]: { top: -10 } },
+    labelFocused: {
+      [theme.breakpoints.only('xs')]: { top: 0 },
+    },
+    cardTextInput: {
       textAlign: 'center',
-      [theme.breakpoints.only('xs')]: {
-        fontSize: '1.5em',
-        padding: '0 0 1px 0',
-      },
-      [theme.breakpoints.only('sm')]: {
-        fontSize: '1.2em',
-        padding: '0 0 2px 0',
-      },
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.3em',
-        padding: '0 0 8px 0',
-      },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: '1.4em',
-        padding: '0 0 8px 0',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '1.5em',
-        padding: '0 0 8px 0',
-      },
-    },
-    pasteTextfield: {
-      transform: 'translateY(-50%)',
-      position: 'relative',
-      top: '50%',
-      [theme.breakpoints.up('md')]: {
-        width: '65%',
-        maxWidth: CardPixels.sm,
-      },
-      margin: 'auto',
     },
     backButton: {
       zIndex: 100,
-      [theme.breakpoints.only('xs')]: {
-        margin: '-40px -30px 0',
-        transform: 'scale(0.6)',
-        '&:hover': {
-          transform: 'scale(0.7)',
-        },
-      },
-      [theme.breakpoints.up('sm')]: {
-        margin: '-60px -30px 0',
-        transform: 'scale(0.7)',
-        '&:hover': {
-          transform: 'scale(0.8)',
-        },
-      },
-      [theme.breakpoints.up('md')]: {
-        margin: '-50px -30px 0',
-        transform: 'scale(0.8)',
-        '&:hover': {
-          transform: 'scale(0.9)',
-        },
-      },
+      margin: '-40px -30px 0',
     },
   };
 });
@@ -149,9 +118,6 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
   return (
     <Grid container className={cs.cardFace} component={PaperCard}>
       <Typography className={cs.numberText}>Card #{cardIndex + 1}</Typography>
-      <Typography className={cs.sideText}>
-        {front ? 'Frontside Display' : 'Backside Display'}
-      </Typography>
       <Grid
         item
         xs={12}
@@ -168,18 +134,17 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
           )}
 
           {showInput && !imageSrcValid && (
-            <Grid item xs={12}>
-              <div className={cs.pasteTextfield}>
+            <Grid item xs={12} className={cs.imageFieldContainer}>
+              <div className={cs.imageFieldWrapper}>
                 <TextField
                   label="&nbsp;Image Link"
                   fullWidth
                   focused
-                  className={cs.imagePasteFieldPosition}
                   name={`${name}.imgLink`}
                   variant="outlined"
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">
+                      <InputAdornment position="start" className={cs.adornmentWrapper}>
                         <CircleButton
                           iconName="prev"
                           colour="dull"
@@ -211,11 +176,14 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
           [cs.evenSplitContainer]: !imageSrcValid,
         })}
       >
-        <div className={cs.bottomWrapper}>
+        <div className={clsx(cs.bottomWrapper, cs.cardTextInputWrapper)}>
           <TextField
-            label="Card Text"
+            label={front ? 'Frontside Clue Text' : 'Backside Answer Text'}
             name={`${name}.text`}
-            inputProps={{ className: cs.textFieldInput }}
+            inputProps={{ className: cs.cardTextInput }}
+            InputLabelProps={{
+              classes: { root: cs.labelRoot, shrink: cs.labelFocused, focused: cs.labelFocused },
+            }}
           />
         </div>
       </Grid>

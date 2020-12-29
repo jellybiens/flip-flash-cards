@@ -1,40 +1,17 @@
 import * as React from 'react';
-import { makeStyles, TextField as MuiTextField, TextFieldProps, Theme } from '@material-ui/core';
+import { makeStyles, TextField as MuiTextField, TextFieldProps } from '@material-ui/core';
 import { Field } from 'formik';
 import clsx from 'clsx';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles(() => {
   return {
     root: {
-      width: 'fit-content',
       padding: 7,
       borderRadius: 8,
       backgroundColor: '#fbfbfb', //theme.palette.silver.light,
-      '& input': {
-        [theme.breakpoints.only('xs')]: {
-          padding: '10px 0',
-        },
-      },
     },
-    scale: {
-      [theme.breakpoints.only('xs')]: {
-        transform: 'scale(0.7)',
-      },
-      [theme.breakpoints.up('sm')]: {
-        transform: 'scale(0.9)',
-      },
-      [theme.breakpoints.up('md')]: {
-        transformOrigin: 'top',
-        transform: 'scale(1.1)',
-      },
-      [theme.breakpoints.up('lg')]: {
-        transformOrigin: 'top',
-        transform: 'scale(1.25)',
-      },
-      [theme.breakpoints.only('xl')]: {
-        transformOrigin: 'top',
-        transform: 'scale(1.4)',
-      },
+    fullWidth: {
+      width: 'calc(100% - 14px)',
     },
   };
 });
@@ -46,7 +23,7 @@ export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => 
 
   if (!props.name) {
     return (
-      <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>
+      <div className={clsx({ [cs.root]: outlined, [cs.fullWidth]: props.fullWidth }, className)}>
         <MuiTextField {...props} />
       </div>
     );
@@ -67,14 +44,14 @@ export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => 
         };
 
         return (
-          <div className={clsx({ [cs.root]: outlined }, cs.scale, className)}>
+          <div className={clsx({ [cs.root]: outlined }, className)}>
             <MuiTextField
+              {...props}
               {...fieldProps}
               name={name}
               error={touched && !!error}
               helperText={error}
               disabled={props.disabled ?? isSubmitting}
-              {...props}
             />
           </div>
         );
