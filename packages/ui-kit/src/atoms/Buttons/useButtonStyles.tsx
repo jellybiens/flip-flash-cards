@@ -29,6 +29,11 @@ export const useStyles = makeStyles((theme: Theme) => {
         },
       },
     },
+    disabledButton: {
+      backgroundColor: `${theme.palette.dull.main} !important`,
+      color: `${theme.palette.dull.contrastText} !important`,
+      '&:hover': { backgroundColor: 'unset' },
+    },
     ...colourObjects,
   };
 });

@@ -28,6 +28,7 @@ export const FlipCardSizing = (theme: Theme): CreateCSSProperties => ({
 type FlipCardFaceStyleProps = {
   cardFace: CreateCSSProperties;
   bottomContainer: CreateCSSProperties;
+  bottomWrapper: CreateCSSProperties;
   imageArea: CreateCSSProperties;
   imageContainer: CreateCSSProperties;
   faceImage: CreateCSSProperties;
@@ -41,7 +42,8 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
     padding: '1%',
     textAlign: 'center',
   },
-  bottomContainer: { height: '20%', width: '100%' },
+  bottomContainer: { height: '20%', width: '100%', display: 'flex' },
+  bottomWrapper: { margin: 'auto', height: 'auto', width: 'auto' },
   imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
   imageContainer: {
     position: 'relative',

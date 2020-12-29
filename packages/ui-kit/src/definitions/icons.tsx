@@ -38,7 +38,7 @@ export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
 
   tick: SvgIcons.Check,
   cross: SvgIcons.Clear,
-  next: SvgIcons.NavigateNext,
+  next: SvgIcons.Redo,
   prev: SvgIcons.Undo,
   rotate: SvgIcons.RotateRight,
   flip: SvgIcons.Flip,

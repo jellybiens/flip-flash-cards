@@ -17,16 +17,16 @@ export const useStyles = makeStyles((theme: Theme) => {
       fontSize: '0.6rem',
     },
     [theme.breakpoints.up('sm')]: {
-      ...theme.typography.body1,
+      ...theme.typography.body2,
     },
     [theme.breakpoints.up('md')]: {
-      ...theme.typography.body1,
+      ...theme.typography.body2,
     },
     [theme.breakpoints.up('lg')]: {
-      ...theme.typography.h6,
+      ...theme.typography.body1,
     },
     [theme.breakpoints.only('xl')]: {
-      ...theme.typography.h4,
+      ...theme.typography.h6,
     },
   };
 
@@ -50,12 +50,8 @@ export const useStyles = makeStyles((theme: Theme) => {
       height: '50%',
       width: '50%',
     },
-    textFieldContainer: {
-      transform: 'translateY(-50%)',
-      position: 'relative',
-    },
-    textFieldPosition: {
-      top: '50%',
+    imagePasteFieldPosition: {
+      margin: 'auto',
     },
     textFieldSizeOverride: {
       [theme.breakpoints.only('xs')]: {
@@ -178,7 +174,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
                   label="&nbsp;Image Link"
                   fullWidth
                   focused
-                  className={cs.textFieldPosition}
+                  className={cs.imagePasteFieldPosition}
                   name={`${name}.imgLink`}
                   variant="outlined"
                   InputProps={{
@@ -215,9 +211,8 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
           [cs.evenSplitContainer]: !imageSrcValid,
         })}
       >
-        <div className={clsx(cs.textFieldContainer, { [cs.textFieldPosition]: !!imageSrcValid })}>
+        <div className={cs.bottomWrapper}>
           <TextField
-            className={cs.textFieldSizeOverride}
             label="Card Text"
             name={`${name}.text`}
             inputProps={{ className: cs.textFieldInput }}

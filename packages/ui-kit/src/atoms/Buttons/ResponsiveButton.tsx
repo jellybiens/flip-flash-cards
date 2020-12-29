@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tooltip, useMediaQuery, useTheme } from '@material-ui/core';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { SquareButton, SquareButtonProps } from './SquareButton';
 import { CircleButton, CircleButtonProps } from './CircleButton';
 import { IconNames } from '../../definitions';

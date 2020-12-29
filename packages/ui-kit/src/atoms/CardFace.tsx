@@ -8,11 +8,8 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     ...FlipCardFaceStyles,
     typography: {
-      transform: 'translateY(-50%)',
-      top: '50%',
-      position: 'relative',
-
-      [theme.breakpoints.down('sm')]: { ...theme.typography.body1 },
+      [theme.breakpoints.only('xs')]: { ...theme.typography.body1 },
+      [theme.breakpoints.only('sm')]: { ...theme.typography.h5 },
       [theme.breakpoints.up('md')]: { ...theme.typography.h4 },
       [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
     },
@@ -33,7 +30,9 @@ export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink }) => {
       )}
       {text && (
         <Grid item xs={12} className={imgLink ? cs.bottomContainer : cs.fullFace}>
-          <Typography className={cs.typography}>{text}</Typography>
+          <div className={cs.bottomWrapper}>
+            <Typography className={cs.typography}>{text}</Typography>
+          </div>
         </Grid>
       )}
     </Grid>

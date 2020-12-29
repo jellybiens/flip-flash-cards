@@ -21,7 +21,14 @@ export const CircleButton: React.FC<CircleButtonProps> = ({
   const IconComponent = Icons[iconName];
 
   return (
-    <IconButton className={clsx(cs.root, cs[colour], className)} aria-label={iconName} {...props}>
+    <IconButton
+      className={clsx(cs.root, className, {
+        [cs[colour]]: !props.disabled,
+        [cs.disabledButton]: props.disabled,
+      })}
+      aria-label={iconName}
+      {...props}
+    >
       <IconComponent fontSize="inherit" color="inherit" />
     </IconButton>
   );

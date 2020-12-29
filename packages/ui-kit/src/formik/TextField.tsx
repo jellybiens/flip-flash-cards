@@ -24,12 +24,15 @@ const useStyles = makeStyles((theme: Theme) => {
         transform: 'scale(0.9)',
       },
       [theme.breakpoints.up('md')]: {
+        transformOrigin: 'top',
         transform: 'scale(1.1)',
       },
       [theme.breakpoints.up('lg')]: {
+        transformOrigin: 'top',
         transform: 'scale(1.25)',
       },
       [theme.breakpoints.only('xl')]: {
+        transformOrigin: 'top',
         transform: 'scale(1.4)',
       },
     },
