@@ -11,6 +11,8 @@ const Story = () => {
   const [difficulty, setDifficulty] = React.useState(false);
   const d = difficulty ? 'easy' : 'hard';
 
+  const handleReportFinalScore = (score) => alert(score);
+
   return (
     <Container title={title}>
       <Grid container spacing={2} justify="center">
@@ -20,7 +22,11 @@ const Story = () => {
           </SquareButton>
         </Grid>
         <Grid item xs={12}>
-          <ChallengeDeck deckCards={cardDeck} difficulty={d} />
+          <ChallengeDeck
+            deckCards={cardDeck}
+            difficulty={d}
+            handleReportFinalScore={handleReportFinalScore}
+          />
         </Grid>
       </Grid>
     </Container>

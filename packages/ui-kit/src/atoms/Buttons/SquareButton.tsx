@@ -16,6 +16,7 @@ export const SquareButton: React.FC<SquareButtonProps> = ({
   endIcon,
   colour,
   className,
+  children,
   ...props
 }) => {
   const cs = useStyles();
@@ -36,6 +37,8 @@ export const SquareButton: React.FC<SquareButtonProps> = ({
       })}
       {...iconProps}
       {...props}
-    />
+    >
+      {children}
+    </Button>
   );
 };
