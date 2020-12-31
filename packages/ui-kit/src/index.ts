@@ -2,6 +2,9 @@ export * from './atoms/CardFace';
 export * from './atoms/Buttons/CardFaceButton';
 export * from './atoms/Buttons';
 export * from './atoms/FlipCardWrapper';
+export * from './atoms/LoadingBar';
+export * from './atoms/Modal';
+export * from './atoms/Score';
 export * from './atoms/ScoreBar';
 
 export * from './molecules/ChallengeDeck';

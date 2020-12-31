@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import * as levenshtein from 'js-levenshtein';
+import levenshtein from 'js-levenshtein';
 import { shuffle } from '../definitions/cardDeck';
 import { FlipCardProps } from '@types';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
@@ -88,6 +88,13 @@ type MultipleChoiceAnswerButtonsProps = {
   revealAnswer: (answer) => void;
 };
 
+enum ResponseColours {
+  'correct-answer' = 'green',
+  'wrong-answer' = 'red',
+  'dull-option' = 'dull',
+  'default' = 'cyan',
+}
+
 export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsProps> = ({
   cardIndex,
   deckCards,
@@ -156,7 +163,7 @@ export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsPr
         <div className={cs.buttonWrapper}>
           <SquareButton
             fullWidth
-            colour="cyan"
+            colour={ResponseColours[animationClasses[0]]}
             onClick={() => handleCheckAnswer(optionAnswer1, 0)}
             className={clsx(cs.button, cs[`${animationClasses[0]}`])}
           >
@@ -168,7 +175,7 @@ export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsPr
         <div className={cs.buttonWrapper}>
           <SquareButton
             fullWidth
-            colour="cyan"
+            colour={ResponseColours[animationClasses[1]]}
             onClick={() => handleCheckAnswer(optionAnswer2, 1)}
             className={clsx(cs.button, cs[`${animationClasses[1]}`])}
           >
@@ -180,7 +187,7 @@ export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsPr
         <div className={cs.buttonWrapper}>
           <SquareButton
             fullWidth
-            colour="cyan"
+            colour={ResponseColours[animationClasses[2]]}
             onClick={() => handleCheckAnswer(optionAnswer3, 2)}
             className={clsx(cs.button, cs[`${animationClasses[2]}`])}
           >
@@ -212,7 +219,8 @@ export const ChallengeDeckInput: React.FC<ChallengeDeckInputProps> = ({
   }, [answerText]);
 
   const handleSubmitAnswer = () => {
-    const lev = levenshtein(
+    const leven = levenshtein as (s1: string, s2: string) => number;
+    const lev = leven(
       answerText.replace(/[^A-Z0-9]/gi, '').toLowerCase(),
       inputAnswer.replace(/[^A-Z0-9]/gi, '').toLowerCase(),
     );
