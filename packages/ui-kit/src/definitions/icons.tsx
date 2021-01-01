@@ -44,7 +44,7 @@ export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
   flip: SvgIcons.Flip,
 
   starFilled: SvgIcons.Star,
-  starUnfulled: SvgIcons.StarBorder,
+  starUnfilled: SvgIcons.StarBorder,
   share: SvgIcons.Share,
 
   account: SvgIcons.AccountCircle,

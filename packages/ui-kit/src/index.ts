@@ -6,6 +6,8 @@ export * from './atoms/LoadingBar';
 export * from './atoms/Modal';
 export * from './atoms/Score';
 export * from './atoms/ScoreBar';
+export * from './atoms/StarRatingSubmission';
+export * from './atoms/StarRatingTotal';
 
 export * from './molecules/ChallengeDeck';
 export * from './molecules/ReviewDeck';
