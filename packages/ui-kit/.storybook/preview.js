@@ -12,6 +12,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     top: 20,
     right: 20,
+    zIndex: 2000,
   },
   root:{
     display: 'flex', width: '100%'
