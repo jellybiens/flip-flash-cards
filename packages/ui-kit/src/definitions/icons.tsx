@@ -6,7 +6,7 @@ export type IconNames =
   | 'addImage'
   | 'image'
   | 'save'
-  | 'pencil'
+  | 'create'
   | 'brush'
   | 'bin'
   | 'tick'
@@ -18,8 +18,14 @@ export type IconNames =
   | 'starFilled'
   | 'starUnfulled'
   | 'share'
+  | 'new'
+  | 'trending'
+  | 'myDecks'
   | 'account'
   | 'menu'
+  | 'info'
+  | 'law'
+  | 'deleteAll'
   | 'cog'
   | 'practice'
   | 'gTranslate'
@@ -32,7 +38,7 @@ export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
   addImage: SvgIcons.AddPhotoAlternate,
   image: SvgIcons.Image,
   save: SvgIcons.Backup,
-  pencil: SvgIcons.Create,
+  create: SvgIcons.Create,
   brush: SvgIcons.Brush,
   bin: SvgIcons.Delete,
 
@@ -47,8 +53,14 @@ export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
   starUnfilled: SvgIcons.StarBorder,
   share: SvgIcons.Share,
 
+  new: SvgIcons.Schedule,
+  trending: SvgIcons.TrendingUp,
+  myDecks: SvgIcons.RecentActors,
   account: SvgIcons.AccountCircle,
   menu: SvgIcons.Reorder,
+  info: SvgIcons.Info,
+  law: SvgIcons.Gavel,
+  deleteAll: SvgIcons.DeleteForever,
   cog: SvgIcons.Settings,
 
   practice: SvgIcons.FitnessCenter,

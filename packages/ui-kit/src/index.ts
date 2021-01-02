@@ -7,6 +7,7 @@ export * from './atoms/LoadingBar';
 export * from './atoms/Modal';
 export * from './atoms/Score';
 export * from './atoms/ScoreBar';
+export * from './atoms/SettingsDrawer';
 export * from './atoms/StarRatingSubmission';
 export * from './atoms/StarRatingTotal';
 export * from './atoms/Tabs';
