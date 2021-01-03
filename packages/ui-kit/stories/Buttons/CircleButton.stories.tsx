@@ -17,7 +17,7 @@ const Story = () => {
         {IconKeys.map((icon: IconNames, i) => {
           c = c < 8 ? c + 1 : 0;
           return (
-            <Grid item xs={4} container spacing={6} key={i}>
+            <Grid item key={i} xs={4} container spacing={6}>
               <Grid item xs={6} container>
                 <Grid item xs={12}>
                   <code>iconName={icon}</code>

@@ -44,6 +44,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, visibleTab: vt, setVisibleTab 
     <div className={cs.root}>
       {tabs.map((v, i) => (
         <ButtonBase
+          key={i}
           className={vt === i ? cs.tabActive : cs.tabInactive}
           style={{ width: `${100 / tabs.length}%` }}
           onClick={() => setVisibleTab(i)}

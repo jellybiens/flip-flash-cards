@@ -17,9 +17,9 @@ const Story = () => {
     <Container title={title}>
       <Grid container spacing={2} justify="center">
         {IconKeys.map((icon: IconNames, i) => {
-          c = c < 8 ? c + 1 : 0;
+          c = c < 17 ? c + 1 : 0;
           return (
-            <>
+            <React.Fragment key={i}>
               <Grid item xs={3} key={`${i}-iconName-${icon}-${colours[c]}`}>
                 <ResponsiveButton iconName={icon} colour={colours[c]}>
                   {icon} {colours[c]}
@@ -30,7 +30,7 @@ const Story = () => {
                   {icon} {colours[c]}
                 </ResponsiveButton>
               </Grid>
-            </>
+            </React.Fragment>
           );
         })}
       </Grid>

@@ -27,6 +27,7 @@ export const StarRatingSubmission: React.FC<StarRatingSubmissionProps> = ({
 
   return (
     <Rating
+      name="rating"
       className={cs.root}
       value={value}
       onChange={(event, newValue) => {

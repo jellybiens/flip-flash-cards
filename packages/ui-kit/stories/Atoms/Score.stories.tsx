@@ -31,7 +31,7 @@ const Story = () => {
         <Grid item xs={12} style={{ height: '50%' }}>
           <Score score={score} max={100} />
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <LoadingBar handleLoaded={() => false} />
         </Grid>
         <Grid item xs={12} style={{ height: '50%' }}>
