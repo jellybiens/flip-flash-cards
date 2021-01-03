@@ -18,6 +18,7 @@ export * from './molecules/FlipCard';
 export * from './molecules/NavigationButtons';
 
 export * from './formik/CardFaceInput';
+export * from './formik/ColourPicker';
 export * from './formik/FlipCardInputArray';
 export * from './formik/FlipCardSwitch';
 export * from './formik/FormikCreateDeckWrapper';

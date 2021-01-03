@@ -55,7 +55,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, visibleTab: vt, setVisibleTab 
   );
 };
 
-const usePanelStyles = makeStyles((theme: Theme) => ({
+const usePanelStyles = makeStyles(() => ({
   root: {
     height: 'calc(100% - 48px)',
     position: 'relative',

@@ -80,12 +80,12 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, setOpen })
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
-          <ListItem button key="legal">
+          {/* <ListItem button key="legal">
             <ListItemIcon>
               <Legal />
             </ListItemIcon>
             <ListItemText primary="Legal" />
-          </ListItem>
+          </ListItem> */}
           <ListItem button key="clear-data">
             <ListItemIcon>
               <ClearData />

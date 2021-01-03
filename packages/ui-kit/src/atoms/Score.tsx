@@ -1,14 +1,15 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
-import { CustomColours } from '../themes';
+import { CustomColours } from '@types';
+import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 const useStyles = makeStyles((theme: Theme) => {
   const textDarkShadow = (colour: CustomColours) => `
-    1px 1px ${theme.palette[colour].dark},
-    -1px 1px ${theme.palette[colour].dark},
-    1px -1px ${theme.palette[colour].dark},
-    -1px -1px ${theme.palette[colour].dark}
+    1px 1px ${(theme.palette[colour] as PaletteColor).dark},
+    -1px 1px ${(theme.palette[colour] as PaletteColor).dark},
+    1px -1px ${(theme.palette[colour] as PaletteColor).dark},
+    -1px -1px ${(theme.palette[colour] as PaletteColor).dark}
   `;
 
   return {

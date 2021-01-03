@@ -2,79 +2,83 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Grid, Theme } from '@material-ui/core';
 import { FlipCardSizing } from '../definitions';
+import { CustomColours } from '@types';
+import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export const CARD_WIDTH = 16;
 
-const useStyles = makeStyles((theme: Theme) => {
-  const WIDTH = CARD_WIDTH;
-  const OUTLINE_COLOUR = '#eee';
+const useStyles = (bgColour: CustomColours) =>
+  makeStyles((theme: Theme) => {
+    const WIDTH = CARD_WIDTH;
 
-  return {
-    flipCard: {
-      ...FlipCardSizing(theme),
-      position: 'relative',
-      margin: 'auto',
-      perspective: 3000,
-      transformStyle: 'preserve-3d',
-    },
-    /* This container is needed to position the front and back side */
-    flipCardInner: {
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      textAlign: 'center',
-      transition: 'transform 0.8s',
-      transformStyle: 'preserve-3d',
-      boxShadow: `grey 0px 6px 7px;`,
-      '&::after': {
-        backgroundColor: OUTLINE_COLOUR,
-        bottom: 0,
-        contain: 'content',
-        content: '""',
-        left: 0,
-        width: WIDTH,
-        transform: `translate3d(-${WIDTH - 1}px, 0px, ${WIDTH / 2}px) rotateY(-90deg)`,
-        transformOrigin: '100% 50%',
+    return {
+      flipCard: {
+        ...FlipCardSizing(theme),
+        position: 'relative',
+        margin: 'auto',
+        perspective: 3000,
+        transformStyle: 'preserve-3d',
       },
-    },
+      /* This container is needed to position the front and back side */
+      flipCardInner: {
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        transition: 'transform 0.8s',
+        transformStyle: 'preserve-3d',
+        boxShadow: `grey 0px 6px 7px;`,
+        '&::after': {
+          backgroundColor: (theme.palette[bgColour] as PaletteColor).dark,
+          bottom: 0,
+          contain: 'content',
+          content: '""',
+          left: 0,
+          width: WIDTH,
+          transform: `translate3d(-${WIDTH - 1}px, 0px, ${WIDTH / 2}px) rotateY(-90deg)`,
+          transformOrigin: '100% 50%',
+        },
+      },
 
-    flipCardRotate: {
-      transform: 'rotateY(180deg)',
-    },
+      flipCardRotate: {
+        transform: 'rotateY(180deg)',
+      },
 
-    flipCardFace: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      backfaceVisibility: 'hidden',
-      transformStyle: 'preserve-3d',
-    },
+      flipCardFace: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backfaceVisibility: 'hidden',
+        transformStyle: 'preserve-3d',
+      },
 
-    /* Style the front side (fallback if image is missing) */
-    flipCardFront: {
-      transform: `translate3d(0px, 0px, ${WIDTH / 2}px)`,
-    },
+      /* Style the front side (fallback if image is missing) */
+      flipCardFront: {
+        transform: `translate3d(0px, 0px, ${WIDTH / 2}px)`,
+      },
 
-    /* Style the back side */
-    flipCardBack: {
-      transform: `translate3d(0px, 0px, -${WIDTH / 2}px) rotateY(180deg)`,
-    },
-  };
-});
+      /* Style the back side */
+      flipCardBack: {
+        transform: `translate3d(0px, 0px, -${WIDTH / 2}px) rotateY(180deg)`,
+      },
+    };
+  })();
 
 export type FlipCardWrapperProps = {
   rotate?: boolean;
   setRotate?: () => void;
   className?: string;
+  colour?: CustomColours;
 };
 
 export const FlipCardWrapper: React.FC<FlipCardWrapperProps> = ({
   rotate = false,
   setRotate = () => null,
   className,
+  colour = 'white',
   children,
 }) => {
-  const cs = useStyles();
+  const cs = useStyles(colour);
 
   return (
     <div className={clsx(cs.flipCard, className)} onClick={() => setRotate()}>

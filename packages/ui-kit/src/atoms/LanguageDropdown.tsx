@@ -5,7 +5,7 @@ const useTabStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: 7,
     borderRadius: 8,
-    backgroundColor: '#fbfbfb',
+    backgroundColor: theme.palette.white.main,
   },
   fontSize: {
     [theme.breakpoints.down('md')]: { fontSize: '0.9em' },
@@ -34,13 +34,14 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({ setLanguage,
     setLanguage(val);
   };
 
-  React.useEffect(() => {
-    fetch('http://ip-api.com/json').then((response) => {
-      console.log("User's Location Data is ", response);
-      console.log("User's Country", response.country);
-      setValue(response.country);
-    });
-  }, [value]);
+  // TODO:
+  // React.useEffect(() => {
+  //   fetch('http://ip-api.com/json').then((response) => {
+  //     console.log("User's Location Data is ", response);
+  //     console.log("User's Country", response.country);
+  //     setValue(response.country);
+  //   });
+  // }, [value]);
 
   return (
     <div className={cs.root}>

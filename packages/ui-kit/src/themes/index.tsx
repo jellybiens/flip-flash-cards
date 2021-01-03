@@ -1,25 +1,13 @@
 import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
 
-export type CustomColours =
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'turquoise'
-  | 'cyan'
-  | 'blue'
-  | 'purple'
-  | 'violet'
-  | 'gold'
-  | 'silver'
-  | 'bronze'
-  | 'dull';
-
 export enum Hues {
+  white = '#fbfbfb',
+  black = '#131313',
   red = '#f44336',
   orange = '#ff9800',
   yellow = '#ffeb3b',
   green = '#4caf50',
+  lime = '#76ff03',
   turquoise = '#009688',
   cyan = '#00bcd4',
   blue = '#2196f3',
@@ -31,11 +19,14 @@ export enum Hues {
   dull = '#696969',
 }
 
-enum Contrast {
+export enum Contrast {
+  white = 'd',
+  black = 'l',
   red = 'l',
   orange = 'd',
   yellow = 'd',
   green = 'l',
+  lime = 'd',
   turquoise = 'l',
   cyan = 'l',
   blue = 'l',
@@ -63,10 +54,10 @@ colours.map((c) => {
 export default createMuiTheme({
   palette: {
     primary: {
-      main: '#000',
+      main: '#2196f3',
     },
     secondary: {
-      main: '#0c103d',
+      main: '#00bcd4',
     },
     ...colourDefinitions,
   },

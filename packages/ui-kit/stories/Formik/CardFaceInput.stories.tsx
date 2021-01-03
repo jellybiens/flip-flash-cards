@@ -7,27 +7,18 @@ import { Form, Formik } from 'formik';
 
 const title = 'CardFaceInput';
 
-type CardFacePropsFieldValues = {
-  text?: string;
-  imgLink?: string;
-  imgFile?: File;
-};
-
-type InitVals = {
-  frontface: CardFacePropsFieldValues;
-  backface: CardFacePropsFieldValues;
-};
-
-const initialValues: InitVals = {
+const initialValues = {
   frontface: {
     text: '',
     imgLink: '',
     imgFile: null,
+    colour: 'white',
   },
   backface: {
     text: '',
     imgLink: '',
     imgFile: null,
+    colour: 'blue',
   },
 };
 

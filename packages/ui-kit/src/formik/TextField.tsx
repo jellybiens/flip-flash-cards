@@ -1,14 +1,25 @@
 import * as React from 'react';
-import { makeStyles, TextField as MuiTextField, TextFieldProps } from '@material-ui/core';
+import {
+  makeStyles,
+  TextField as MuiTextField,
+  TextFieldProps as MuiTextFieldProps,
+  Theme,
+} from '@material-ui/core';
 import { Field } from 'formik';
 import clsx from 'clsx';
+import { CustomColours } from '@types';
+import { textFieldColours } from '../definitions/textField';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
+    ...textFieldColours(theme),
     root: {
       padding: 7,
       borderRadius: 8,
-      backgroundColor: '#fbfbfb', //theme.palette.silver.light,
+    },
+    input: {
+      width: 'fit-content',
+      margin: 'auto',
     },
     fullWidth: {
       width: 'calc(100% - 14px)',
@@ -16,14 +27,29 @@ const useStyles = makeStyles(() => {
   };
 });
 
-export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => {
+type TextFieldProps = MuiTextFieldProps & {
+  colour?: CustomColours;
+};
+
+export const TextField: React.FC<TextFieldProps> = ({ className, colour = 'white', ...props }) => {
   const cs = useStyles();
 
   const outlined = props.variant === 'outlined';
 
   if (!props.name) {
     return (
-      <div className={clsx({ [cs.root]: outlined, [cs.fullWidth]: props.fullWidth }, className)}>
+      <div
+        className={clsx(
+          {
+            [cs.root]: outlined,
+            [cs[`root-${colour}-bg`]]: outlined,
+            [cs.fullWidth]: props.fullWidth,
+          },
+          cs.input,
+          cs[`root-${colour}`],
+          className,
+        )}
+      >
         <MuiTextField {...props} />
       </div>
     );
@@ -44,7 +70,14 @@ export const TextField: React.FC<TextFieldProps> = ({ className, ...props }) => 
         };
 
         return (
-          <div className={clsx({ [cs.root]: outlined }, className)}>
+          <div
+            className={clsx(
+              { [cs.root]: outlined, [cs[`root-${colour}-bg`]]: outlined },
+              cs.input,
+              cs[`root-${colour}`],
+              className,
+            )}
+          >
             <MuiTextField
               {...props}
               {...fieldProps}

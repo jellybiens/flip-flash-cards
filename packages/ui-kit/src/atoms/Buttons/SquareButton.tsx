@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { Button, ButtonProps } from '@material-ui/core';
-import { CustomColours } from '../../themes';
+import { CustomColours } from '@types';
 import { IconNames, Icons } from '../../definitions';
 import { useStyles } from './useButtonStyles';
 

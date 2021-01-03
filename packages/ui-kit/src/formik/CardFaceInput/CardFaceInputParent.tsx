@@ -1,7 +1,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { CardFaceFieldValues } from '@types';
-import { Grid, InputAdornment, makeStyles, Theme, Typography } from '@material-ui/core';
+import { Grid, InputAdornment, makeStyles, Theme, Typography, useTheme } from '@material-ui/core';
 import { PaperCard } from '../../atoms/PaperCard';
 import { useField } from 'formik';
 import { TextField } from '../TextField';
@@ -9,6 +9,8 @@ import { CircleButton } from '../../atoms/Buttons';
 import { ImageButtonsInput } from './ImageButtonsInput';
 import { ImageDisplay } from './ImageDisplay';
 import { FlipCardFaceStyles } from '../../definitions';
+import { ColourPicker } from '../ColourPicker';
+import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export const useStyles = makeStyles((theme: Theme) => {
   const typographySizing = {
@@ -44,6 +46,12 @@ export const useStyles = makeStyles((theme: Theme) => {
       top: 0,
       left: 3,
       ...typographySizing,
+    },
+    colourPicker: {
+      position: 'absolute',
+      bottom: 3,
+      right: 2,
+      zIndex: 25,
     },
     evenSplitContainer: {
       height: '50%',
@@ -99,6 +107,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
   const [field, , helpers] = useField<CardFaceFieldValues>(name);
   const [showInput, setShowInput] = React.useState(false);
   const [imageSrcValid, setImageSrcValid] = React.useState(false);
+  const { palette } = useTheme();
 
   React.useEffect(() => {
     const tester = new Image();
@@ -116,7 +125,19 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
   };
 
   return (
-    <Grid container className={cs.cardFace} component={PaperCard}>
+    <Grid
+      container
+      className={cs.cardFace}
+      component={PaperCard}
+      style={{
+        backgroundColor: (palette[field.value.colour] as PaletteColor).main,
+        color: (palette[field.value.colour] as PaletteColor).contrastText,
+      }}
+    >
+      <div className={cs.colourPicker}>
+        <ColourPicker name={`${name}.colour`} />
+      </div>
+
       <Typography className={cs.numberText}>Card #{cardIndex + 1}</Typography>
       <Grid
         item
@@ -137,6 +158,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
             <Grid item xs={12} className={cs.imageFieldContainer}>
               <div className={cs.imageFieldWrapper}>
                 <TextField
+                  colour={field.value.colour}
                   label="&nbsp;Image Link"
                   fullWidth
                   focused
@@ -178,6 +200,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({ name, cardIndex, f
       >
         <div className={clsx(cs.bottomWrapper, cs.cardTextInputWrapper)}>
           <TextField
+            colour={field.value.colour}
             label={front ? 'Frontside Clue Text' : 'Backside Answer Text'}
             name={`${name}.text`}
             inputProps={{ className: cs.cardTextInput }}

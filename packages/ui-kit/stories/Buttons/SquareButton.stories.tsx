@@ -3,7 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from '../helpers';
 import { SquareButton, IconKeys, IconNames } from '@ui-kit';
-import { Hues, CustomColours } from '../../src/themes';
+import { Hues } from '../../src/themes';
+import { CustomColours } from '@types';
 
 const title = 'SquareButton';
 

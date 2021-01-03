@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Grid, Theme, useTheme } from '@material-ui/core';
+import { Grid, useTheme } from '@material-ui/core';
 import { Container } from '../helpers';
-import { CustomColours, Hues } from '@ui-kit';
+import { Hues } from '@ui-kit';
+import { CustomColours } from '@types';
 
 const title = 'Colours';
 

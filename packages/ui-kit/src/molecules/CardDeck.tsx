@@ -59,6 +59,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({
           rotate={rotate[deckCards[i].cardId]}
           front={deckCards[i].front}
           back={deckCards[i].back}
+          colour={deckCards[i].front.colour}
         />
       );
     } else {
@@ -68,6 +69,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({
             className={cs.removeTransitionBelow}
             index={i}
             rotate={rotate[deckCards[i].cardId]}
+            colour={deckCards[i].front.colour}
           />
         </>
       );
@@ -89,9 +91,14 @@ export const CardDeck: React.FC<CardDeckProps> = ({
             {...(!!DeckTransitionProps && DeckTransitionProps)}
           >
             {type !== 'input' ? (
-              <FlipCard rotate={rotate[cardId]} front={front} back={back} />
+              <FlipCard
+                rotate={rotate[cardId]}
+                front={front}
+                back={back}
+                colour={deckCards[i].front.colour}
+              />
             ) : (
-              <FlipCardInput index={i} rotate={rotate[cardId]} />
+              <FlipCardInput index={i} rotate={rotate[cardId]} colour={deckCards[i].front.colour} />
             )}
           </DeckTransition>
         ))}

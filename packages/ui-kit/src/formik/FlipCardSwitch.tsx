@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => {
       position: 'relative',
       margin: 'auto',
       boxShadow: `grey inset 0px 3px 3px;`,
-      backgroundColor: 'rgb(0,0,0,0)',
       [theme.breakpoints.down('xs')]: {
         height: CardPixels.xs / 8,
         width: (CardPixels.xs + WIDTH) / 2,

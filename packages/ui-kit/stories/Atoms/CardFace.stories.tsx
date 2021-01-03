@@ -18,10 +18,12 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 const frontside1 = {
+  colour: 'yellow',
   text: 'Spongebob',
   imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
 };
 const backside1 = {
+  colour: 'red',
   text: 'Squarepants',
   imgLink:
     'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',

@@ -4,6 +4,7 @@ import { Formik, Form, FormikConfig } from 'formik';
 import { uniqueId } from 'lodash';
 
 export const initialCardValues = (): FlipCardFieldValues => ({
+  // TODO: ID unique
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   cardId: uniqueId('card-'),
   front: {
@@ -11,11 +12,13 @@ export const initialCardValues = (): FlipCardFieldValues => ({
     text: uniqueId('card-'),
     imgLink: '',
     imgFile: null,
+    colour: 'white',
   },
   back: {
     text: '',
     imgLink: '',
     imgFile: null,
+    colour: 'white',
   },
 });
 

@@ -8,24 +8,29 @@ export enum CardPixels {
   xl = 600,
 }
 
-// TODO: Validation - possible logic for validation, types may not need it
-// type ForceCardFaceTextValue = {
-//   text: string;
-//   imgLink?: string;
-//   imgFile?: File;
-// };
-// type ForceCardFaceImageValue = {
-//   text?: string;
-//   imgLink: string;
-//   imgFile?: File;
-// };
-
-// export type CardFrontFieldValues = ForceCardFaceTextValue | ForceCardFaceImageValue;
+export type CustomColours =
+  | 'white'
+  | 'black'
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'lime'
+  | 'turquoise'
+  | 'cyan'
+  | 'blue'
+  | 'purple'
+  | 'violet'
+  | 'gold'
+  | 'silver'
+  | 'bronze'
+  | 'dull';
 
 export type CardFaceFieldValues = {
   text: string;
   imgLink: string;
   imgFile: File;
+  colour: CustomColours;
 };
 
 export type FlipCardFieldValues = {
@@ -37,6 +42,7 @@ export type FlipCardFieldValues = {
 export type CardFaceProps = {
   text: string;
   imgLink?: string;
+  colour?: CustomColours;
 };
 
 export type FlipCardProps = {

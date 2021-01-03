@@ -2,6 +2,8 @@ import '@material-ui/core/styles';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface PaletteOptions {
+    white?: PaletteColorOptions;
+    black?: PaletteColorOptions;
     red?: PaletteColorOptions;
     orange?: PaletteColorOptions;
     yellow?: PaletteColorOptions;
@@ -18,6 +20,8 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 
   interface Palette {
+    white?: PaletteColor;
+    black?: PaletteColor;
     red?: PaletteColor;
     orange?: PaletteColor;
     yellow?: PaletteColor;

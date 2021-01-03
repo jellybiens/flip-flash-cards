@@ -20,11 +20,13 @@ const initialCardValues: FlipCardFieldValues[] = [
       text: 'Spongebob',
       imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
       imgFile: null,
+      colour: 'white',
     },
     back: {
       text: 'Squarepants',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
   },
   {
@@ -33,11 +35,13 @@ const initialCardValues: FlipCardFieldValues[] = [
       text: '11111',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
     back: {
       text: '11111',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
   },
   {
@@ -46,11 +50,13 @@ const initialCardValues: FlipCardFieldValues[] = [
       text: '2222',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
     back: {
       text: '2222',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
   },
   {
@@ -59,11 +65,13 @@ const initialCardValues: FlipCardFieldValues[] = [
       text: '3333',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
     back: {
       text: '33333',
       imgLink: '',
       imgFile: null,
+      colour: 'white',
     },
   },
 ];
@@ -73,7 +81,6 @@ const Story = () => {
     values: { deckCards },
     helpers: FormikHelpers<{ deckCards: FlipCardFieldValues[] }>,
   ) => {
-    alert(JSON.stringify(values));
     helpers.setErrors({
       deckCards: [{ front: { text: 'Incorrect' } }, {}, { back: { text: 'Incorrect' } }],
     });

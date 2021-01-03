@@ -1,9 +1,9 @@
 import * as React from 'react';
 import clsx from 'clsx';
+import { CustomColours } from '@types';
 import { IconButton, IconButtonProps } from '@material-ui/core';
 import { IconNames, Icons } from '../../definitions';
 import { useStyles } from './useButtonStyles';
-import { CustomColours } from '../../themes';
 
 export type CircleButtonProps = Omit<IconButtonProps, 'color' | 'aria-label'> & {
   iconName: IconNames;

@@ -46,27 +46,26 @@ const useStyles = makeStyles((theme: Theme) => {
       },
     },
     'correct-answer': {
+      pointerEvents: 'none',
       boxShadow: `${theme.palette.green.dark} 3px 3px 7px, ${theme.palette.green.dark} 3px -3px 7px, ${theme.palette.green.dark} -3px 3px 7px,  ${theme.palette.green.dark} -3px -3px 7px`,
       backgroundColor: theme.palette.green.light,
-      '& input': { color: theme.palette.green.main, backgroundColor: '#fff' },
+      '& input': { color: theme.palette.green.main, backgroundColor: theme.palette.white.main },
       animation: `$correct-answer linear 0.1s`,
       transform: 'scale(1.1)',
-      '&:hover': { transform: 'scale(1.1)' },
     },
     'wrong-answer': {
+      pointerEvents: 'none',
       boxShadow: `${theme.palette.red.dark} 3px 3px 7px, ${theme.palette.red.dark} 3px -3px 7px, ${theme.palette.red.dark} -3px 3px 7px,  ${theme.palette.red.dark} -3px -3px 7px`,
       backgroundColor: theme.palette.red.light,
-      '& input': { color: theme.palette.red.main, backgroundColor: '#fff' },
+      '& input': { color: theme.palette.red.main, backgroundColor: theme.palette.white.main },
       animation: `$wrong-answer linear 0.1s`,
       transform: 'scale(0.9)',
-      '&:hover': { transform: 'scale(0.9)' },
     },
     'dull-option': {
+      pointerEvents: 'none',
       animation: `$wrong-answer linear 0.1s`,
       backgroundColor: theme.palette.dull.light,
-
       transform: 'scale(0.9)',
-      '&:hover': { transform: 'scale(0.9)' },
     },
 
     '@keyframes correct-answer': {
