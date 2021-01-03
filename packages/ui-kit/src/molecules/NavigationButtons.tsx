@@ -97,7 +97,12 @@ export const NavigationButtons: React.FC<LoopingDeckNavigationButtonsProps> = ({
     <Grid container className={cs.buttonsContainer}>
       <Grid item xs={4} sm={5} className={cs.gridItem}>
         <div className={cs.buttonWrapper}>
-          <ResponsiveButton fullWidth startIcon="prev" colour="green" onClick={gotoPreviousCard}>
+          <ResponsiveButton
+            fullWidth
+            startIcon="prev"
+            colour="green"
+            onClick={gotoPreviousCard}
+          >
             Previous
           </ResponsiveButton>
         </div>
@@ -115,7 +120,12 @@ export const NavigationButtons: React.FC<LoopingDeckNavigationButtonsProps> = ({
       </Grid>
       <Grid item xs={4} sm={5} className={cs.gridItem}>
         <div className={cs.buttonWrapper}>
-          <ResponsiveButton fullWidth endIcon="next" colour="green" onClick={gotoNextCard}>
+          <ResponsiveButton
+            fullWidth
+            endIcon="next"
+            colour="green"
+            onClick={gotoNextCard}
+          >
             Next
           </ResponsiveButton>
         </div>

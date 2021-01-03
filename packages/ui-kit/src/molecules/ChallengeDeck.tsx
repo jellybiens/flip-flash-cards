@@ -3,7 +3,10 @@ import { CardDeck } from './CardDeck';
 import { CardAction } from '../definitions/cardDeck';
 import { FlipCardProps } from '@types';
 import { Grid } from '@material-ui/core';
-import { ChallengeDeckInput, MultipleChoiceAnswerButtons } from './MultipleChoiceAnswerButtons';
+import {
+  ChallengeDeckInput,
+  MultipleChoiceAnswerButtons,
+} from './MultipleChoiceAnswerButtons';
 
 type ChallengeDeckProps = {
   deckCards: FlipCardProps[];
@@ -59,7 +62,10 @@ export const ChallengeDeck: React.FC<ChallengeDeckProps> = ({
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <CardDeck type="challenge" {...{ deckCards, topCardIndex, topCardId, rotate, action }} />
+        <CardDeck
+          type="challenge"
+          {...{ deckCards, topCardIndex, topCardId, rotate, action }}
+        />
       </Grid>
 
       {difficulty === 'hard' && (

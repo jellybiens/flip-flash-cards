@@ -76,12 +76,15 @@ export const CardDeck: React.FC<CardDeckProps> = ({
     }
   })();
 
-  const DeckTransition = type === 'challenge' ? LinearDeckTransition : LoopingDeckTransition;
+  const DeckTransition =
+    type === 'challenge' ? LinearDeckTransition : LoopingDeckTransition;
 
   return (
     <div className={cs.deckWrapper}>
       <div className={cs.deckContainer}>
-        {type !== 'challenge' && <div className={cs.nextCardContainer}>{cardBehindTop}</div>}
+        {type !== 'challenge' && (
+          <div className={cs.nextCardContainer}>{cardBehindTop}</div>
+        )}
         {deckCards.map(({ cardId, front, back }, i) => (
           <DeckTransition
             key={cardId}
@@ -98,7 +101,11 @@ export const CardDeck: React.FC<CardDeckProps> = ({
                 colour={deckCards[i].front.colour}
               />
             ) : (
-              <FlipCardInput index={i} rotate={rotate[cardId]} colour={deckCards[i].front.colour} />
+              <FlipCardInput
+                index={i}
+                rotate={rotate[cardId]}
+                colour={deckCards[i].front.colour}
+              />
             )}
           </DeckTransition>
         ))}

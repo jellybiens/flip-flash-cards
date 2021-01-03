@@ -8,6 +8,7 @@ declare module '@material-ui/core/styles/createPalette' {
     orange?: PaletteColorOptions;
     yellow?: PaletteColorOptions;
     green?: PaletteColorOptions;
+    lime?: PaletteColorOptions;
     turquoise?: PaletteColorOptions;
     cyan?: PaletteColorOptions;
     blue?: PaletteColorOptions;
@@ -26,6 +27,7 @@ declare module '@material-ui/core/styles/createPalette' {
     orange?: PaletteColor;
     yellow?: PaletteColor;
     green?: PaletteColor;
+    lime?: PaletteColor;
     turquoise?: PaletteColor;
     cyan?: PaletteColor;
     blue?: PaletteColor;

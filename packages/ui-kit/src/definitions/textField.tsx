@@ -1,5 +1,4 @@
 import { darken, lighten, Theme } from '@material-ui/core';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 import { CustomColours } from '@types';
 import { Contrast } from '../themes';
@@ -19,10 +18,12 @@ export enum ErrorColours {
   violet = '#00bcd4',
 }
 
-export const textFieldColours = (theme: Theme): { [key: string]: CreateCSSProperties } => {
+export const textFieldColours = (
+  theme: Theme,
+): { [key: string]: CreateCSSProperties } => {
   const colours = {};
   Object.keys(ErrorColours).map((k: CustomColours) => {
-    const colour = theme.palette[k] as PaletteColor;
+    const colour = theme.palette[k];
 
     const dark = Contrast[k] === 'l';
     const contrastText = colour.contrastText;

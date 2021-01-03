@@ -12,6 +12,22 @@ const useStyles = makeStyles((theme: Theme) => {
     -1px -1px ${(theme.palette[colour] as PaletteColor).dark}
   `;
 
+  const gold1 = `
+          ${textDarkShadow('gold')},
+          0px 0px 0px ${theme.palette.gold.light},
+          0px 0px 0px ${theme.palette.gold.light},
+          0px 0px 0px ${theme.palette.gold.light},
+          0px 0px 0px ${theme.palette.gold.light}
+        `;
+
+  const gold2 = `
+        ${textDarkShadow('gold')},
+        2px 2px 5px ${theme.palette.gold.light}, 
+        -2px 2px 5px ${theme.palette.gold.light}, 
+        2px -2px 5px ${theme.palette.gold.light}, 
+        -2px -2px 5px ${theme.palette.gold.light}
+      `;
+
   return {
     root: {
       display: 'flex',
@@ -56,13 +72,7 @@ const useStyles = makeStyles((theme: Theme) => {
       color: theme.palette.gold.main,
       transition: 'unset',
       animation: `$best-score ease 1.2s`,
-      textShadow: `
-        ${textDarkShadow('gold')},
-        2px 2px 5px ${theme.palette.gold.light}, 
-        -2px 2px 5px ${theme.palette.gold.light}, 
-        2px -2px 5px ${theme.palette.gold.light}, 
-        -2px -2px 5px ${theme.palette.gold.light}
-      `,
+      textShadow: gold2,
     },
     topScore: {
       animation: `$top-score ease 1.2s`,
@@ -81,73 +91,31 @@ const useStyles = makeStyles((theme: Theme) => {
     '@keyframes best-score': {
       '0%': {
         transform: 'scale(1)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light}
-        `,
+        textShadow: gold1,
       },
       '11.66%': {
         transform: 'scale(1.5)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          2px 2px 5px ${theme.palette.gold.light}, 
-          -2px 2px 5px ${theme.palette.gold.light}, 
-          2px -2px 5px ${theme.palette.gold.light}, 
-          -2px -2px 5px ${theme.palette.gold.light}
-        `,
+        textShadow: gold2,
       },
       '33.33%': {
         transform: 'scale(1)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light}
-        `,
+        textShadow: gold1,
       },
       '45%': {
         transform: 'scale(1.5)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          2px 2px 5px ${theme.palette.gold.light}, 
-          -2px 2px 5px ${theme.palette.gold.light}, 
-          2px -2px 5px ${theme.palette.gold.light}, 
-          -2px -2px 5px ${theme.palette.gold.light}
-        `,
+        textShadow: gold2,
       },
       '66.66%': {
         transform: 'scale(1)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light},
-          0px 0px 0px ${theme.palette.gold.light}
-        `,
+        textShadow: gold1,
       },
       '78.33%': {
         transform: 'scale(1.5)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          2px 2px 5px ${theme.palette.gold.light}, 
-          -2px 2px 5px ${theme.palette.gold.light}, 
-          2px -2px 5px ${theme.palette.gold.light}, 
-          -2px -2px 5px ${theme.palette.gold.light}
-        `,
+        textShadow: gold2,
       },
       '100%': {
         transform: 'scale(1)',
-        textShadow: `
-          ${textDarkShadow('gold')},
-          2px 2px 5px ${theme.palette.gold.light}, 
-          -2px 2px 5px ${theme.palette.gold.light}, 
-          2px -2px 5px ${theme.palette.gold.light}, 
-          -2px -2px 5px ${theme.palette.gold.light}
-        `,
+        textShadow: gold2,
       },
     },
 

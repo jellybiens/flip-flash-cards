@@ -2,8 +2,9 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid } from '@material-ui/core';
 import { Container } from '../helpers';
-import { CardFaceInput, FlipCardWrapper } from '@ui-kit';
+import { CardFaceInput, FlipCardWrapper, Hues } from '@ui-kit';
 import { Form, Formik } from 'formik';
+import { CustomColours } from '@types';
 
 const title = 'CardFaceInput';
 
@@ -22,22 +23,32 @@ const initialValues = {
   },
 };
 
+const colours = Object.keys(Hues).map((k: unknown) => k as CustomColours);
+
+colours.map((c) => {
+  initialValues[`frontface-${c}`] = {
+    text: '',
+    imgLink: '',
+    imgFile: null,
+    colour: c,
+  };
+});
+
 const Story = () => {
   return (
     <Container title={title}>
       <Formik initialValues={initialValues} onSubmit={() => Promise.resolve(false)}>
-        {({ handleSubmit, values }) => (
+        {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
-              <Grid item xs={12} sm={6}>
-                <FlipCardWrapper>
-                  <CardFaceInput cardIndex={0} name="frontface" front />
-                  <CardFaceInput cardIndex={0} name="backface" back />
-                </FlipCardWrapper>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <code>{JSON.stringify(values)}</code>
-              </Grid>
+              {colours.map((c) => (
+                <Grid item xs={6}>
+                  <FlipCardWrapper>
+                    <CardFaceInput cardIndex={0} name={`frontface-${c}`} front />
+                    <CardFaceInput cardIndex={0} name="backface" back />
+                  </FlipCardWrapper>
+                </Grid>
+              ))}
             </Grid>
           </Form>
         )}

@@ -1,12 +1,13 @@
 import * as React from 'react';
+import clsx from 'clsx';
 import { CardFaceProps } from '@types';
-import { makeStyles, Theme, Grid, Typography, useTheme } from '@material-ui/core';
+import { makeStyles, Theme, Grid, Typography } from '@material-ui/core';
 import { PaperCard } from './PaperCard';
-import { FlipCardFaceStyles } from '../definitions';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
+import { FlipCardColours, FlipCardFaceStyles } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    ...FlipCardColours(theme),
     ...FlipCardFaceStyles,
     typography: {
       [theme.breakpoints.only('xs')]: { ...theme.typography.h5 },
@@ -17,20 +18,18 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-export const CardFace: React.FC<CardFaceProps> = ({ text, imgLink, colour = 'white' }) => {
-  const cs = useStyles();
-  const { palette } = useTheme();
-  const paletteColour = palette[colour] as PaletteColor;
+export const CardFace: React.FC<CardFaceProps> = ({
+  text,
+  imgLink,
+  colour = 'white',
+}) => {
+  const cs = useStyles(colour);
 
   return (
     <Grid
       container
-      className={cs.cardFace}
+      className={clsx(cs[`${colour}Card`], cs.cardFace)}
       component={PaperCard}
-      style={{
-        backgroundColor: paletteColour.main,
-        color: paletteColour.contrastText,
-      }}
     >
       {imgLink && (
         <Grid item xs={12} className={text ? cs.imageArea : cs.fullFace}>

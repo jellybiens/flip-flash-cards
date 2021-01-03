@@ -32,7 +32,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, setOpen })
   const MyDecks = Icons.myDecks;
   const CreateDeck = Icons.create;
 
-  const Legal = Icons.law;
+  // const Legal = Icons.law;
   const Info = Icons.info;
   const ClearData = Icons.deleteAll;
 

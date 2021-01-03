@@ -79,7 +79,10 @@ export const FlipCardInputArray: React.FC = () => {
       {(arrayHelpers) => (
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <CardDeck type="input" {...{ deckCards, topCardIndex, topCardId, rotate, action }} />
+            <CardDeck
+              type="input"
+              {...{ deckCards, topCardIndex, topCardId, rotate, action }}
+            />
           </Grid>
           <Grid item xs={12} className={cs.buttonsWrapper}>
             <NavigationButtons

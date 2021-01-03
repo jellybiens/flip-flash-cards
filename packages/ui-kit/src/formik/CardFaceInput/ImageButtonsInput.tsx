@@ -55,8 +55,13 @@ export const ImageButtonsInput: React.FC<ImageButtonsInputProps> = ({
       <Grid item xs={6}>
         <div className={cs.buttonContainer}>
           <div className={cs.buttonWrapper}>
-            <SquareButton fullWidth startIcon="addImage" colour="green" onClick={handleShowInput}>
-              Paste Image Link
+            <SquareButton
+              fullWidth
+              startIcon="addImage"
+              colour={field.value.colour === 'green' ? 'purple' : 'green'}
+              onClick={handleShowInput}
+            >
+              Paste Image
             </SquareButton>
           </div>
         </div>
@@ -81,7 +86,7 @@ export const ImageButtonsInput: React.FC<ImageButtonsInputProps> = ({
             <SquareButton
               fullWidth
               startIcon="save"
-              colour="cyan"
+              colour={field.value.colour === 'cyan' ? 'purple' : 'cyan'}
               onClick={() => uploadInput.current.click()}
             >
               Upload Image

@@ -47,9 +47,12 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     'correct-answer': {
       pointerEvents: 'none',
-      boxShadow: `${theme.palette.green.dark} 3px 3px 7px, ${theme.palette.green.dark} 3px -3px 7px, ${theme.palette.green.dark} -3px 3px 7px,  ${theme.palette.green.dark} -3px -3px 7px`,
-      backgroundColor: theme.palette.green.light,
-      '& input': { color: theme.palette.green.main, backgroundColor: theme.palette.white.main },
+      boxShadow: `${theme.palette.lime.dark} 3px 3px 7px, ${theme.palette.lime.dark} 3px -3px 7px, ${theme.palette.lime.dark} -3px 3px 7px,  ${theme.palette.lime.dark} -3px -3px 7px`,
+      backgroundColor: theme.palette.lime.light,
+      '& input': {
+        color: theme.palette.lime.main,
+        backgroundColor: theme.palette.white.main,
+      },
       animation: `$correct-answer linear 0.1s`,
       transform: 'scale(1.1)',
     },
@@ -57,7 +60,10 @@ const useStyles = makeStyles((theme: Theme) => {
       pointerEvents: 'none',
       boxShadow: `${theme.palette.red.dark} 3px 3px 7px, ${theme.palette.red.dark} 3px -3px 7px, ${theme.palette.red.dark} -3px 3px 7px,  ${theme.palette.red.dark} -3px -3px 7px`,
       backgroundColor: theme.palette.red.light,
-      '& input': { color: theme.palette.red.main, backgroundColor: theme.palette.white.main },
+      '& input': {
+        color: theme.palette.red.main,
+        backgroundColor: theme.palette.white.main,
+      },
       animation: `$wrong-answer linear 0.1s`,
       transform: 'scale(0.9)',
     },
@@ -88,7 +94,7 @@ type MultipleChoiceAnswerButtonsProps = {
 };
 
 enum ResponseColours {
-  'correct-answer' = 'green',
+  'correct-answer' = 'lime',
   'wrong-answer' = 'red',
   'dull-option' = 'dull',
   'default' = 'cyan',
@@ -101,10 +107,14 @@ export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsPr
 }) => {
   const cs = useStyles();
 
-  const defaultAnimationClasses: [string, string, string] = ['default', 'default', 'default'];
-  const [animationClasses, setAnimationClasses] = React.useState<[string, string, string]>(
-    defaultAnimationClasses,
-  );
+  const defaultAnimationClasses: [string, string, string] = [
+    'default',
+    'default',
+    'default',
+  ];
+  const [animationClasses, setAnimationClasses] = React.useState<
+    [string, string, string]
+  >(defaultAnimationClasses);
   const [animatingResponse, setAnimatingResponse] = React.useState(false);
 
   const [correctAnswer, setCorrectAnswer] = React.useState('');
@@ -150,7 +160,10 @@ export const MultipleChoiceAnswerButtons: React.FC<MultipleChoiceAnswerButtonsPr
           else animate[i] = 'dull-option';
         });
       }
-      setTimeout(() => setAnimationClasses([...animate] as [string, string, string]), 400);
+      setTimeout(
+        () => setAnimationClasses([...animate] as [string, string, string]),
+        400,
+      );
       setTimeout(() => setAnimationClasses(defaultAnimationClasses), 1500);
       setTimeout(() => setAnimatingResponse(false), 1500);
     }

@@ -57,3 +57,69 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
   faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
   fullFace: { height: '100%', width: '100%', padding: '5%', display: 'flex' },
 };
+
+type FlipCardFaceColourProps = {
+  whiteCard: CreateCSSProperties;
+  blackCard: CreateCSSProperties;
+  redCard: CreateCSSProperties;
+  orangeCard: CreateCSSProperties;
+  yellowCard: CreateCSSProperties;
+  greenCard: CreateCSSProperties;
+  limeCard: CreateCSSProperties;
+  turquoiseCard: CreateCSSProperties;
+  cyanCard: CreateCSSProperties;
+  blueCard: CreateCSSProperties;
+  purpleCard: CreateCSSProperties;
+  violetCard: CreateCSSProperties;
+};
+
+export const FlipCardColours = (theme: Theme): FlipCardFaceColourProps => ({
+  whiteCard: {
+    backgroundColor: theme.palette.white.main,
+    color: theme.palette.white.contrastText,
+  },
+  blackCard: {
+    backgroundColor: theme.palette.black.main,
+    color: theme.palette.black.contrastText,
+  },
+  redCard: {
+    backgroundColor: theme.palette.red.main,
+    color: theme.palette.red.contrastText,
+  },
+  orangeCard: {
+    backgroundColor: theme.palette.orange.main,
+    color: theme.palette.orange.contrastText,
+  },
+  yellowCard: {
+    backgroundColor: theme.palette.yellow.main,
+    color: theme.palette.yellow.contrastText,
+  },
+  greenCard: {
+    backgroundColor: theme.palette.green.main,
+    color: theme.palette.green.contrastText,
+  },
+  limeCard: {
+    backgroundColor: theme.palette.lime.main,
+    color: theme.palette.lime.contrastText,
+  },
+  turquoiseCard: {
+    backgroundColor: theme.palette.turquoise.main,
+    color: theme.palette.turquoise.contrastText,
+  },
+  cyanCard: {
+    backgroundColor: theme.palette.cyan.main,
+    color: theme.palette.cyan.contrastText,
+  },
+  blueCard: {
+    backgroundColor: theme.palette.blue.main,
+    color: theme.palette.blue.contrastText,
+  },
+  purpleCard: {
+    backgroundColor: theme.palette.purple.main,
+    color: theme.palette.purple.contrastText,
+  },
+  violetCard: {
+    backgroundColor: theme.palette.violet.main,
+    color: theme.palette.violet.contrastText,
+  },
+});

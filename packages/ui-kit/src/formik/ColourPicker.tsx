@@ -111,7 +111,7 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({ name }) => {
                       handleClose();
                     }}
                     className={cs.colourButton}
-                    style={{ backgroundColor: (palette[c] as PaletteColor).main }}
+                    style={{ backgroundColor: palette[c].main }}
                   />
                 </Grid>
               );
