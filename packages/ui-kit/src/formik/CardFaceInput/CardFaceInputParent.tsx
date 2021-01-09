@@ -19,17 +19,8 @@ export const useStyles = makeStyles((theme: Theme) => {
       ...theme.typography.body2,
       fontSize: '0.6rem',
     },
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.only('sm')]: {
       ...theme.typography.body2,
-    },
-    [theme.breakpoints.up('md')]: {
-      ...theme.typography.body2,
-    },
-    [theme.breakpoints.up('lg')]: {
-      ...theme.typography.body1,
-    },
-    [theme.breakpoints.only('xl')]: {
-      ...theme.typography.h6,
     },
   };
 
@@ -126,7 +117,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
         <ColourPicker name={`${name}.colour`} />
       </div>
 
-      <Typography className={cs.numberText}>Card #{cardIndex + 1}</Typography>
+      <Typography variant="subtitle1" className={cs.numberText}>
+        Card #{cardIndex + 1}
+      </Typography>
       <Grid
         item
         xs={12}
@@ -137,7 +130,10 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
       >
         <Grid
           container
-          style={{ border: !imageSrcValid && 'unset' }}
+          style={{
+            border: !imageSrcValid && 'unset',
+            backgroundColor: !imageSrcValid && 'unset',
+          }}
           className={cs.imageContainer}
         >
           {showButtons && (

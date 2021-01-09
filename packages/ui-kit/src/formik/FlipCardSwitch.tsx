@@ -8,7 +8,7 @@ import { CardFace } from '../atoms/CardFace';
 const useStyles = makeStyles((theme: Theme) => {
   return {
     backInset: {
-      borderStyle: 'groove inset',
+      borderStyle: 'solid',
       position: 'relative',
       margin: 'auto',
       boxShadow: `grey inset 0px 3px 3px;`,

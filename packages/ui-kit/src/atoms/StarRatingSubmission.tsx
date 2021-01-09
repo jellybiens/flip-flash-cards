@@ -30,7 +30,7 @@ export const StarRatingSubmission: React.FC<StarRatingSubmissionProps> = ({
       name="rating"
       className={cs.root}
       value={value}
-      onChange={(event, newValue) => {
+      onChange={(_, newValue) => {
         setValue(newValue);
         handleSubmitRating(newValue);
       }}

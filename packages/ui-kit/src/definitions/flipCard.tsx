@@ -30,6 +30,7 @@ type FlipCardFaceStyleProps = {
   bottomContainer: CreateCSSProperties;
   bottomWrapper: CreateCSSProperties;
   imageArea: CreateCSSProperties;
+  imageInputContainer: CreateCSSProperties;
   imageContainer: CreateCSSProperties;
   faceImage: CreateCSSProperties;
   fullFace: CreateCSSProperties;
@@ -44,15 +45,27 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
   },
   bottomContainer: { height: '20%', width: '100%', display: 'flex' },
   bottomWrapper: { margin: 'auto', height: 'auto', width: 'auto' },
-  imageArea: { height: '80%', width: '100%', padding: '5% 5% 0 5%' },
-  imageContainer: {
+  imageArea: {
+    height: '80%',
+    width: '100%',
+    padding: '5% 5% 0 5%',
+    borderColor: 'inherit',
+  },
+  imageInputContainer: {
     position: 'relative',
     height: '100%',
     width: '100%',
     overflow: 'hidden',
+  },
+  imageContainer: {
+    position: 'relative',
+    height: 'calc(100% - 4px)',
+    width: '100%',
+    overflow: 'hidden',
     borderRadius: 10,
-    borderStyle: 'groove inset',
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderStyle: 'solid',
+    borderColor: 'inherit',
+    backgroundColor: '#eee',
   },
   faceImage: { objectFit: 'cover', height: '100%', width: '100%' },
   fullFace: { height: '100%', width: '100%', padding: '5%', display: 'flex' },
@@ -77,14 +90,20 @@ export const FlipCardColours = (theme: Theme): FlipCardFaceColourProps => ({
   whiteCard: {
     backgroundColor: theme.palette.white.main,
     color: theme.palette.white.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.white.dark,
   },
   blackCard: {
     backgroundColor: theme.palette.black.main,
     color: theme.palette.black.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.black.dark,
   },
   redCard: {
     backgroundColor: theme.palette.red.main,
     color: theme.palette.red.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.red.dark,
   },
   orangeCard: {
     backgroundColor: theme.palette.orange.main,
@@ -93,33 +112,49 @@ export const FlipCardColours = (theme: Theme): FlipCardFaceColourProps => ({
   yellowCard: {
     backgroundColor: theme.palette.yellow.main,
     color: theme.palette.yellow.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.orange.dark,
   },
   greenCard: {
     backgroundColor: theme.palette.green.main,
     color: theme.palette.green.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.green.dark,
   },
   limeCard: {
     backgroundColor: theme.palette.lime.main,
     color: theme.palette.lime.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.lime.dark,
   },
   turquoiseCard: {
     backgroundColor: theme.palette.turquoise.main,
     color: theme.palette.turquoise.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.turquoise.dark,
   },
   cyanCard: {
     backgroundColor: theme.palette.cyan.main,
     color: theme.palette.cyan.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.cyan.dark,
   },
   blueCard: {
     backgroundColor: theme.palette.blue.main,
     color: theme.palette.blue.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.blue.dark,
   },
   purpleCard: {
     backgroundColor: theme.palette.purple.main,
     color: theme.palette.purple.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.purple.dark,
   },
   violetCard: {
     backgroundColor: theme.palette.violet.main,
     color: theme.palette.violet.contrastText,
+    borderStyle: 'none',
+    borderColor: theme.palette.violet.dark,
   },
 });

@@ -1,4 +1,5 @@
 import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
+import { PumpkinCheesecake } from './fonts/oliverFont';
 
 export enum Hues {
   white = '#fbfbfb',
@@ -52,6 +53,16 @@ colours.map((c) => {
 });
 
 export default createMuiTheme({
+  typography: {
+    fontFamily: ['PumpkinCheesecake'].join(', '),
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [PumpkinCheesecake],
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#2196f3',

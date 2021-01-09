@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { makeStyles, Grid, Theme } from '@material-ui/core';
 import { FlipCardSizing } from '../definitions';
 import { CustomColours } from '@types';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 export const CARD_WIDTH = 16;
 
@@ -29,7 +28,7 @@ const useStyles = (bgColour: CustomColours) =>
         transformStyle: 'preserve-3d',
         boxShadow: `grey 0px 6px 7px;`,
         '&::after': {
-          backgroundColor: (theme.palette[bgColour] as PaletteColor).dark,
+          backgroundColor: theme.palette[bgColour].dark,
           bottom: 0,
           contain: 'content',
           content: '""',

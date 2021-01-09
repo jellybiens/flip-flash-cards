@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from '../helpers';
 import { CardFaceButton, FlipCardSizing } from '@ui-kit';
+import { CardFaceProps } from '@types';
 
 const title = 'CardFaceButton';
 
@@ -17,11 +18,13 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-const frontside1 = {
+const frontside1: CardFaceProps = {
   text: 'Spongebob',
   imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
+  colour: 'red',
 };
-const backside1 = {
+const backside1: CardFaceProps = {
+  colour: 'cyan',
   text: 'Spongebob',
   imgLink:
     'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',

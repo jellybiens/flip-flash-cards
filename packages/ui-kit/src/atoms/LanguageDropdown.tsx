@@ -24,7 +24,10 @@ type LanguageDropdownProps = {
   defaultLang: Languages;
 };
 
-export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({ setLanguage, defaultLang }) => {
+export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
+  setLanguage,
+  defaultLang,
+}) => {
   const cs = useTabStyles();
   const [value, setValue] = React.useState<Languages>(defaultLang);
 
@@ -56,7 +59,7 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({ setLanguage,
         <MenuItem value="es">🇪🇸 Español</MenuItem>
         <MenuItem value="fr">🇫🇷 Français</MenuItem>
         <MenuItem value="pt">🇵🇹 Português</MenuItem>
-        <MenuItem value="de">🇩🇪 Deutsche</MenuItem>
+        <MenuItem value="de">🇩🇪 Deutsch</MenuItem>
         <MenuItem value="ru">🇷🇺 Русский язык</MenuItem>
         <MenuItem value="pl">🇵🇱 Polski</MenuItem>
         <MenuItem value="ja">🇯🇵 日本語</MenuItem>

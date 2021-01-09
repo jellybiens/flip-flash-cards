@@ -1,15 +1,15 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { makeStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
+import { Typography } from './Typography';
 import { CustomColours } from '@types';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
 
 const useStyles = makeStyles((theme: Theme) => {
   const textDarkShadow = (colour: CustomColours) => `
-    1px 1px ${(theme.palette[colour] as PaletteColor).dark},
-    -1px 1px ${(theme.palette[colour] as PaletteColor).dark},
-    1px -1px ${(theme.palette[colour] as PaletteColor).dark},
-    -1px -1px ${(theme.palette[colour] as PaletteColor).dark}
+    1px 1px ${theme.palette[colour].dark},
+    -1px 1px ${theme.palette[colour].dark},
+    1px -1px ${theme.palette[colour].dark},
+    -1px -1px ${theme.palette[colour].dark}
   `;
 
   const gold1 = `
@@ -43,10 +43,6 @@ const useStyles = makeStyles((theme: Theme) => {
       height: 'auto',
       width: 'fit-content',
       transition: 'color linear 0.3s',
-      [theme.breakpoints.only('xs')]: { ...theme.typography.h5 },
-      [theme.breakpoints.only('sm')]: { ...theme.typography.h4 },
-      [theme.breakpoints.up('md')]: { ...theme.typography.h3 },
-      [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
     },
     darkRed: {
       color: theme.palette.red.dark,
@@ -186,6 +182,7 @@ export const Score: React.FC<ScoreProps> = ({ score, max }) => {
     <div className={cs.root}>
       <div className={cs.scoreWrapper}>
         <Typography
+          variant="h4"
           className={clsx(cs.typography, cs[textColour], {
             [cs.badScore]: count === percent && percent < 25,
             [cs.topScore]: count === percent && percent > 85 && percent < 100,

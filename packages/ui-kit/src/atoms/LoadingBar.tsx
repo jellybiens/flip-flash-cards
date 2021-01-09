@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { makeStyles, Theme, LinearProgress, Typography } from '@material-ui/core';
+import { makeStyles, Theme, LinearProgress } from '@material-ui/core';
+import { Typography } from './Typography';
 import { FlipCardSizing } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -37,7 +38,9 @@ export const LoadingBar: React.FC<LoadingBarProps> = ({ handleLoaded }) => {
 
   const [progress, setProgress] = React.useState(0);
   const [progressText, setProgressText] = React.useState(0);
-  const [tickLength, setTickLength] = React.useState(Math.round(Math.random() * 750) - 375);
+  const [tickLength, setTickLength] = React.useState(
+    Math.round(Math.random() * 750) - 375,
+  );
 
   React.useEffect(() => {
     if (progress % 10 === 0) {
@@ -60,9 +63,10 @@ export const LoadingBar: React.FC<LoadingBarProps> = ({ handleLoaded }) => {
           <LinearProgress variant="determinate" value={progress} />
         </div>
         <div className={cs.wrapperText}>
-          <Typography variant="body2">{`${progressText}%`.padStart(4, '  ')}</Typography>
+          <Typography variant="h6">{`${progressText}%`.padStart(4, '  ')}</Typography>
         </div>
       </div>
     </div>
   );
 };
+//TODO: fix lg and xl typog possitioning

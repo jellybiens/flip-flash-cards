@@ -50,3 +50,14 @@ export type FlipCardProps = {
   front: CardFaceProps;
   back: CardFaceProps;
 };
+
+export type DeckOverviewProps = {
+  deckId: string;
+  title: string;
+  imgLink: string;
+  colour: CustomColours;
+  cards: FlipCardProps[];
+  subject: string;
+  score: number;
+  votes: number;
+};

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { makeStyles, Theme, Typography, ButtonBase } from '@material-ui/core';
+import { makeStyles, Theme, ButtonBase } from '@material-ui/core';
+import { Typography } from './Typography';
 
 const useTabStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -8,12 +9,6 @@ const useTabStyles = makeStyles((theme: Theme) => ({
     position: 'static',
     top: 0,
     left: 0,
-  },
-  typography: {
-    [theme.breakpoints.only('xs')]: { ...theme.typography.body2 },
-    [theme.breakpoints.only('sm')]: { ...theme.typography.body1 },
-    [theme.breakpoints.up('md')]: { ...theme.typography.h3 },
-    [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
   },
   tabActive: {
     paddingBottom: 5,
@@ -49,7 +44,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, visibleTab: vt, setVisibleTab 
           style={{ width: `${100 / tabs.length}%` }}
           onClick={() => setVisibleTab(i)}
         >
-          <Typography className={cs.typography}>{v}</Typography>
+          <Typography variant="h5">{v}</Typography>
         </ButtonBase>
       ))}
     </div>

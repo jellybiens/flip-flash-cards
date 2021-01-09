@@ -1,49 +1,48 @@
 import * as React from 'react';
-import { makeStyles, Theme, Dialog as MuiDialog } from '@material-ui/core';
+import { fade, makeStyles, Theme } from '@material-ui/core';
 import { PaperCard } from './PaperCard';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
-    root: {
-      overflow: 'hidden',
+    backing: {
+      zIndex: 10000,
+      position: 'fixed',
+      right: 0,
+      top: 0,
+      backgroundColor: fade(theme.palette.dull.dark, 0.5),
+      height: '100vh',
+      width: '100vw',
     },
     body: {
-      height: 'calc(80vh - 4px)',
-      width: 'calc(80vw - 4px)',
-      overflow: 'hidden',
-      borderRadius: 5,
-      borderStyle: 'groove inset',
-      borderWidth: 2,
-      borderColor: theme.palette.dull.light,
+      animation: '$remove ease 0.5s',
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      height: '80vh',
+      width: '80vw',
     },
-    override: { maxHeight: 'unset', maxWidth: 'unset' },
+
+    '@keyframes remove': {
+      '0%': { opacity: 0, transform: 'translate(-50%, -30%)' },
+      '100%': { opacity: 1, transform: 'translate(-50%, -50%)' },
+    },
   };
 });
 
-type ModalProps = {
+export type ModalProps = {
   open: boolean;
   onClose?: () => void;
 };
 
-export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ open, children }) => {
   const cs = useStyles();
 
+  if (!open) return <></>;
+
   return (
-    <MuiDialog
-      className={cs.root}
-      classes={{
-        paperWidthXs: cs.override,
-        paperWidthSm: cs.override,
-        paperWidthMd: cs.override,
-        paperWidthLg: cs.override,
-        paperWidthXl: cs.override,
-      }}
-      open={open}
-      onClose={onClose}
-      disableEscapeKeyDown
-      disableBackdropClick
-    >
-      <PaperCard className={cs.body}>{children}</PaperCard>
-    </MuiDialog>
+    <div className={cs.backing}>
+      <div className={cs.body}>{children}</div>
+    </div>
   );
 };

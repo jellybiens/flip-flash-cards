@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Drawer, ListItem, ListItemIcon, ListItemText, makeStyles, Theme } from '@material-ui/core';
+import {
+  Drawer,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  Theme,
+} from '@material-ui/core';
 import { Icons } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {

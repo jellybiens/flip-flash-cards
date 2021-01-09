@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, TypographyVariant } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
+import { Typography } from './Typography';
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles(() => {
   return {
     root: {
       height: 'auto',
@@ -12,23 +13,9 @@ const useStyles = makeStyles((theme: Theme) => {
     stars: {
       margin: 'auto',
     },
-    small: {
+    votes: {
       height: 'min-content',
       margin: 'auto',
-      ...theme.typography.body2,
-      fontSize: '0.5em',
-    },
-    medium: {
-      height: 'min-content',
-      margin: 'auto',
-      ...theme.typography.body2,
-      fontSize: '0.7em',
-    },
-    large: {
-      height: 'min-content',
-      margin: 'auto',
-      ...theme.typography.body2,
-      fontSize: '0.9em',
     },
   };
 });
@@ -46,10 +33,22 @@ export const StarRatingTotal: React.FC<StarRatingTotalProps> = ({
 }) => {
   const cs = useStyles();
 
+  const variant: TypographyVariant =
+    size === 'small' ? 'caption' : size === 'medium' ? 'body2' : 'body1';
+
   return (
     <div className={cs.root}>
-      <Rating className={cs.stars} value={avgRating} readOnly precision={0.5} size={size} />
-      <div className={cs[size]}>({totalVotes})</div>
+      <Rating
+        className={cs.stars}
+        value={avgRating}
+        readOnly
+        precision={0.5}
+        size={size}
+      />
+      <Typography variant={variant} className={cs.votes}>
+        ({totalVotes})
+      </Typography>
     </div>
   );
 };
+//TODO: font sizes need to be smaller per

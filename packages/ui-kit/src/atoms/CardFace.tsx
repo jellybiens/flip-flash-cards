@@ -1,20 +1,15 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { CardFaceProps } from '@types';
-import { makeStyles, Theme, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Theme, Grid } from '@material-ui/core';
 import { PaperCard } from './PaperCard';
+import { Typography } from './Typography';
 import { FlipCardColours, FlipCardFaceStyles } from '../definitions';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
     ...FlipCardColours(theme),
     ...FlipCardFaceStyles,
-    typography: {
-      [theme.breakpoints.only('xs')]: { ...theme.typography.h5 },
-      [theme.breakpoints.only('sm')]: { ...theme.typography.h4 },
-      [theme.breakpoints.up('md')]: { ...theme.typography.h3 },
-      [theme.breakpoints.up('lg')]: { ...theme.typography.h2 },
-    },
   };
 });
 
@@ -41,7 +36,7 @@ export const CardFace: React.FC<CardFaceProps> = ({
       {text && (
         <Grid item xs={12} className={imgLink ? cs.bottomContainer : cs.fullFace}>
           <div className={cs.bottomWrapper}>
-            <Typography className={cs.typography}>{text}</Typography>
+            <Typography variant="h4">{text}</Typography>
           </div>
         </Grid>
       )}
