@@ -2,6 +2,7 @@ import * as React from 'react';
 import { makeStyles, TypographyVariant } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import { Typography } from './Typography';
+import { useViewportSize } from '../helpers';
 
 const useStyles = makeStyles(() => {
   return {
@@ -23,16 +24,17 @@ const useStyles = makeStyles(() => {
 type StarRatingTotalProps = {
   avgRating: number;
   totalVotes: number;
-  size?: 'small' | 'medium' | 'large';
 };
 
 export const StarRatingTotal: React.FC<StarRatingTotalProps> = ({
   avgRating,
   totalVotes,
-  size = 'medium',
 }) => {
   const cs = useStyles();
+  const vps = useViewportSize();
 
+  const size =
+    vps === 'xs' ? 'small' : vps === 'sm' ? 'small' : vps === 'md' ? 'medium' : 'large';
   const variant: TypographyVariant =
     size === 'small' ? 'caption' : size === 'medium' ? 'body2' : 'body1';
 

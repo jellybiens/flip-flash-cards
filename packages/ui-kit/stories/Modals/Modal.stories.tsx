@@ -32,4 +32,4 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add(title, Story);
+storiesOf('Core/Modals', module).add(title, Story);

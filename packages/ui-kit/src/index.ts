@@ -4,7 +4,6 @@ export * from './atoms/Buttons';
 export * from './atoms/FlipCardWrapper';
 export * from './atoms/LanguageDropdown';
 export * from './atoms/LoadingBar';
-export * from './atoms/Modal';
 export * from './atoms/Score';
 export * from './atoms/ScoreBar';
 export * from './atoms/SettingsDrawer';
@@ -25,6 +24,7 @@ export * from './formik/FlipCardSwitch';
 export * from './formik/FormikCreateDeckWrapper';
 export * from './formik/TextField';
 
+export * from './modals/Modal';
 export * from './modals/PlayDeckModal';
 
 export * from './transitions/LinearDeckTransition';

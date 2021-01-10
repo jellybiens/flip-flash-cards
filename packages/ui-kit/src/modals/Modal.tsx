@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { fade, makeStyles, Theme } from '@material-ui/core';
-import { PaperCard } from './PaperCard';
+import { CardPixels } from '@types';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -19,8 +19,26 @@ const useStyles = makeStyles((theme: Theme) => {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      height: '80vh',
-      width: '80vw',
+      [theme.breakpoints.only('xs')]: {
+        height: `calc(${CardPixels.xs}px * 1.3)`,
+        width: `calc(${CardPixels.xs}px * 1.2)`,
+      },
+      [theme.breakpoints.only('sm')]: {
+        height: `calc(${CardPixels.sm}px * 1.3)`,
+        width: `calc(${CardPixels.sm}px * 1.2)`,
+      },
+      [theme.breakpoints.only('md')]: {
+        height: `calc(${CardPixels.md}px * 1.3)`,
+        width: `calc(${CardPixels.md}px * 1.2)`,
+      },
+      [theme.breakpoints.only('lg')]: {
+        height: `calc(${CardPixels.lg}px * 1.3)`,
+        width: `calc(${CardPixels.lg}px * 1.2)`,
+      },
+      [theme.breakpoints.only('xl')]: {
+        height: `calc(${CardPixels.xl}px * 1.3)`,
+        width: `calc(${CardPixels.xl}px * 1.2)`,
+      },
     },
 
     '@keyframes remove': {

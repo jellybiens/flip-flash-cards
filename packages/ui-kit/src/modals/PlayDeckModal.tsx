@@ -1,9 +1,9 @@
 import { ButtonBase, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
-import { DeckOverviewProps } from '@types';
+import { CardPixels, DeckOverviewProps } from '@types';
 import clsx from 'clsx';
 import * as React from 'react';
 import { SquareButton } from '../atoms/Buttons';
-import { Modal, ModalProps } from '../atoms/Modal';
+import { Modal, ModalProps } from './Modal';
 import { StarRatingTotal } from '../atoms/StarRatingTotal';
 import { FlipCardColours, Icons } from '../definitions';
 
@@ -25,26 +25,47 @@ const useStyles = makeStyles((theme: Theme) => {
       right: 0,
       top: 0,
     },
+    image: {
+      [theme.breakpoints.only('xs')]: {
+        height: `calc(${CardPixels.xs}px * 0.8)`,
+        width: `calc(${CardPixels.xs}px * 0.8)`,
+      },
+      [theme.breakpoints.only('sm')]: {
+        height: `calc(${CardPixels.sm}px * 0.8)`,
+        width: `calc(${CardPixels.sm}px * 0.8)`,
+      },
+      [theme.breakpoints.only('md')]: {
+        height: `calc(${CardPixels.md}px * 0.8)`,
+        width: `calc(${CardPixels.md}px * 0.8)`,
+      },
+      [theme.breakpoints.only('lg')]: {
+        height: `calc(${CardPixels.lg}px * 0.8)`,
+        width: `calc(${CardPixels.lg}px * 0.8)`,
+      },
+      [theme.breakpoints.only('xl')]: {
+        height: `calc(${CardPixels.xl}px * 0.8)`,
+        width: `calc(${CardPixels.xl}px * 0.8)`,
+      },
+      margin: 'auto',
+      borderRadius: 10,
+      borderStyle: 'solid',
+      borderColor: 'inherit',
+    },
     itemWrapper: {
       height: 'fit-content',
       width: 'fit-content',
       borderColor: 'inherit',
       margin: 'auto',
     },
-    image: {
-      margin: 'auto',
-      height: 'calc(100% - 4px)',
-      width: 'calc(auto - 4px)',
-      borderRadius: 10,
-      borderStyle: 'solid',
-      borderColor: 'inherit',
+    starWrapper: {
+      float: 'right',
+      height: 'fit-content',
+      width: 'fit-content',
     },
-    imgWrapper: {
-      display: 'flex',
-      height: '100%',
-      width: '80%',
-      margin: 'auto',
-      borderColor: 'inherit',
+    totalWrapper: {
+      float: 'left',
+      height: 'fit-content',
+      width: 'fit-content',
     },
   };
 });
@@ -83,23 +104,21 @@ export const PlayDeckModal: React.FC<PlayDeckModalProps> = ({
           <Grid
             item
             xs={12}
-            style={{ height: '50%', display: 'flex', borderColor: 'inherit' }}
+            style={{ height: '66%', display: 'flex', borderColor: 'inherit' }}
           >
-            <div className={cs.imgWrapper}>
-              <img src={imgLink} className={cs.image} />
-            </div>
+            <img src={imgLink} className={cs.image} />
           </Grid>
-          <Grid item xs={6} style={{ height: '10%', display: 'flex' }}>
+          <Grid item xs={6} style={{ height: '7%', display: 'flex' }}>
             <div className={cs.itemWrapper}>
               <Typography>Total cards: {cards.length}</Typography>
             </div>
           </Grid>
-          <Grid item xs={6} style={{ height: '10%', display: 'flex' }}>
+          <Grid item xs={6} style={{ height: '7%', display: 'flex' }}>
             <div className={cs.itemWrapper}>
               <StarRatingTotal avgRating={score} totalVotes={votes} />
             </div>
           </Grid>
-          <Grid item xs={12} style={{ height: '30%', display: 'flex' }}>
+          <Grid item xs={12} style={{ height: '17%', display: 'flex' }}>
             <div className={cs.itemWrapper}>
               <SquareButton colour={colour === 'cyan' ? 'green' : 'cyan'} size="large">
                 Play
