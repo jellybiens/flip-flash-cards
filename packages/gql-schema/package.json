@@ -1,0 +1,13 @@
+{
+  "name": "gql-schema",
+  "version": "1.0.0",
+  "description": "gql-schema and database for backend flip flash quiz",
+  "main": "index.js",
+  "author": "ethan watson",
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^15.4.0",
+    "graphql-type-long": "^0.1.1",
+    "sequelize": "^6.3.5"
+  }
+}

@@ -26,6 +26,18 @@ export type CustomColours =
   | 'bronze'
   | 'dull';
 
+export type DifficultyType = 'easy' | 'medium' | 'hard';
+
+export type User = {
+  _id: string;
+  decks: string[];
+  played: {
+    easy: { [deckId: string]: number };
+    medium: { [deckId: string]: number };
+    hard: { [deckId: string]: number };
+  };
+};
+
 export type CardFaceFieldValues = {
   text: string;
   imgLink: string;
@@ -40,6 +52,7 @@ export type FlipCardFieldValues = {
 };
 
 export type CardFaceProps = {
+  _id: string;
   text: string;
   imgLink?: string;
   colour?: CustomColours;
@@ -59,5 +72,5 @@ export type DeckOverviewProps = {
   cards: FlipCardProps[];
   subject: string;
   score: number;
-  votes: number;
+  totalVotes: number;
 };
