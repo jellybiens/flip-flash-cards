@@ -5,6 +5,7 @@ import {
   GraphQLInt,
   GraphQLList,
 } from 'graphql';
+import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps } from '@types';
 import { GqlFlipCardObject } from './FlipCard';
 
@@ -44,6 +45,10 @@ export const GqlCardDeckObject = new GraphQLObjectType({
       totalVotes: {
         type: GraphQLInt,
         resolve: (deck: DeckOverviewProps) => deck.totalVotes,
+      },
+      dateCreated: {
+        type: GraphQLDateTime,
+        resolve: () => new Date(),
       },
     };
   },

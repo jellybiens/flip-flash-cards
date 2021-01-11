@@ -81,7 +81,7 @@ export const PlayDeckModal: React.FC<PlayDeckModalProps> = ({
   colour,
   cards,
   score,
-  votes,
+  totalVotes,
   onClose,
   ...props
 }) => {
@@ -115,7 +115,7 @@ export const PlayDeckModal: React.FC<PlayDeckModalProps> = ({
           </Grid>
           <Grid item xs={6} style={{ height: '7%', display: 'flex' }}>
             <div className={cs.itemWrapper}>
-              <StarRatingTotal avgRating={score} totalVotes={votes} />
+              <StarRatingTotal avgRating={score} totalVotes={totalVotes} />
             </div>
           </Grid>
           <Grid item xs={12} style={{ height: '17%', display: 'flex' }}>
