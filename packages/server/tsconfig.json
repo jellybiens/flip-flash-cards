@@ -9,7 +9,8 @@
         "outDir": "dist",
         "baseUrl": ".",
         "paths": {
-            "@types": ["../types"]
+            "@types": ["../types"],
+            "@gql-schema": ["../gql-schema"]
         },
     },
     "include": [

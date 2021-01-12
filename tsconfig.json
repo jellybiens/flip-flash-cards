@@ -9,7 +9,8 @@
     "moduleResolution": "node",
     "paths": {
       "@ui-kit": ["./packages/ui-kit/src"],
-      "@types": ["./packages/types"]
+      "@types": ["./packages/types"],
+      "@gql-schema": ["./packages/gql-schema"]
     },
     "typeRoots": [
       "node_modules/@types"

@@ -1,13 +1,11 @@
 import express from 'express';
 // import path from 'path';
+import 'module-alias/register';
 
 import cors from 'cors';
-import * as dotenv from 'dotenv';
 
 import { graphqlHTTP } from 'express-graphql';
-import schema from '../../gql-schema';
-
-dotenv.config({ path: __dirname + '/.env' });
+import schema from '@gql-schema';
 
 // config
 const APP_PORT = process.env.PORT || 5000;

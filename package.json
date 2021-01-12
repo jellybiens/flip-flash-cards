@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"yarn server\" \"yarn dev --prefix client\"",
+    "all": "concurrently \"yarn\" \"yarn --cwd packages/storybook\" \"yarn --cwd packages/gql-schema\" \"yarn --cwd packages/server\"",
+    "all:dev": "concurrently \"yarn -D\" \"yarn -D --cwd packages/storybook\" \"yarn -D --cwd packages/gql-schema\" \"yarn -D --cwd packages/server\"",
     "server": "yarn --cwd packages/server start",
-    "build-client": "npm run build --prefix client",
     "storybook": "yarn --cwd packages/ui-kit storybook"
   },
   "author": "ethan watson",
@@ -21,6 +21,7 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.9.0",
+    "concurrently": "^5.3.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-config-react-app": "^6.0.0",

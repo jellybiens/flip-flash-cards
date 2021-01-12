@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import path from 'path';
 import * as dotenv from 'dotenv';
 import { GraphQLSchema } from 'graphql';
 import { Query } from './queries';
@@ -7,11 +8,7 @@ import { FlipCard as _FlipCard } from './sequalize/objects/FlipCard';
 import { Deck as _Deck } from './sequalize/objects/Deck';
 import { User as _User } from './sequalize/objects/User';
 
-dotenv.config({ path: __dirname + '/.env' });
-
-// TODO: sort out undefined
-// tslint:disable-next-line:no-console
-console.log('process.env.DB_CON', process.env.DB_CON);
+dotenv.config({ path: path.resolve('.env') });
 
 export const Conn = new Sequelize(process.env.DB_CON, {
   dialect: 'postgres',
