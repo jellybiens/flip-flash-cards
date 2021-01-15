@@ -10,7 +10,8 @@
         "baseUrl": ".",
         "paths": {
             "@types": ["../types"],
-            "@gql-schema": ["../gql-schema"]
+            "@gql-schema": ["../gql-schema"],
+            "@database": ["../psql-database"]
         },
     },
     "include": [

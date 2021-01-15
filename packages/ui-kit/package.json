@@ -18,6 +18,8 @@
     "@storybook/addon-essentials": "^6.1.10",
     "@storybook/addon-links": "^6.1.10",
     "@storybook/react": "^6.1.10",
+    "@types/js-levenshtein": "^1.1.0",
+    "@types/lodash": "^4.14.167",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "babel-loader": "^8.2.2",
@@ -29,6 +31,7 @@
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-keyboard-event-handler": "^1.5.4",
     "react-material-ui-carousel": "^2.1.1",
     "storybook": "^6.1.10"
   },

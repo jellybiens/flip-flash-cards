@@ -1,15 +1,17 @@
-import express from 'express';
-// import path from 'path';
 import 'module-alias/register';
-
+import path from 'path';
+import * as dotenv from 'dotenv';
 import cors from 'cors';
-
+import express, { Application } from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import schema from '@gql-schema';
+import '@database';
 
 // config
+dotenv.config({ path: path.resolve('.env') });
 const APP_PORT = process.env.PORT || 5000;
-const app = express();
+
+const app: Application = express();
 
 app.use(cors());
 
@@ -20,9 +22,18 @@ app.use(
     schema,
     pretty: true,
     graphiql: true,
-    // context: isAuth
   }),
 );
+
+app.listen(APP_PORT, () => {
+  // tslint:disable-next-line:no-console
+  console.log(`
+    _______________________________
+    ///////////////////////////////
+    App listening on port ${APP_PORT}
+    ///////////////////////////////
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯`);
+});
 
 // // the __dirname is the current directory from where the script is running
 // app.use(express.static(__dirname + '/client/public/'));
@@ -31,8 +42,3 @@ app.use(
 // app.get('*', (req, res) => {
 //   res.sendFile(path.resolve(__dirname + '/client/public/', 'index.html'));
 // });
-
-app.listen(APP_PORT, () => {
-  // tslint:disable-next-line:no-console
-  console.log(`App listening on port ${APP_PORT}`);
-});
