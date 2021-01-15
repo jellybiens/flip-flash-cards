@@ -15,8 +15,4 @@ export const FlipCard = {
     type: Sequelize.UUID,
     allowNull: false,
   },
-  deckId: {
-    type: Sequelize.UUID,
-    allowNull: false,
-  },
 };

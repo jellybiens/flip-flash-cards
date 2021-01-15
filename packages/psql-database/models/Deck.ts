@@ -24,11 +24,11 @@ export const Deck = {
     allowNull: true,
   },
   score: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   totalVotes: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
 };

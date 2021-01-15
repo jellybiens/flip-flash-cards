@@ -16,7 +16,7 @@ export const Query = new GraphQLObjectType({
           },
         },
         resolve(_, args) {
-          return Conn.models.flipCards.findAll({
+          return Conn.models.flipcards.findAll({
             where: { deckId: args.deckId },
             order: Sequelize.literal('random()'),
           });
