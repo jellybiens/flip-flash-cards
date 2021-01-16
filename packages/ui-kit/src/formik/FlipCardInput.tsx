@@ -7,7 +7,11 @@ export type FlipCardInputProps = FlipCardWrapperProps & {
   rotate?: boolean;
 };
 
-export const FlipCardInput: React.FC<FlipCardInputProps> = ({ index: i, rotate, ...props }) => (
+export const FlipCardInput: React.FC<FlipCardInputProps> = ({
+  index: i,
+  rotate,
+  ...props
+}) => (
   <FlipCardWrapper rotate={rotate} {...props}>
     <CardFaceInput front name={`deckCards.${i}.front`} cardIndex={i} />
     <CardFaceInput back name={`deckCards.${i}.back`} cardIndex={i} />

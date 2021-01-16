@@ -23,7 +23,7 @@ export const ChallengeDeck: React.FC<ChallengeDeckProps> = ({
 
   const totalCards = deckCards.length;
   const [topCardIndex, setTopCardIndex] = React.useState(0);
-  const [topCardId, setTopCardId] = React.useState(deckCards[0].cardId);
+  const [topCardId, setTopCardId] = React.useState(deckCards[0]._id);
 
   const [action, setAction] = React.useState<CardAction>('right');
   const [rotate, setRotate] = React.useState<{ [key: string]: boolean }>({});
@@ -42,12 +42,12 @@ export const ChallengeDeck: React.FC<ChallengeDeckProps> = ({
       handleReportFinalScore(score);
     } else {
       setTopCardIndex(topCardIndex + 1);
-      setTopCardId(deckCards[topCardIndex + 1].cardId);
+      setTopCardId(deckCards[topCardIndex + 1]._id);
     }
   };
 
   const revealAnswer = (answer: boolean) => {
-    handleRotateCard(deckCards[topCardIndex].cardId);
+    handleRotateCard(deckCards[topCardIndex]._id);
 
     setTimeout(() => {
       if (answer) {

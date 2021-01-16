@@ -46,26 +46,25 @@ export type CardFaceFieldValues = {
 };
 
 export type FlipCardFieldValues = {
-  cardId: string;
+  _id: string;
   front: CardFaceFieldValues;
   back: CardFaceFieldValues;
 };
 
 export type CardFaceProps = {
-  _id: string;
   text: string;
   imgLink?: string;
   colour?: CustomColours;
 };
 
 export type FlipCardProps = {
-  cardId: string;
+  _id: string;
   front: CardFaceProps;
   back: CardFaceProps;
 };
 
 export type DeckOverviewProps = {
-  deckId: string;
+  _id: string;
   title: string;
   imgLink: string;
   colour: CustomColours;
@@ -73,4 +72,6 @@ export type DeckOverviewProps = {
   subject: string;
   score: number;
   totalVotes: number;
+  createdAt: Date;
+  updatedAt: Date;
 };

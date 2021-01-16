@@ -63,9 +63,18 @@ export const LoopingDeckTransition: React.FC<LoopingDeckTransitionProps> = ({
   const cs = useStyles();
 
   return (
-    <Transition in={i === tci} duration={MS} timeout={MS} mountOnEnter unmountOnExit {...props}>
+    <Transition
+      in={i === tci}
+      duration={MS}
+      timeout={MS}
+      mountOnEnter
+      unmountOnExit
+      {...props}
+    >
       {(state) => (
-        <div className={clsx(cs.transitionInner, cs.in, cs[`${action}-${state}`])}>{children}</div>
+        <div className={clsx(cs.transitionInner, cs.in, cs[`${action}-${state}`])}>
+          {children}
+        </div>
       )}
     </Transition>
   );

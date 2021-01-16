@@ -22,14 +22,16 @@ const Story = () => {
   const cs = useStyles();
   const [open, setOpen] = React.useState(true);
   const props: DeckOverviewProps = {
-    deckId: 'blahbalh',
+    _id: 'blahbalh',
     title: 'Spongebob People',
     colour: 'red',
     imgLink: 'https://static.wikia.nocookie.net/spongebob/images/2/26/Bubbletown_002.png',
     cards: cardDeck,
     score: 3.5,
     subject: 'english',
-    votes: 2134,
+    totalVotes: 2134,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   return (

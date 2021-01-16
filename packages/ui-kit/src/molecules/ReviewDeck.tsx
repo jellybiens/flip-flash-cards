@@ -12,7 +12,7 @@ type ReviewDeckProps = {
 export const ReviewDeck: React.FC<ReviewDeckProps> = ({ deckCards }) => {
   const totalCards = deckCards.length;
   const [topCardIndex, setTopCardIndex] = React.useState(0);
-  const [topCardId, setTopCardId] = React.useState(deckCards[0].cardId);
+  const [topCardId, setTopCardId] = React.useState(deckCards[0]._id);
 
   const [action, setAction] = React.useState<CardAction>('next');
   const [rotate, setRotate] = React.useState<{ [key: string]: boolean }>({});
@@ -28,13 +28,13 @@ export const ReviewDeck: React.FC<ReviewDeckProps> = ({ deckCards }) => {
 
     if (topCardIndex === 0 && dir === -1) {
       setTopCardIndex(totalCards - 1);
-      setTopCardId(deckCards[totalCards - 1].cardId);
+      setTopCardId(deckCards[totalCards - 1]._id);
     } else if (topCardIndex === totalCards - 1 && dir === 1) {
       setTopCardIndex(0);
-      setTopCardId(deckCards[0].cardId);
+      setTopCardId(deckCards[0]._id);
     } else {
       setTopCardIndex(topCardIndex + dir);
-      setTopCardId(deckCards[topCardIndex + dir].cardId);
+      setTopCardId(deckCards[topCardIndex + dir]._id);
     }
   };
 

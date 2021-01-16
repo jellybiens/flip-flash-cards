@@ -75,7 +75,7 @@ type PlayDeckModalProps = ModalProps & Omit<DeckOverviewProps, 'subject'>;
 const Clear = Icons.cross;
 
 export const PlayDeckModal: React.FC<PlayDeckModalProps> = ({
-  deckId,
+  _id: deckId,
   title,
   imgLink,
   colour,

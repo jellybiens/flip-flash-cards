@@ -1,5 +1,4 @@
 import { makeStyles, Theme } from '@material-ui/core';
-import { PaletteColor } from '@material-ui/core/styles/createPalette';
 import { CustomColours } from '@types';
 import { Hues } from '../../themes';
 
@@ -9,9 +8,9 @@ export const useStyles = makeStyles((theme: Theme) => {
   colours.map((c) => {
     colourObjects = Object.assign(colourObjects, {
       [c]: {
-        backgroundColor: (theme.palette[c] as PaletteColor).main,
-        color: (theme.palette[c] as PaletteColor).contrastText,
-        '&:hover': { backgroundColor: (theme.palette[c] as PaletteColor).dark },
+        backgroundColor: theme.palette[c].main,
+        color: theme.palette[c].contrastText,
+        '&:hover': { backgroundColor: theme.palette[c].dark },
       },
     });
   });

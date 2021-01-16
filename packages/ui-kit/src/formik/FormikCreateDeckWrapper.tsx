@@ -6,7 +6,7 @@ import { uniqueId } from 'lodash';
 export const initialCardValues = (): FlipCardFieldValues => ({
   // TODO: ID unique
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  cardId: uniqueId('card-'),
+  _id: uniqueId('card-'),
   front: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     text: uniqueId('card-'),

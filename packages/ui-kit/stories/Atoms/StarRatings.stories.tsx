@@ -24,13 +24,13 @@ const Story = () => {
       <Container title="StarRatingTotal">
         <Grid container spacing={2} justify="center">
           <Grid item xs={12}>
-            <StarRatingTotal size="small" avgRating={3.5} totalVotes={1234} />
+            <StarRatingTotal avgRating={3.5} totalVotes={1234} />
           </Grid>
           <Grid item xs={12}>
             <StarRatingTotal avgRating={3.5} totalVotes={1234} />
           </Grid>
           <Grid item xs={12}>
-            <StarRatingTotal size="large" avgRating={3.5} totalVotes={1234} />
+            <StarRatingTotal avgRating={3.5} totalVotes={1234} />
           </Grid>
         </Grid>
       </Container>

@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     '@keyframes popAnimation': {
       '0%': { filter: 'brightness(1)', boxShadow: `#fff 0px 0px 0px;` },
-      '50%': { filter: 'brightness(2)', boxShadow: `${theme.palette.gold.main} 0px 0px 20px;` },
+      '50%': {
+        filter: 'brightness(2)',
+        boxShadow: `${theme.palette.gold.main} 0px 0px 20px;`,
+      },
       '100%': { filter: 'brightness(1)', boxShadow: `#fff 0px 0px 0px;` },
     },
     starIconWrapper: {

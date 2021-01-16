@@ -15,7 +15,7 @@ const generateString = (): string => {
 
 const initialCardValues: FlipCardFieldValues[] = [
   {
-    cardId: generateString(),
+    _id: generateString(),
     front: {
       text: 'Spongebob',
       imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
@@ -30,7 +30,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     },
   },
   {
-    cardId: generateString(),
+    _id: generateString(),
     front: {
       text: '11111',
       imgLink: '',
@@ -45,7 +45,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     },
   },
   {
-    cardId: generateString(),
+    _id: generateString(),
     front: {
       text: '2222',
       imgLink: '',
@@ -60,7 +60,7 @@ const initialCardValues: FlipCardFieldValues[] = [
     },
   },
   {
-    cardId: generateString(),
+    _id: generateString(),
     front: {
       text: '3333',
       imgLink: '',

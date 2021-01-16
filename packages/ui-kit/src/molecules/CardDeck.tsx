@@ -56,7 +56,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({
       return (
         <FlipCard
           className={cs.removeTransitionBelow}
-          rotate={rotate[deckCards[i].cardId]}
+          rotate={rotate[deckCards[i]._id]}
           front={deckCards[i].front}
           back={deckCards[i].back}
           colour={deckCards[i].front.colour}
@@ -68,7 +68,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({
           <FlipCardInput
             className={cs.removeTransitionBelow}
             index={i}
-            rotate={rotate[deckCards[i].cardId]}
+            rotate={rotate[deckCards[i]._id]}
             colour={deckCards[i].front.colour}
           />
         </>
@@ -85,17 +85,17 @@ export const CardDeck: React.FC<CardDeckProps> = ({
         {type !== 'challenge' && (
           <div className={cs.nextCardContainer}>{cardBehindTop}</div>
         )}
-        {deckCards.map(({ cardId, front, back }, i) => (
+        {deckCards.map(({ _id, front, back }, i) => (
           <DeckTransition
-            key={cardId}
-            index={cardId}
+            key={_id}
+            index={_id}
             topCardIndex={topCardId}
             action={action}
             {...(!!DeckTransitionProps && DeckTransitionProps)}
           >
             {type !== 'input' ? (
               <FlipCard
-                rotate={rotate[cardId]}
+                rotate={rotate[_id]}
                 front={front}
                 back={back}
                 colour={deckCards[i].front.colour}
@@ -103,7 +103,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({
             ) : (
               <FlipCardInput
                 index={i}
-                rotate={rotate[cardId]}
+                rotate={rotate[_id]}
                 colour={deckCards[i].front.colour}
               />
             )}

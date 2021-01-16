@@ -13,7 +13,10 @@ type ImageDisplayProps = {
   imgLink: string;
 };
 
-export const ImageDisplay: React.FC<ImageDisplayProps> = ({ handleRevertImage, imgLink }) => {
+export const ImageDisplay: React.FC<ImageDisplayProps> = ({
+  handleRevertImage,
+  imgLink,
+}) => {
   const cs = useStyles();
 
   return (

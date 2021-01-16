@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { Container } from '../helpers';
 import { CardFace, FlipCardSizing } from '@ui-kit';
+import { CustomColours } from '@types';
 
 const title = 'CardFace';
 
@@ -18,12 +19,12 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 const frontside1 = {
-  colour: 'yellow',
+  colour: 'yellow' as CustomColours,
   text: 'Spongebob',
   imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
 };
 const backside1 = {
-  colour: 'red',
+  colour: 'red' as CustomColours,
   text: 'Squarepants',
   imgLink:
     'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555921064/shape/mentalfloss/spongebob_0_0.jpg?itok=FF47w3bl',

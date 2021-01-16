@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-export const CardFace: React.FC<CardFaceProps> = ({
+export const CardFace: React.FC<Omit<CardFaceProps, '_id'>> = ({
   text,
   imgLink,
   colour = 'white',

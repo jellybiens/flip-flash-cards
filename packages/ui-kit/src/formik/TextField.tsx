@@ -31,7 +31,11 @@ type TextFieldProps = MuiTextFieldProps & {
   colour?: CustomColours;
 };
 
-export const TextField: React.FC<TextFieldProps> = ({ className, colour = 'white', ...props }) => {
+export const TextField: React.FC<TextFieldProps> = ({
+  className,
+  colour = 'white',
+  ...props
+}) => {
   const cs = useStyles();
 
   const outlined = props.variant === 'outlined';
