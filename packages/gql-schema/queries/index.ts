@@ -22,7 +22,6 @@ export const Query = new GraphQLObjectType({
               { model: Conn.models.frontface, as: 'front' },
               { model: Conn.models.backface, as: 'back' },
             ],
-
             order: Sequelize.literal('random()'),
           });
         },

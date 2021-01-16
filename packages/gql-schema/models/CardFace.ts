@@ -6,10 +6,6 @@ export const GqlCardFaceModel = new GraphQLObjectType({
   description: 'A single side face for a flip card',
   fields: () => {
     return {
-      _id: {
-        type: GraphQLID,
-        resolve: (cardFace: CardFaceProps) => cardFace._id,
-      },
       text: {
         type: GraphQLString,
         resolve: (cardFace: CardFaceProps) => cardFace.text,
