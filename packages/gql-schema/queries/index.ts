@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import Conn from '@database';
 import { GraphQLObjectType, GraphQLID, GraphQLList } from 'graphql';
-import { GqlCardDeckObject, GqlFlipCardObject } from '../objects';
+import { GqlCardDeckModel, GqlFlipCardModel } from '../models';
 
 export const Query = new GraphQLObjectType({
   name: 'Query',
@@ -9,7 +9,7 @@ export const Query = new GraphQLObjectType({
   fields: () => {
     return {
       getCards: {
-        type: new GraphQLList(GqlFlipCardObject),
+        type: new GraphQLList(GqlFlipCardModel),
         args: {
           deckId: {
             type: GraphQLID,
@@ -18,18 +18,32 @@ export const Query = new GraphQLObjectType({
         resolve(_, args) {
           return Conn.models.flipcards.findAll({
             where: { deckId: args.deckId },
+            include: [
+              { model: Conn.models.frontface, as: 'front' },
+              { model: Conn.models.backface, as: 'back' },
+            ],
+
             order: Sequelize.literal('random()'),
           });
         },
       },
       getDecks: {
-        type: new GraphQLList(GqlCardDeckObject),
+        type: new GraphQLList(GqlCardDeckModel),
         resolve() {
-          return Conn.models.decks.findAll();
+          return Conn.models.decks.findAll({
+            include: {
+              model: Conn.models.flipcards,
+              as: 'cards',
+              include: [
+                { model: Conn.models.frontface, as: 'front' },
+                { model: Conn.models.backface, as: 'back' },
+              ],
+            },
+          });
         },
       },
       getUserDecks: {
-        type: new GraphQLList(GqlCardDeckObject),
+        type: new GraphQLList(GqlCardDeckModel),
         args: {
           userId: {
             type: GraphQLID,
@@ -38,6 +52,14 @@ export const Query = new GraphQLObjectType({
         resolve(_, args) {
           return Conn.models.decks.findAll({
             where: { userId: args.userId },
+            include: {
+              model: Conn.models.flipcards,
+              as: 'cards',
+              include: [
+                { model: Conn.models.frontface, as: 'front' },
+                { model: Conn.models.backface, as: 'back' },
+              ],
+            },
           });
         },
       },

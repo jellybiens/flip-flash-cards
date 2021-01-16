@@ -7,16 +7,16 @@ import {
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps } from '@types';
-import { GqlFlipCardObject } from './FlipCard';
+import { GqlFlipCardModel } from './FlipCard';
 
-export const GqlCardDeckObject = new GraphQLObjectType({
+export const GqlCardDeckModel = new GraphQLObjectType({
   name: 'Deck',
   description: 'A deck of cards for a single quiz',
   fields: () => {
     return {
       _id: {
         type: GraphQLID,
-        resolve: (deck: DeckOverviewProps) => deck.deckId,
+        resolve: (deck: DeckOverviewProps) => deck._id,
       },
       title: {
         type: GraphQLString,
@@ -31,7 +31,7 @@ export const GqlCardDeckObject = new GraphQLObjectType({
         resolve: (deck: DeckOverviewProps) => deck.colour,
       },
       cards: {
-        type: new GraphQLList(GqlFlipCardObject),
+        type: new GraphQLList(GqlFlipCardModel),
         resolve: (deck: DeckOverviewProps) => deck.cards,
       },
       subject: {
@@ -46,9 +46,13 @@ export const GqlCardDeckObject = new GraphQLObjectType({
         type: GraphQLInt,
         resolve: (deck: DeckOverviewProps) => deck.totalVotes,
       },
-      dateCreated: {
+      createdAt: {
         type: GraphQLDateTime,
-        resolve: () => new Date(),
+        resolve: (deck: DeckOverviewProps) => deck.createdAt,
+      },
+      updatedAt: {
+        type: GraphQLDateTime,
+        resolve: (deck: DeckOverviewProps) => deck.updatedAt,
       },
     };
   },

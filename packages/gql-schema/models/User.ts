@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from 'graphql';
 import { User } from '@types';
 
-export const GqlUserObject = new GraphQLObjectType({
+export const GqlUserModel = new GraphQLObjectType({
   name: 'User',
   description: 'This is a user that has visited the site',
   fields: () => {

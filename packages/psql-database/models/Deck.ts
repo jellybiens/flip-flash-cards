@@ -17,18 +17,20 @@ export const Deck = {
   },
   colour: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   subject: {
     type: Sequelize.STRING,
-    allowNull: true,
   },
   score: {
     type: Sequelize.FLOAT,
-    allowNull: true,
   },
   totalVotes: {
     type: Sequelize.INTEGER,
-    allowNull: true,
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
   },
 };

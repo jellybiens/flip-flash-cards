@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
 import { CardFaceProps } from '@types';
 
-export const GqlCardFaceObject = new GraphQLObjectType({
+export const GqlCardFaceModel = new GraphQLObjectType({
   name: 'CardFace',
   description: 'A single side face for a flip card',
   fields: () => {
