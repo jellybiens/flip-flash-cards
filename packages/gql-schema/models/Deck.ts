@@ -1,4 +1,10 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLFloat,
+} from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps } from '@types';
 
@@ -28,7 +34,7 @@ export const GqlCardDeckModel = new GraphQLObjectType({
         resolve: (deck: DeckOverviewProps) => deck.subject,
       },
       score: {
-        type: GraphQLInt,
+        type: GraphQLFloat,
         resolve: (deck: DeckOverviewProps) => deck.score,
       },
       totalVotes: {

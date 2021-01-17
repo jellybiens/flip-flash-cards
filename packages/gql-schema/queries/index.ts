@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLObjectTypeConfig } from 'graphql/type';
+import { getAllCardsQuery } from './getAllCards';
 import { getDeckCardsQuery } from './getDeckCards';
 import { getDecksNewestQuery } from './getDecks_Newest';
 import { getDecksTopRatedQuery } from './getDecks_TopRated';
@@ -9,6 +10,7 @@ const QueryDef: GraphQLObjectTypeConfig<unknown, unknown> = {
   name: 'RootQuery',
   description: 'Root for all queries',
   fields: () => ({
+    ...getAllCardsQuery.fields,
     ...getDeckCardsQuery.fields,
     ...getDecksNewestQuery.fields,
     ...getDecksTopRatedQuery.fields,

@@ -1,22 +1,16 @@
 import Sequelize from 'sequelize';
 import Conn from '@database';
-import { GraphQLObjectTypeConfig, GraphQLID, GraphQLList } from 'graphql/type';
+import { GraphQLObjectTypeConfig, GraphQLList } from 'graphql/type';
 import { GqlFlipCardModel } from '../models';
 
-export const getDeckCardsQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
-  name: 'getDeckCardsQuery',
-  description: 'Fetch the cards of a specific deck by _id',
+export const getAllCardsQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
+  name: 'getAllCardsQuery',
+  description: 'Fetch all cards in database',
   fields: {
-    getDeckCards: {
+    getAllCards: {
       type: new GraphQLList(GqlFlipCardModel),
-      args: {
-        deckId: {
-          type: GraphQLID,
-        },
-      },
-      resolve: (_, args) =>
+      resolve: () =>
         Conn.models.flipcards.findAll({
-          where: { deckId: args.deckId },
           include: [
             { model: Conn.models.frontface, as: 'front' },
             { model: Conn.models.backface, as: 'back' },

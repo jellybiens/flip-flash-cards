@@ -10,7 +10,7 @@ export const getDecksNewestQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
       type: new GraphQLList(GqlCardDeckModel),
       resolve: () =>
         Conn.models.decks.findAll({
-          order: '"createdAt" DESC',
+          order: [['createdAt', 'DESC']],
         }),
     },
   },

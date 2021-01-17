@@ -52,9 +52,9 @@ FlipCard.hasOne(BackFace, { as: 'back' });
 FrontFace.belongsTo(FlipCard, { as: 'front' });
 BackFace.belongsTo(FlipCard, { as: 'back' });
 
-void Conn.sync({ force: true })
+void Conn.sync(/*{ force: true }*/)
   .then(() => {
-    void devMock();
+    // void devMock();
 
     // tslint:disable-next-line:no-console
     console.log(`

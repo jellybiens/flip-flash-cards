@@ -13,6 +13,6 @@ export const FlipCard = {
   _id: {
     primaryKey: true,
     type: Sequelize.UUID,
-    defaultValue: uuidv4(),
+    defaultValue: () => uuidv4(),
   },
 };

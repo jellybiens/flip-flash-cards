@@ -26,6 +26,11 @@ export const Deck = {
   },
   subject: {
     type: Sequelize.STRING,
+    defaultValue: 'Trivia',
+  },
+  language: {
+    type: Sequelize.STRING,
+    defaultValue: 'en',
   },
   score: {
     type: Sequelize.FLOAT,
