@@ -11,7 +11,8 @@
       "@ui-kit": ["./packages/ui-kit/src"],
       "@types": ["./packages/types"],
       "@gql-schema": ["./packages/gql-schema"],
-      "@database": ["./packages/psql-database"]
+      "@database": ["./packages/psql-database"],
+      "@database/*": ["./packages/psql-database/*"]
     },
     "typeRoots": [
       "node_modules/@types"
