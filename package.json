@@ -6,7 +6,7 @@
   "scripts": {
     "all": "concurrently \"yarn\" \"yarn --cwd packages/storybook\" \"yarn --cwd packages/gql-schema\" \"yarn --cwd packages/server\"",
     "all:dev": "concurrently \"yarn -D\" \"yarn -D --cwd packages/storybook\" \"yarn -D --cwd packages/gql-schema\" \"yarn -D --cwd packages/server\"",
-    "server": "yarn --cwd packages/server start",
+    "server": "yarn --cwd packages/server start:dev",
     "storybook": "yarn --cwd packages/ui-kit storybook"
   },
   "author": "ethan watson",

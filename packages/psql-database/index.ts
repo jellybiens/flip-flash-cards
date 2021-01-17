@@ -9,10 +9,20 @@ import { User as _User } from './models/User';
 import { devMock } from './mocks/dev';
 
 dotenv.config({ path: path.resolve('.env') });
-// tslint:disable-next-line:no-console
 
-// TODO: dev, test, prod
-const Conn = new Sequelize(process.env.DEV_DATABASE_URL, {
+const connection = (() => {
+  switch (process.env.NODE_ENV) {
+    case 'prod': {
+      return process.env.PROD_DB_URL;
+    }
+    case 'dev':
+    default: {
+      return process.env.DEV_DB_URL;
+    }
+  }
+})();
+
+const Conn = new Sequelize(connection, {
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {

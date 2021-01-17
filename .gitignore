@@ -33,6 +33,7 @@ bower_components
 build/Release
 dist/
 frontend/
+connection
 
 # Dependency directories
 node_modules/

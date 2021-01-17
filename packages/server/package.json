@@ -13,7 +13,8 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
+    "start:dev": "NODE_ENV=dev node .",
+    "start:prod": "NODE_ENV=prod node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
