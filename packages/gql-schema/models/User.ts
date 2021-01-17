@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
 import { User } from '@types';
 
 export const GqlUserModel = new GraphQLObjectType({
@@ -9,10 +9,6 @@ export const GqlUserModel = new GraphQLObjectType({
       _id: {
         type: GraphQLID,
         resolve: (user: User) => user._id,
-      },
-      decks: {
-        type: new GraphQLList(GraphQLString),
-        resolve: (user: User) => user.decks,
       },
       played: {
         type: GqlPlayedDecksObject,

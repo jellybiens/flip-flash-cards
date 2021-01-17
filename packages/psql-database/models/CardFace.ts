@@ -1,5 +1,10 @@
+import { CardFaceProps } from '@types';
 import * as Sequelize from 'sequelize';
 import { uuidv4 } from '../helpers';
+
+export type CardFaceAttributes = Sequelize.Model & CardFaceProps;
+
+export type CardFaceModel = typeof Sequelize.Model & (new () => CardFaceAttributes);
 
 export const FrontFace = {
   _id: {
@@ -15,8 +20,10 @@ export const FrontFace = {
   },
   colour: {
     type: Sequelize.STRING,
+    defaultValue: 'white',
   },
 };
+
 export const BackFace = {
   _id: {
     primaryKey: true,
@@ -32,5 +39,6 @@ export const BackFace = {
   },
   colour: {
     type: Sequelize.STRING,
+    defaultValue: 'white',
   },
 };

@@ -1,13 +1,6 @@
-import {
-  GraphQLObjectType,
-  GraphQLID,
-  GraphQLString,
-  GraphQLInt,
-  GraphQLList,
-} from 'graphql';
+import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps } from '@types';
-import { GqlFlipCardModel } from './FlipCard';
 
 export const GqlCardDeckModel = new GraphQLObjectType({
   name: 'Deck',
@@ -30,10 +23,6 @@ export const GqlCardDeckModel = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.colour,
       },
-      cards: {
-        type: new GraphQLList(GqlFlipCardModel),
-        resolve: (deck: DeckOverviewProps) => deck.cards,
-      },
       subject: {
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.subject,
@@ -45,6 +34,10 @@ export const GqlCardDeckModel = new GraphQLObjectType({
       totalVotes: {
         type: GraphQLInt,
         resolve: (deck: DeckOverviewProps) => deck.totalVotes,
+      },
+      votesToday: {
+        type: GraphQLInt,
+        resolve: (deck: DeckOverviewProps) => deck.votesToday,
       },
       createdAt: {
         type: GraphQLDateTime,

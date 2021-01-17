@@ -30,7 +30,6 @@ export type DifficultyType = 'easy' | 'medium' | 'hard';
 
 export type User = {
   _id: string;
-  decks: string[];
   played: {
     easy: { [deckId: string]: number };
     medium: { [deckId: string]: number };
@@ -66,12 +65,14 @@ export type FlipCardProps = {
 export type DeckOverviewProps = {
   _id: string;
   title: string;
-  imgLink: string;
-  colour: CustomColours;
+  imgLink?: string;
+  colour?: CustomColours;
   cards: FlipCardProps[];
-  subject: string;
-  score: number;
-  totalVotes: number;
-  createdAt: Date;
-  updatedAt: Date;
+  subject?: string;
+  language: string;
+  score?: number;
+  totalVotes?: number;
+  votesToday?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

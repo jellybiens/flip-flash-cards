@@ -11,7 +11,8 @@
         "paths": {
             "@types": ["../types"],
             "@gql-schema": ["../gql-schema"],
-            "@database": ["../psql-database"]
+            "@database": ["../psql-database"],
+            "@database/*": ["../psql-database/*"]
         },
     },
     "include": [
