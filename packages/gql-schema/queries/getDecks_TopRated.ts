@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import Conn from '@database';
-import { GraphQLObjectTypeConfig, GraphQLList } from 'graphql/type';
+import { GraphQLObjectTypeConfig, GraphQLList, GraphQLString } from 'graphql/type';
 import { GqlCardDeckModel } from '../models';
 
 export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
@@ -9,8 +9,22 @@ export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
   fields: {
     getDecksTopRated: {
       type: new GraphQLList(GqlCardDeckModel),
-      resolve: () => {
+      args: {
+        language: {
+          type: GraphQLString,
+        },
+        subject: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, args) => {
+        const where = {
+          ...(args.language && { language: args.language }),
+          ...(args.subject && { subject: args.subject }),
+        };
+
         return Conn.models.decks.findAll({
+          where,
           order: [
             ['score', 'DESC'],
             ['totalVotes', 'DESC'],

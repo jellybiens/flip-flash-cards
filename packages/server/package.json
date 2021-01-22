@@ -12,8 +12,10 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
+    "prestart:dev-flush": "npm run build",
     "prestart:dev": "npm run build",
     "prestart:prod": "npm run build",
+    "start:dev-flush": "NODE_ENV=dev FLUSH=true node .",
     "start:dev": "NODE_ENV=dev node .",
     "start:prod": "NODE_ENV=prod node .",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import Conn from '@database';
-import { GraphQLObjectTypeConfig, GraphQLList } from 'graphql/type';
+import { GraphQLObjectTypeConfig, GraphQLList, GraphQLString } from 'graphql/type';
 import { GqlCardDeckModel } from '../models';
 
 export const getDecksTrendingQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
@@ -9,15 +9,26 @@ export const getDecksTrendingQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
   fields: {
     getDecksTrending: {
       type: new GraphQLList(GqlCardDeckModel),
-      resolve: () => {
+      args: {
+        language: {
+          type: GraphQLString,
+        },
+        subject: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, args) => {
         const YESTERDAY = new Date(new Date().getTime() - 60 * 60 * 24 * 1000);
+        const where = {
+          ...(args.language && { language: args.language }),
+          ...(args.subject && { subject: args.subject }),
+          updatedAt: {
+            [Sequelize.Op.gt]: new Date(YESTERDAY),
+          },
+        };
 
         return Conn.models.decks.findAll({
-          where: {
-            updatedAt: {
-              [Sequelize.Op.gt]: new Date(YESTERDAY),
-            },
-          },
+          where,
           order: [
             ['votesToday', 'DESC'],
             ['score', 'DESC'],

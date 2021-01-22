@@ -59,9 +59,15 @@ FlipCard.hasOne(BackFace, { as: 'back' });
 FrontFace.belongsTo(FlipCard, { as: 'front' });
 BackFace.belongsTo(FlipCard, { as: 'back' });
 
-void Conn.sync({ force: true })
+const flushDB: boolean = (() => {
+  if (connection === 'prod') return false;
+  if (process.env.FLUSH) return true;
+  else return false;
+})();
+
+void Conn.sync({ force: flushDB })
   .then(() => {
-    void devMock();
+    if (flushDB) void devMock();
 
     // tslint:disable-next-line:no-console
     console.log(`
