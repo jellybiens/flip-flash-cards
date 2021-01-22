@@ -9,18 +9,29 @@ export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
   fields: {
     getDecksTopRated: {
       type: new GraphQLList(GqlCardDeckModel),
-      resolve: () =>
-        Conn.models.decks.findAll({
-          where: { totalVotes: { [Sequelize.Op.gte]: 'avgVotesHalf' } },
-          attributes: [
-            [Sequelize.fn('AVG', Sequelize.col('totalVotes')), 'avgVotes'],
-            [Sequelize.literal('avgVotes / 2'), 'avgVotesHalf'],
-          ],
+      resolve: () => {
+        return Conn.models.decks.findAll({
           order: [
             ['score', 'DESC'],
             ['totalVotes', 'DESC'],
           ],
-        }),
+          group: ['_id'],
+          having: {
+            totalVotes: {
+              [Sequelize.Op.gt]: Sequelize.literal(`(
+                    SELECT AVG("totalVotes")
+                    FROM decks
+                )`),
+            },
+            score: {
+              [Sequelize.Op.gt]: Sequelize.literal(`(
+                    SELECT AVG("score")
+                    FROM decks
+                )`),
+            },
+          },
+        });
+      },
     },
   },
 };

@@ -5,6 +5,7 @@ import { getDecksNewestQuery } from './getDecks_Newest';
 import { getDecksTopRatedQuery } from './getDecks_TopRated';
 import { getDecksTrendingQuery } from './getDecks_Trending';
 import { getUserDecksQuery } from './getDecks_User';
+import { getUserQuery } from './getUser';
 
 const QueryDef: GraphQLObjectTypeConfig<unknown, unknown> = {
   name: 'RootQuery',
@@ -16,6 +17,7 @@ const QueryDef: GraphQLObjectTypeConfig<unknown, unknown> = {
     ...getDecksTopRatedQuery.fields,
     ...getDecksTrendingQuery.fields,
     ...getUserDecksQuery.fields,
+    ...getUserQuery.fields,
   }),
 };
 

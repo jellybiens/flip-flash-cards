@@ -10,6 +10,7 @@ import {
 import { FlipCard as _FlipCard, FlipCardModel } from './models/FlipCard';
 import { Deck as _Deck, DeckModel } from './models/Deck';
 import { User as _User, UserModel } from './models/User';
+import { UserScores as _UserScores, UserScoresModel } from './models/UserScores';
 import { devMock } from './mocks/dev';
 
 dotenv.config({ path: path.resolve('.env') });
@@ -39,6 +40,12 @@ export const BackFace = Conn.define('backface', _BackFace) as CardFaceModel;
 export const FlipCard = Conn.define('flipcards', _FlipCard) as FlipCardModel;
 export const Deck = Conn.define('decks', _Deck) as DeckModel;
 export const User = Conn.define('users', _User) as UserModel;
+export const UserScores = Conn.define('userscores', _UserScores) as UserScoresModel;
+
+User.hasMany(UserScores, { as: 'scores' });
+UserScores.belongsTo(User);
+Deck.hasMany(UserScores);
+UserScores.belongsTo(Deck);
 
 User.hasMany(Deck);
 Deck.belongsTo(User);
@@ -52,9 +59,9 @@ FlipCard.hasOne(BackFace, { as: 'back' });
 FrontFace.belongsTo(FlipCard, { as: 'front' });
 BackFace.belongsTo(FlipCard, { as: 'back' });
 
-void Conn.sync(/*{ force: true }*/)
+void Conn.sync({ force: true })
   .then(() => {
-    // void devMock();
+    void devMock();
 
     // tslint:disable-next-line:no-console
     console.log(`

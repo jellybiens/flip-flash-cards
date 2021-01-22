@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
-import { User } from '@types';
+import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from 'graphql';
+import { User, UserScore } from '@types';
 
 export const GqlUserModel = new GraphQLObjectType({
   name: 'User',
@@ -10,9 +10,9 @@ export const GqlUserModel = new GraphQLObjectType({
         type: GraphQLID,
         resolve: (user: User) => user._id,
       },
-      played: {
-        type: GqlPlayedDecksObject,
-        resolve: (user: User) => user.played,
+      scores: {
+        type: new GraphQLList(GqlPlayedDecksObject),
+        resolve: (user: User) => user.scores,
       },
     };
   },
@@ -23,18 +23,31 @@ const GqlPlayedDecksObject = new GraphQLObjectType({
   description: 'Scores for decks that the user has played',
   fields: () => {
     return {
-      easy: {
+      deckId: {
         type: GraphQLString,
-        resolve: (played: User['played']) => played.easy,
+        resolve: (played: UserScore) => played.deckId,
       },
-      medium: {
+      level: {
         type: GraphQLString,
-        resolve: (played: User['played']) => played.medium,
+        resolve: (played: UserScore) => played.level,
       },
-      hard: {
+      score: {
         type: GraphQLString,
-        resolve: (played: User['played']) => played.hard,
+        resolve: (played: UserScore) => played.score,
       },
     };
   },
 });
+
+// const scoreDictionary: {
+//   easy: { [key: string]: number };
+//   medium: { [key: string]: number };
+//   hard: { [key: string]: number };
+// } = {
+//   easy: {},
+//   medium: {},
+//   hard: {},
+// };
+// user.scores.map((score) => {
+//   scoreDictionary[score.level][score.deckId] = score.score;
+// });

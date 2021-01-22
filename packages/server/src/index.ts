@@ -9,7 +9,7 @@ import '@database';
 
 // config
 dotenv.config({ path: path.resolve('.env') });
-const APP_PORT = process.env.PORT || 5001;
+const APP_PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 

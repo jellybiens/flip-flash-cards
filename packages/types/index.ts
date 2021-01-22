@@ -28,13 +28,15 @@ export type CustomColours =
 
 export type DifficultyType = 'easy' | 'medium' | 'hard';
 
+export type UserScore = {
+  deckId: string;
+  level: 'easy' | 'medium' | 'hard';
+  score: number;
+};
+
 export type User = {
   _id: string;
-  played: {
-    easy: { [deckId: string]: number };
-    medium: { [deckId: string]: number };
-    hard: { [deckId: string]: number };
-  };
+  scores: UserScore[];
 };
 
 export type CardFaceFieldValues = {

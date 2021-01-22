@@ -1,4 +1,4 @@
-import { BackFace, Deck, FlipCard, FrontFace, User } from '..';
+import { BackFace, Deck, FlipCard, FrontFace, User, UserScores } from '..';
 import Chance from 'chance';
 const chance = Chance(42);
 
@@ -6,7 +6,15 @@ export const devMock = () => {
   const userId = '1087b574-6508-4efc-ab52-a0d980d5078c';
   const flipId = '4087b574-6508-4efc-ab52-a0d980d5078c';
   const deckId = '5087b574-6508-4efc-ab52-a0d980d5078c';
-  const userProps = { _id: userId, played: 0 };
+  const userProps = {
+    _id: userId,
+  };
+  const userScoresProps = {
+    userId,
+    deckId,
+    level: 'easy',
+    score: 87,
+  };
 
   const frontProps = { frontId: flipId, text: 'card01.txt', imgLink: 'card01.img' };
   const backProps = { backId: flipId, text: 'card02.txt', imgLink: 'card02.img' };
@@ -31,6 +39,10 @@ export const devMock = () => {
     void Deck.create({
       ...deckProps,
     }).then(() => {
+      void UserScores.create({
+        ...userScoresProps,
+      });
+
       void FlipCard.create({
         ...flipProps,
       }).then(() => {
@@ -45,9 +57,7 @@ export const devMock = () => {
   });
 
   for (let i = 0; i < 10; i++) {
-    void User.create({
-      played: chance.integer({ min: 0, max: 20 }),
-    }).then((user) => {
+    void User.create().then((user) => {
       void Deck.create({
         userId: user._id,
         title: chance.word(),
@@ -58,10 +68,17 @@ export const devMock = () => {
           1,
         )[0],
         language: chance.pickset(['en', 'fr', 'es'], 1)[0],
-        score: chance.floating({ fixed: 4, min: 0, max: 20 }),
+        score: chance.floating({ fixed: 4, min: 0, max: 5 }),
         totalVotes: chance.integer({ min: 0, max: 20 }),
         votesToday: chance.integer({ min: 0, max: 6 }),
       }).then((deck) => {
+        void UserScores.create({
+          userId: user._id,
+          deckId: deck._id,
+          level: chance.pickset(['easy', 'medium', 'hard'], 1)[0],
+          score: chance.integer({ min: 0, max: 100 }),
+        });
+
         for (let j = 0; j < chance.integer({ min: 10, max: 20 }); j++) {
           void FlipCard.create({
             deckId: deck._id,

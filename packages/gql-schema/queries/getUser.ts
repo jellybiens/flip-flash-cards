@@ -1,33 +1,30 @@
 import Conn from '@database';
-// import { UserAttributes } from '@database/models';
-import { GraphQLObjectTypeConfig, GraphQLID, GraphQLList } from 'graphql/type';
+import { GraphQLObjectTypeConfig, GraphQLID } from 'graphql/type';
+import { GqlUserModel } from '../models';
 
-import { GqlCardDeckModel } from '../models';
-
-export const getUserDecksQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
-  name: 'getUserDecksQuery',
-  description: 'Fetch the decks of a specific user by _id',
+export const getUserQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
+  name: 'getUserQuery',
+  description: 'Fetch information of a specific user by _id',
   fields: {
-    getDeckCards: {
-      type: new GraphQLList(GqlCardDeckModel),
+    getUser: {
+      type: GqlUserModel,
       args: {
         userId: {
           type: GraphQLID,
         },
       },
-      resolve: (_, args) => {
-        return Conn.models.users.findOne({
-          where: { userId: args.userId },
-        });
-        // TODO:
-        // .then((user: UserAttributes) => {
-        //   const userDate = {
-        //     played: JSON.parse(user.played),
-        //     ...user,
-        //   };
-        //   return userDate;
-        // });
-      },
+      resolve: (_, args) =>
+        Conn.models.users.findOne({
+          where: { _id: args.userId },
+          include: [
+            {
+              model: Conn.models.userscores,
+              attributes: ['deckId', 'level', 'score'],
+              where: { userId: args.userId },
+              as: 'scores',
+            },
+          ],
+        }),
     },
   },
 };
