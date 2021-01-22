@@ -46,6 +46,7 @@ export const createDeckMutation: GraphQLObjectTypeConfig<unknown, unknown> = {
                   });
                 });
             });
+            return deck;
           });
       },
     },
