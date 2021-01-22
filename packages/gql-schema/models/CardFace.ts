@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
+import { GraphQLInputObjectType, GraphQLObjectType, GraphQLString } from 'graphql';
 import { CardFaceProps } from '@types';
 
 export const GqlCardFaceModel = new GraphQLObjectType({
@@ -17,6 +17,24 @@ export const GqlCardFaceModel = new GraphQLObjectType({
       colour: {
         type: GraphQLString,
         resolve: (cardFace: CardFaceProps) => cardFace.colour,
+      },
+    };
+  },
+});
+
+export const GqlCardFaceInputModel = new GraphQLInputObjectType({
+  name: 'CardFaceInput',
+  description: 'A single side face for a flip card',
+  fields: () => {
+    return {
+      text: {
+        type: GraphQLString,
+      },
+      imgLink: {
+        type: GraphQLString,
+      },
+      colour: {
+        type: GraphQLString,
       },
     };
   },

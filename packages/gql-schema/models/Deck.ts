@@ -4,9 +4,13 @@ import {
   GraphQLString,
   GraphQLInt,
   GraphQLFloat,
+  GraphQLInputObjectType,
+  GraphQLNonNull,
+  GraphQLList,
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps } from '@types';
+import { GqlFlipCardInputModel } from '.';
 
 export const GqlCardDeckModel = new GraphQLObjectType({
   name: 'Deck',
@@ -33,6 +37,10 @@ export const GqlCardDeckModel = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.subject,
       },
+      language: {
+        type: GraphQLString,
+        resolve: (deck: DeckOverviewProps) => deck.language,
+      },
       score: {
         type: GraphQLFloat,
         resolve: (deck: DeckOverviewProps) => deck.score,
@@ -52,6 +60,33 @@ export const GqlCardDeckModel = new GraphQLObjectType({
       updatedAt: {
         type: GraphQLDateTime,
         resolve: (deck: DeckOverviewProps) => deck.updatedAt,
+      },
+    };
+  },
+});
+
+export const GqlDeckInputModal = new GraphQLInputObjectType({
+  name: 'DeckInput',
+  description: 'A deck of cards for a single quiz',
+  fields: () => {
+    return {
+      title: {
+        type: new GraphQLNonNull(GraphQLString),
+      },
+      imgLink: {
+        type: new GraphQLNonNull(GraphQLString),
+      },
+      cards: {
+        type: new GraphQLNonNull(new GraphQLList(GqlFlipCardInputModel)),
+      },
+      colour: {
+        type: new GraphQLNonNull(GraphQLString),
+      },
+      subject: {
+        type: new GraphQLNonNull(GraphQLString),
+      },
+      language: {
+        type: new GraphQLNonNull(GraphQLString),
       },
     };
   },

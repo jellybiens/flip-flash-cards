@@ -44,6 +44,10 @@ export const Deck = {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  approved: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   createdAt: {
     type: Sequelize.DATE,
     defaultValue: new Date(),

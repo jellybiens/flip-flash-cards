@@ -20,6 +20,7 @@ export const getDecksNewestQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
         const where = {
           ...(args.language && { language: args.language }),
           ...(args.subject && { subject: args.subject }),
+          approved: true,
         };
 
         return Conn.models.decks.findAll({

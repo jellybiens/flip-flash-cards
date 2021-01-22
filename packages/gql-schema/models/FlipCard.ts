@@ -1,6 +1,11 @@
-import { GraphQLObjectType, GraphQLID } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLInputObjectType,
+  GraphQLNonNull,
+} from 'graphql';
 import { FlipCardProps } from '@types';
-import { GqlCardFaceModel } from './CardFace';
+import { GqlCardFaceModel, GqlCardFaceInputModel } from './CardFace';
 
 export const GqlFlipCardModel = new GraphQLObjectType({
   name: 'FlipCard',
@@ -18,6 +23,21 @@ export const GqlFlipCardModel = new GraphQLObjectType({
       back: {
         type: GqlCardFaceModel,
         resolve: (flipCard: FlipCardProps) => flipCard.back,
+      },
+    };
+  },
+});
+
+export const GqlFlipCardInputModel = new GraphQLInputObjectType({
+  name: 'FlipCardInput',
+  description: 'A 2 sided card with information on the back and front',
+  fields: () => {
+    return {
+      front: {
+        type: new GraphQLNonNull(GqlCardFaceInputModel),
+      },
+      back: {
+        type: new GraphQLNonNull(GqlCardFaceInputModel),
       },
     };
   },

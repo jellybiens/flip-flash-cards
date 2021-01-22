@@ -31,6 +31,7 @@ export const devMock = () => {
     subject: 'spanish',
     score: 3,
     totalVotes: 0,
+    approved: true,
   };
 
   void User.create({
@@ -71,6 +72,7 @@ export const devMock = () => {
         score: chance.floating({ fixed: 4, min: 0, max: 5 }),
         totalVotes: chance.integer({ min: 0, max: 20 }),
         votesToday: chance.integer({ min: 0, max: 6 }),
+        approved: true,
       }).then((deck) => {
         void UserScores.create({
           userId: user._id,

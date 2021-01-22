@@ -1,4 +1,4 @@
-export { GqlCardFaceModel } from './CardFace';
-export { GqlCardDeckModel } from './Deck';
-export { GqlFlipCardModel } from './FlipCard';
+export { GqlCardFaceModel, GqlCardFaceInputModel } from './CardFace';
+export { GqlCardDeckModel, GqlDeckInputModal } from './Deck';
+export { GqlFlipCardModel, GqlFlipCardInputModel } from './FlipCard';
 export { GqlUserModel } from './User';

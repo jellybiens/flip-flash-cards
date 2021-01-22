@@ -25,6 +25,7 @@ export const getDecksTrendingQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
           updatedAt: {
             [Sequelize.Op.gt]: new Date(YESTERDAY),
           },
+          approved: true,
         };
 
         return Conn.models.decks.findAll({
