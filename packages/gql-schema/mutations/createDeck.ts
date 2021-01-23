@@ -26,9 +26,15 @@ export const createDeckMutation: GraphQLObjectTypeConfig<unknown, unknown> = {
         });
         const cards = [...deckInput.cards];
         delete deckInput.cards;
+        const subject = deckInput.subject
+          .split(' ')
+          .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
+          .join(' ');
+
         const deck = await Conn.decks.create({
           userId,
           ...deckInput,
+          subject,
           ...(user.locked && { reviewed: true }),
         });
         cards.map((card) => {
