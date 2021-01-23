@@ -1,4 +1,4 @@
-import { BackFace, Deck, FlipCard, FrontFace, User, UserScores } from '..';
+import Conn from '..';
 import Chance from 'chance';
 const chance = Chance(42);
 
@@ -34,78 +34,88 @@ export const devMock = () => {
     approved: true,
   };
 
-  void User.create({
-    ...userProps,
-  }).then(() => {
-    void Deck.create({
-      ...deckProps,
-    }).then(() => {
-      void UserScores.create({
-        ...userScoresProps,
-      });
+  void Conn.users
+    .create({
+      ...userProps,
+    })
+    .then(() => {
+      void Conn.decks
+        .create({
+          ...deckProps,
+        })
+        .then(() => {
+          void Conn.userscores.create({
+            ...userScoresProps,
+          });
 
-      void FlipCard.create({
-        ...flipProps,
-      }).then(() => {
-        void FrontFace.create({
-          ...frontProps,
+          void Conn.flipcards
+            .create({
+              ...flipProps,
+            })
+            .then(() => {
+              void Conn.frontfaces.create({
+                ...frontProps,
+              });
+              void Conn.backfaces.create({
+                ...backProps,
+              });
+            });
         });
-        void BackFace.create({
-          ...backProps,
-        });
-      });
     });
-  });
 
   for (let i = 0; i < 10; i++) {
-    void User.create().then((user) => {
-      void Deck.create({
-        userId: user._id,
-        title: chance.word(),
-        imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
-        colour: chance.pickset(['red', 'orange', 'green', 'blue', 'purple'], 1)[0],
-        subject: chance.pickset(
-          ['Science', 'Trivia', 'Language', 'Sports', 'Moveis'],
-          1,
-        )[0],
-        language: chance.pickset(['en', 'fr', 'es'], 1)[0],
-        score: chance.floating({ fixed: 4, min: 0, max: 5 }),
-        totalVotes: chance.integer({ min: 0, max: 20 }),
-        votesToday: chance.integer({ min: 0, max: 6 }),
-        approved: true,
-      }).then((deck) => {
-        void UserScores.create({
+    void Conn.users.create().then((user) => {
+      void Conn.decks
+        .create({
           userId: user._id,
-          deckId: deck._id,
-          level: chance.pickset(['easy', 'medium', 'hard'], 1)[0],
-          score: chance.integer({ min: 0, max: 100 }),
-        });
-
-        for (let j = 0; j < chance.integer({ min: 10, max: 20 }); j++) {
-          void FlipCard.create({
+          title: chance.word(),
+          imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
+          colour: chance.pickset(['red', 'orange', 'green', 'blue', 'purple'], 1)[0],
+          subject: chance.pickset(
+            ['Science', 'Trivia', 'Language', 'Sports', 'Moveis'],
+            1,
+          )[0],
+          language: chance.pickset(['en', 'fr', 'es'], 1)[0],
+          score: chance.floating({ fixed: 4, min: 0, max: 5 }),
+          totalVotes: chance.integer({ min: 0, max: 20 }),
+          votesToday: chance.integer({ min: 0, max: 6 }),
+          approved: true,
+        })
+        .then((deck) => {
+          void Conn.userscores.create({
+            userId: user._id,
             deckId: deck._id,
-          }).then((flip) => {
-            void FrontFace.create({
-              frontId: flip._id,
-              text: chance.word(),
-              imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
-              colour: chance.pickset(
-                ['white', 'orange', 'green', 'blue', 'purple'],
-                1,
-              )[0],
-            });
-            void BackFace.create({
-              backId: flip._id,
-              text: chance.word(),
-              imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
-              colour: chance.pickset(
-                ['black', 'orange', 'green', 'blue', 'purple'],
-                1,
-              )[0],
-            });
+            level: chance.pickset(['easy', 'medium', 'hard'], 1)[0],
+            score: chance.integer({ min: 0, max: 100 }),
           });
-        }
-      });
+
+          for (let j = 0; j < chance.integer({ min: 10, max: 20 }); j++) {
+            void Conn.flipcards
+              .create({
+                deckId: deck._id,
+              })
+              .then((flip) => {
+                void Conn.frontfaces.create({
+                  frontId: flip._id,
+                  text: chance.word(),
+                  imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
+                  colour: chance.pickset(
+                    ['white', 'orange', 'green', 'blue', 'purple'],
+                    1,
+                  )[0],
+                });
+                void Conn.backfaces.create({
+                  backId: flip._id,
+                  text: chance.word(),
+                  imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
+                  colour: chance.pickset(
+                    ['black', 'orange', 'green', 'blue', 'purple'],
+                    1,
+                  )[0],
+                });
+              });
+          }
+        });
     });
   }
 };

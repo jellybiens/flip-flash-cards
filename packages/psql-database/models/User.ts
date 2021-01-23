@@ -5,6 +5,7 @@ import { UserScoresAttributes } from './UserScores';
 export type UserAttributes = Sequelize.Model & {
   _id?: string;
   scores: UserScoresAttributes[];
+  locked: boolean;
 };
 
 export type UserModel = typeof Sequelize.Model & (new () => UserAttributes);

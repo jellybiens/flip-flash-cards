@@ -39,6 +39,7 @@ const GqlPlayedDecksObject = new GraphQLObjectType({
   },
 });
 
+// TODO: on frontend
 // const scoreDictionary: {
 //   easy: { [key: string]: number };
 //   medium: { [key: string]: number };

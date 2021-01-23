@@ -13,7 +13,7 @@ import { User as _User, UserModel } from './models/User';
 import { UserScores as _UserScores, UserScoresModel } from './models/UserScores';
 import { devMock } from './mocks/dev';
 
-dotenv.config({ path: path.resolve('.env') });
+dotenv.config({ path: path.resolve('../../.env') });
 
 const connection = (() => {
   switch (process.env.NODE_ENV) {
@@ -35,29 +35,29 @@ const Conn = new Sequelize(connection, {
   },
 });
 
-export const FrontFace = Conn.define('frontface', _FrontFace) as CardFaceModel;
-export const BackFace = Conn.define('backface', _BackFace) as CardFaceModel;
-export const FlipCard = Conn.define('flipcards', _FlipCard) as FlipCardModel;
-export const Deck = Conn.define('decks', _Deck) as DeckModel;
-export const User = Conn.define('users', _User) as UserModel;
-export const UserScores = Conn.define('userscores', _UserScores) as UserScoresModel;
+const FrontFaces = Conn.define('frontface', _FrontFace) as CardFaceModel;
+const BackFaces = Conn.define('backface', _BackFace) as CardFaceModel;
+const FlipCards = Conn.define('flipcards', _FlipCard) as FlipCardModel;
+const Decks = Conn.define('decks', _Deck) as DeckModel;
+const Users = Conn.define('users', _User) as UserModel;
+const UserScores = Conn.define('userscores', _UserScores) as UserScoresModel;
 
-User.hasMany(UserScores, { as: 'scores' });
-UserScores.belongsTo(User);
-Deck.hasMany(UserScores);
-UserScores.belongsTo(Deck);
+Users.hasMany(UserScores, { as: 'scores' });
+UserScores.belongsTo(Users);
+Decks.hasMany(UserScores);
+UserScores.belongsTo(Decks);
 
-User.hasMany(Deck);
-Deck.belongsTo(User);
+Users.hasMany(Decks);
+Decks.belongsTo(Users);
 
-Deck.hasMany(FlipCard, { as: 'cards' });
-FlipCard.belongsTo(Deck);
+Decks.hasMany(FlipCards, { as: 'cards' });
+FlipCards.belongsTo(Decks);
 
-FlipCard.hasOne(FrontFace, { as: 'front' });
-FlipCard.hasOne(BackFace, { as: 'back' });
+FlipCards.hasOne(FrontFaces, { as: 'front' });
+FlipCards.hasOne(BackFaces, { as: 'back' });
 
-FrontFace.belongsTo(FlipCard, { as: 'front' });
-BackFace.belongsTo(FlipCard, { as: 'back' });
+FrontFaces.belongsTo(FlipCards, { as: 'front' });
+BackFaces.belongsTo(FlipCards, { as: 'back' });
 
 const flushDB: boolean = (() => {
   if (connection === 'prod') return false;
@@ -88,4 +88,11 @@ void Conn.sync({ force: flushDB })
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯`);
   });
 
-export default Conn;
+export default {
+  frontfaces: FrontFaces,
+  backfaces: BackFaces,
+  flipcards: FlipCards,
+  decks: Decks,
+  users: Users,
+  userscores: UserScores,
+};

@@ -15,11 +15,11 @@ export const getDeckCardsQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
         },
       },
       resolve: (_, args) =>
-        Conn.models.flipcards.findAll({
+        Conn.flipcards.findAll({
           where: { deckId: args.deckId },
           include: [
-            { model: Conn.models.frontface, as: 'front' },
-            { model: Conn.models.backface, as: 'back' },
+            { model: Conn.frontfaces, as: 'front' },
+            { model: Conn.backfaces, as: 'back' },
           ],
           order: Sequelize.literal('random()'),
         }),

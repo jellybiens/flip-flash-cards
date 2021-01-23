@@ -14,11 +14,11 @@ export const getUserQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
         },
       },
       resolve: (_, args) =>
-        Conn.models.users.findOne({
+        Conn.users.findOne({
           where: { _id: args.userId },
           include: [
             {
-              model: Conn.models.userscores,
+              model: Conn.userscores,
               attributes: ['deckId', 'level', 'score'],
               where: { userId: args.userId },
               as: 'scores',

@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "_moduleAliases": {
+    "@gql-schema": "./dist/gql-schema",
+    "@types": "./dist/types",
+    "@database": "./dist/psql-database"
+  },
   "scripts": {
     "all": "concurrently \"yarn\" \"yarn --cwd packages/storybook\" \"yarn --cwd packages/gql-schema\" \"yarn --cwd packages/server\"",
     "all:dev": "concurrently \"yarn -D\" \"yarn -D --cwd packages/storybook\" \"yarn -D --cwd packages/gql-schema\" \"yarn -D --cwd packages/server\"",
-    "server": "yarn --cwd packages/server start:dev",
-    "server:flush": "yarn --cwd packages/server start:dev-flush",
-    "storybook": "yarn --cwd packages/ui-kit storybook"
+    "storybook": "yarn --cwd packages/ui-kit storybook",
+    "build:server": "yarn --cwd packages/server build",
+    "preserver:flush": "yarn build:server",
+    "preserver:dev": "yarn build:server",
+    "server:flush": "cd dist/server && NODE_ENV=dev FLUSH=true node .",
+    "server:dev": "cd dist/server && NODE_ENV=dev node ."
   },
   "author": "ethan watson",
   "license": "ISC",
@@ -17,7 +25,10 @@
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.9.0",
+    "chance": "^1.1.7",
     "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-config-react-app": "^6.0.0",
@@ -32,7 +43,14 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-typescript": "^0.14.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.4.0",
+    "graphql-iso-date": "^3.6.1",
+    "module-alias": "^2.2.2",
+    "pg": "^8.5.1",
     "prettier": "^2.2.1",
+    "sequelize": "^6.4.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.2"
   }

@@ -14,7 +14,7 @@ export const getUserDecksQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
         },
       },
       resolve: (_, args) =>
-        Conn.models.decks.findAll({
+        Conn.decks.findAll({
           where: { userId: args.userId },
         }),
     },

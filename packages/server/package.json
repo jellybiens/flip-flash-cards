@@ -1,43 +1,24 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "dist/server/src/index.js",
+  "main": ".",
   "author": "ethan watson",
-  "license": "MIT",
-  "_moduleAliases": {
-    "@gql-schema": "dist/gql-schema",
-    "@types": "dist/types",
-    "@database": "dist/psql-database"
-  },
+  "license": "",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
-    "prestart:dev-flush": "npm run build",
-    "prestart:dev": "npm run build",
-    "prestart:prod": "npm run build",
-    "start:dev-flush": "NODE_ENV=dev FLUSH=true node .",
-    "start:dev": "NODE_ENV=dev node .",
-    "start:prod": "NODE_ENV=prod node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.10",
-    "@types/graphql-iso-date": "^3.4.0",
     "@types/node": "^14.14.20",
-    "@types/pg": "^7.14.8",
-    "@types/sequelize": "^4.28.9",
-    "chance": "^1.1.7",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
-    "graphql": "^15.4.0",
     "module-alias": "^2.2.2",
     "path": "^0.12.7",
-    "pg": "^8.5.1",
-    "sequelize": "^6.3.5",
     "tslint": "^6.1.3",
     "typescript": "^4.1.3"
   },

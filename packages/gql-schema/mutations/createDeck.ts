@@ -1,6 +1,5 @@
 import Conn from '@database';
-import { DeckAttributes, FlipCardAttributes } from '@database/models';
-import { DeckOverviewProps, FlipCardProps } from '@types';
+import { DeckOverviewProps } from '@types';
 import { GraphQLID, GraphQLObjectTypeConfig } from 'graphql/type';
 import { GqlCardDeckModel, GqlDeckInputModal } from '../models';
 
@@ -18,36 +17,37 @@ export const createDeckMutation: GraphQLObjectTypeConfig<unknown, unknown> = {
           type: GqlDeckInputModal,
         },
       },
-      resolve: (
+      resolve: async (
         _,
         { userId, deckInput }: { userId: string; deckInput: DeckOverviewProps },
       ) => {
+        const user = await Conn.users.findOne({
+          where: { _id: userId },
+        });
         const cards = [...deckInput.cards];
         delete deckInput.cards;
-        return Conn.models.decks
-          .create({
-            userId,
-            ...deckInput,
-          })
-          .then((deck: DeckAttributes) => {
-            cards.map((card) => {
-              void Conn.models.flipcards
-                .create({
-                  deckId: deck._id,
-                })
-                .then((flip: FlipCardAttributes) => {
-                  void Conn.models.frontface.create({
-                    frontId: flip._id,
-                    ...card.front,
-                  });
-                  void Conn.models.backface.create({
-                    backId: flip._id,
-                    ...card.back,
-                  });
-                });
+        const deck = await Conn.decks.create({
+          userId,
+          ...deckInput,
+          ...(user.locked && { reviewed: true }),
+        });
+        cards.map((card) => {
+          void Conn.flipcards
+            .create({
+              deckId: deck._id,
+            })
+            .then((flip) => {
+              void Conn.frontfaces.create({
+                frontId: flip._id,
+                ...card.front,
+              });
+              void Conn.backfaces.create({
+                backId: flip._id,
+                ...card.back,
+              });
             });
-            return deck;
-          });
+        });
+        return deck;
       },
     },
   },

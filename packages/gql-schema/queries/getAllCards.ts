@@ -10,10 +10,10 @@ export const getAllCardsQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
     getAllCards: {
       type: new GraphQLList(GqlFlipCardModel),
       resolve: () =>
-        Conn.models.flipcards.findAll({
+        Conn.flipcards.findAll({
           include: [
-            { model: Conn.models.frontface, as: 'front' },
-            { model: Conn.models.backface, as: 'back' },
+            { model: Conn.frontfaces, as: 'front' },
+            { model: Conn.backfaces, as: 'back' },
           ],
           order: Sequelize.literal('random()'),
         }),

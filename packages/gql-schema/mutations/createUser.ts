@@ -8,7 +8,7 @@ export const createUserMutation: GraphQLObjectTypeConfig<unknown, unknown> = {
   fields: {
     createUser: {
       type: GqlUserModel,
-      resolve: () => Conn.models.users.create(),
+      resolve: () => Conn.users.create(),
     },
   },
 };

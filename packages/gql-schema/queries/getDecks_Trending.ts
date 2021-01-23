@@ -28,7 +28,7 @@ export const getDecksTrendingQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
           approved: true,
         };
 
-        return Conn.models.decks.findAll({
+        return Conn.decks.findAll({
           where,
           order: [
             ['votesToday', 'DESC'],

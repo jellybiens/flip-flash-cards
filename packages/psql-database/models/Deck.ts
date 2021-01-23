@@ -48,6 +48,10 @@ export const Deck = {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  reviewed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   createdAt: {
     type: Sequelize.DATE,
     defaultValue: new Date(),
