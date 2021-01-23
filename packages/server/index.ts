@@ -35,10 +35,18 @@ app.listen(APP_PORT, () => {
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯`);
 });
 
-// // the __dirname is the current directory from where the script is running
-// app.use(express.static(__dirname + '/client/public/'));
+// the __dirname is the current directory from where the script is running
+app.use(express.static(path.resolve('../client')));
 
-// // send the user to index html page inspite of the url
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname + '/client/public/', 'index.html'));
-// });
+// send the user to index html page inspite of the url
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(__dirname + '../client', 'index.html'));
+
+  // tslint:disable-next-line:no-console
+  console.log(`
+    _______________________________
+    ///////////////////////////////
+    Client ready
+    ///////////////////////////////
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯`);
+});

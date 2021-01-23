@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const App = () => (
     <div className="App">
-      Start
+      Start Now!
     </div>
   );
 
