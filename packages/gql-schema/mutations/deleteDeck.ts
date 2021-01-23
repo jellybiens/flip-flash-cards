@@ -47,17 +47,8 @@ export const deleteDeckMutation: GraphQLObjectTypeConfig<unknown, unknown> = {
                     .then(() => true);
                 });
             });
-        } catch (e) {
-          // tslint:disable-next-line:no-console
-          console.log(`
-                _______________________________
-                ///////////////////////////////
-                error ${
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  e
-                }
-                ///////////////////////////////
-                ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯`);
+        } catch (_) {
+          return false;
         }
       },
     },
