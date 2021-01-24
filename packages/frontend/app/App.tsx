@@ -4,6 +4,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from '@ui-kit';
 import { AllDecksPage } from '../modules/AllDecks';
+import { PlayDeckPage } from '../modules/PlayDeck';
 
 const apolloClient = new ApolloClient({
   uri: '/graphql',
@@ -18,8 +19,8 @@ const App: React.FC = () => (
           <Redirect path="/" to="/AllDecks" exact />
 
           <Route path="/AllDecks" component={AllDecksPage} />
+          <Route path="/PlayDeck/:deckId" component={PlayDeckPage} />
           <Route path="/MyDecks" component={() => <></>} />
-          <Route path="/PlayDeck/:deckId" component={() => <></>} />
           <Route path="/CreateDeck" component={() => <></>} />
 
           <Route path="/About" component={() => <></>} />

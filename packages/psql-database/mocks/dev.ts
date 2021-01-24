@@ -78,7 +78,7 @@ export const devMock = () => {
         });
     });
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     void Conn.users.create().then(async (user) => {
       const randomPictureUrl = await RandomPicture();
 
@@ -112,17 +112,19 @@ export const devMock = () => {
               .create({
                 deckId: deck._id,
               })
-              .then((flip) => {
+              .then(async (flip) => {
+                const randomPictureUrl1 = await RandomPicture();
+                const randomPictureUrl2 = await RandomPicture();
                 void Conn.frontfaces.create({
                   frontId: flip._id,
                   text: chance.word(),
-                  imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
+                  imgLink: randomPictureUrl1.url,
                   colour: chance.pickset(colours, 1)[0],
                 });
                 void Conn.backfaces.create({
                   backId: flip._id,
                   text: chance.word(),
-                  imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
+                  imgLink: randomPictureUrl2.url,
                   colour: chance.pickset(colours, 1)[0],
                 });
               });

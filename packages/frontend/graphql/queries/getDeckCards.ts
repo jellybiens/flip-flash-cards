@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const DeckCardsQuery = gql`
   query DeckCards($deckId: ID) {
-    getDeckCards(deckId: $deckId) {
+    cards: getDeckCards(deckId: $deckId) {
       _id
       front {
         text
