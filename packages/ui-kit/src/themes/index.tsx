@@ -1,6 +1,5 @@
 import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
 import './fonts/fonts.css';
-import './createPalette.d';
 
 export enum Hues {
   white = '#fbfbfb',

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": ".",
   "author": "ethan watson",
-  "license": "",
+  "license": "ISC",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc"

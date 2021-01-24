@@ -11,9 +11,10 @@
     "paths": {
       "@ui-kit": ["../ui-kit/src"],
       "@types": ["../types"]
-    },
+    }
   },
   "include": [
-    "index.tsx"
+    "index.tsx",
+    "../ui-kit/src/themes/createPalette.d.ts"
   ]
 }

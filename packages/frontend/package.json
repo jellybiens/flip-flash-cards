@@ -1,22 +1,28 @@
 {
   "name": "flash-flip-quiz-app",
   "version": "0.1.0",
+  "license": "ISC",
   "private": true,
+  "scripts": {
+    "start": "webpack serve --mode development --env development",
+    "build": "webpack",
+    "dev": "yarn build & yarn start"
+  },
   "devDependencies": {
     "@apollo/client": "^3.3.7",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
     "awesome-typescript-loader": "^5.2.1",
+    
     "css-loader": "^5.0.1",
+    
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.1",
-    "mini-css-extract-plugin": "^1.3.4",
+    
+    
     "react-router-dom": "^5.2.0",
-    "source-map-loader": "^2.0.0"
-  },
-  "scripts": {
-    "start": "webpack serve --mode development --env development",
-    "build": "webpack"
+    "source-map-loader": "^2.0.0",
+    "style-loader": "^2.0.0"
   }
 }

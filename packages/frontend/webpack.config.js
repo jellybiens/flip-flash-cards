@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: './index.tsx',
   target: 'web',
@@ -10,7 +13,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx', 'json'],
     alias: {
       '@ui-kit': path.resolve(__dirname, '../ui-kit/src'),
       '@types': path.resolve(__dirname, '../types'),
@@ -29,11 +32,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'css-loader',
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(woff|woff2|ttf|otf)$/,
+        type: 'asset/resource',
       },
     ],
   },

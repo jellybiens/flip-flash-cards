@@ -1,28 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
-import { TopRatedDecksQuery } from '../graphql/queries/getDecksTopRated';
+import { NewestDecksQuery } from '../graphql/queries/getDecksNewest';
 import { Grid } from '@material-ui/core';
 import { CardFaceButton } from '@ui-kit';
+import { DeckOverviewProps } from '@types';
 
 export const AllDecksPage: React.FC = () => {
   const [language, setLanguage] = React.useState('en');
   const [subject, setSubject] = React.useState('');
 
-  const { loading, error, data } = useQuery(TopRatedDecksQuery, {
-    variables: { language, subject },
-  });
+  const { loading, error, data } = useQuery<{ decks: DeckOverviewProps[] }>(
+    NewestDecksQuery,
+    {
+      variables: { language, subject },
+    },
+  );
 
   if (loading) return <>Loading</>;
 
   if (data) {
     return (
-      <Grid container>
+      <Grid container spacing={4}>
         {data.decks.map((deck, i) => (
-          <Grid key={i} item xs={12}>
+          <Grid key={i} item xs={3}>
             <CardFaceButton
-              text={deck.text}
+              text={deck.title}
               imgLink={deck.imgLink}
               colour={deck.colour}
             />

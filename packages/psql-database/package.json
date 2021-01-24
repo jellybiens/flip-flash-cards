@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "ethanw atson",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "@types/chance": "^1.1.1",
     "@types/pg": "^7.14.8",

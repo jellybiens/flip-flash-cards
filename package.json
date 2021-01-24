@@ -9,17 +9,18 @@
     "@database": "./dist/psql-database"
   },
   "scripts": {
-    "all": "concurrently \"yarn\" \"yarn --cwd packages/storybook\" \"yarn --cwd packages/gql-schema\" \"yarn --cwd packages/server\"",
-    "all:dev": "concurrently \"yarn -D\" \"yarn -D --cwd packages/storybook\" \"yarn -D --cwd packages/gql-schema\" \"yarn -D --cwd packages/server\"",
-    "dev:app": "yarn --cwd  packages/frontend start",
     "dev": "concurrently \"yarn server:dev \" \"yarn dev:app\"",
+    "dev:app": "yarn --cwd  packages/frontend dev",
+
     "build": "concurrently \"yarn build:server \" \"yarn --cwd build:app\"",
     "build:app": "yarn --cwd packages/frontend build",
     "build:server": "yarn --cwd packages/server build",
+
     "preserver:dev": "yarn build:server",
     "server:dev": "cd dist/server && NODE_ENV=dev node .",
     "preserver:flush": "yarn build:server",
     "server:flush": "cd dist/server && NODE_ENV=dev FLUSH=true node .",
+    
     "storybook": "yarn --cwd packages/ui-kit storybook"
   },
   "author": "ethan watson",
@@ -63,6 +64,7 @@
     "path": "^0.12.7",
     "pg": "^8.5.1",
     "prettier": "^2.2.1",
+    "random-picture": "^4.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sequelize": "^6.4.0",
