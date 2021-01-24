@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CircleButton } from '../src'
