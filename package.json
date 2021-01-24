@@ -12,7 +12,9 @@
     "all": "concurrently \"yarn\" \"yarn --cwd packages/storybook\" \"yarn --cwd packages/gql-schema\" \"yarn --cwd packages/server\"",
     "all:dev": "concurrently \"yarn -D\" \"yarn -D --cwd packages/storybook\" \"yarn -D --cwd packages/gql-schema\" \"yarn -D --cwd packages/server\"",
     
-    "dev": "concurrently \"yarn server:dev \" \"yarn --cwd packages/frontend start\"",
+    "dev:app": "yarn --cwd  packages/frontend start",
+
+    "dev": "concurrently \"yarn server:dev \" \"yarn dev:app\"",
     "build": "concurrently \"yarn build:server \" \"yarn --cwd build:app\"",
 
     "build:app": "yarn --cwd packages/frontend build",

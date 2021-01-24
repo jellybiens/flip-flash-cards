@@ -69,6 +69,7 @@ export const devMock = () => {
         .create({
           userId: user._id,
           title: chance.word(),
+          subtitle: chance.sentence(),
           imgLink: chance.avatar({ protocol: 'https', fileExtension: 'jpg' }),
           colour: chance.pickset(['red', 'orange', 'green', 'blue', 'purple'], 1)[0],
           subject: chance.pickset(

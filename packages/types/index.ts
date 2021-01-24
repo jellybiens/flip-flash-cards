@@ -67,6 +67,7 @@ export type FlipCardProps = {
 export type DeckOverviewProps = {
   _id: string;
   title: string;
+  subtitle?: string;
   imgLink?: string;
   colour?: CustomColours;
   cards: FlipCardProps[];

@@ -16,7 +16,7 @@ const app: Application = express();
 app.use(cors());
 
 app.use(
-  '/graphiql',
+  '/graphql',
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   graphqlHTTP({
     schema,

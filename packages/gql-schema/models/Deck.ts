@@ -25,6 +25,10 @@ export const GqlCardDeckModel = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.title,
       },
+      subtitle: {
+        type: GraphQLString,
+        resolve: (deck: DeckOverviewProps) => deck.subtitle,
+      },
       imgLink: {
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.imgLink,
@@ -72,6 +76,9 @@ export const GqlDeckInputModal = new GraphQLInputObjectType({
     return {
       title: {
         type: new GraphQLNonNull(GraphQLString),
+      },
+      subtitle: {
+        type: GraphQLString,
       },
       imgLink: {
         type: new GraphQLNonNull(GraphQLString),

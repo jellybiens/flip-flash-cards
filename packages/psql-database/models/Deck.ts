@@ -16,6 +16,10 @@ export const Deck = {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  subtitle: {
+    type: Sequelize.STRING,
+    defaultValue: '',
+  },
   imgLink: {
     type: Sequelize.STRING,
     allowNull: false,

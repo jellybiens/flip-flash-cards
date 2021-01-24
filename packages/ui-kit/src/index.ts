@@ -31,4 +31,5 @@ export * from './transitions/LinearDeckTransition';
 export * from './transitions/LoopingDeckTransition';
 
 export * from './definitions';
+export { default as theme } from './themes';
 export * from './themes';

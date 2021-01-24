@@ -1,5 +1,6 @@
 import { createMuiTheme, darken, lighten } from '@material-ui/core/styles';
 import './fonts/fonts.css';
+import './createPalette.d';
 
 export enum Hues {
   white = '#fbfbfb',
@@ -52,7 +53,7 @@ colours.map((c) => {
   });
 });
 
-export default createMuiTheme({
+const theme = createMuiTheme({
   typography: {
     fontFamily: [
       'OliverRegular',
@@ -73,3 +74,5 @@ export default createMuiTheme({
     ...colourDefinitions,
   },
 });
+
+export default theme;
