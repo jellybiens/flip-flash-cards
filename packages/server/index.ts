@@ -1,4 +1,4 @@
-import 'module-alias/register';
+// import 'module-alias/register';
 import path from 'path';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
@@ -39,8 +39,8 @@ app.listen(APP_PORT, () => {
 app.use(express.static(path.resolve('../client')));
 
 // send the user to index html page inspite of the url
-app.get('*', (_, res) => {
-  res.sendFile(path.resolve(__dirname + '../client', 'index.html'));
+app.get('/*', (_, res) => {
+  res.sendFile(path.resolve('../client/index.html'));
 
   // tslint:disable-next-line:no-console
   console.log(`

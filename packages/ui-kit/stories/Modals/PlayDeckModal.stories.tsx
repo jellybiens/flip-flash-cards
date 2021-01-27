@@ -29,6 +29,7 @@ const Story = () => {
     cards: cardDeck,
     score: 3.5,
     subject: 'english',
+    language: 'en',
     totalVotes: 2134,
     createdAt: new Date(),
     updatedAt: new Date(),
