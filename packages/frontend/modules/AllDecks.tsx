@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { useNavigate } from '../utils';
 import { NewestDecksQuery } from '../graphql/queries/getDecksNewest';
 import { Grid, makeStyles } from '@material-ui/core';
 import { CardFaceButton } from '@ui-kit';
@@ -18,12 +18,10 @@ const useStyles = makeStyles(() => ({
 
 export const AllDecksPage: React.FC = () => {
   const cs = useStyles();
+  const navigate = useNavigate();
 
   const [language, setLanguage] = React.useState('en');
   const [subject, setSubject] = React.useState('');
-
-  const history = useHistory();
-  const navigate = (link) => history.push(link);
 
   const { loading, error, data } = useQuery<{ decks: DeckOverviewProps[] }>(
     NewestDecksQuery,

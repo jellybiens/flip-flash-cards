@@ -1,3 +1,4 @@
+export * from './atoms/AppHeader';
 export * from './atoms/CardFace';
 export * from './atoms/Buttons/CardFaceButton';
 export * from './atoms/Buttons';
@@ -12,6 +13,7 @@ export * from './atoms/StarRatingTotal';
 export * from './atoms/Tabs';
 export * from './atoms/Typography';
 
+export * from './molecules/AppMenu';
 export * from './molecules/ChallengeDeck';
 export * from './molecules/ReviewDeck';
 export * from './molecules/FlipCard';

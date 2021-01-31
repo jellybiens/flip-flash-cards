@@ -1,28 +1,26 @@
 import * as React from 'react';
-import { AppBar, IconButton, Toolbar } from '@material-ui/core';
-import { SettingsDrawer, Typography } from '@ui-kit';
-import MenuIcon from '@material-ui/icons/Menu';
+import { useNavigate } from '../utils';
+import { AppMenu as UiKitAppMenu, AppMenuProps } from '@ui-kit';
 
 export const AppHeader: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
-  return (
-    <>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={() => setOpen(!open)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Responsive drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <SettingsDrawer {...{ open, setOpen }} />
-    </>
-  );
+  const navigate = useNavigate();
+
+  const props: AppMenuProps = {
+    headerNav: {
+      paypal: () => alert('paypal'),
+      bitcoin: () => alert('btc'),
+      ethereum: () => alert('eth'),
+    },
+    settingsNav: {
+      browseDecks: () => navigate('/AllDecks'),
+      mydecks: () => navigate('/MyDecks'),
+      createdeck: () => navigate('/CreateDeck'),
+      about: () => navigate('/About'),
+      cleardata: () => navigate('/ClearData'),
+    },
+    defaultLang: 'fr', // TODO: get context
+    setLanguage: (lang) => alert(lang), // TODO: set context
+  };
+
+  return <UiKitAppMenu {...props} />;
 };

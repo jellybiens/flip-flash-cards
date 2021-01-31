@@ -23,12 +23,13 @@ export type IconNames =
   | 'myDecks'
   | 'account'
   | 'menu'
+  | 'heart'
   | 'info'
   | 'law'
   | 'deleteAll'
   | 'cog'
   | 'practice'
-  | 'gTranslate'
+  | 'translate'
   | 'diplomaHat';
 
 export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
@@ -55,16 +56,20 @@ export const Icons: { [key: string]: SvgIcons.SvgIconComponent } = {
 
   new: SvgIcons.Schedule,
   trending: SvgIcons.TrendingUp,
+  browse: SvgIcons.ViewComfy,
+  browseAlt: SvgIcons.ViewCarousel,
   myDecks: SvgIcons.RecentActors,
   account: SvgIcons.AccountCircle,
-  menu: SvgIcons.Reorder,
+  menu: SvgIcons.Menu,
+  closeMenu: SvgIcons.LastPage,
   info: SvgIcons.Info,
   law: SvgIcons.Gavel,
   deleteAll: SvgIcons.DeleteForever,
   cog: SvgIcons.Settings,
+  heart: SvgIcons.FavoriteBorder,
 
   practice: SvgIcons.FitnessCenter,
-  gTranslate: SvgIcons.GTranslate,
+  translate: SvgIcons.Translate,
   diplomaHat: SvgIcons.School,
 };
 

@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 
   return {
+    default: { fontFamily: 'inherit' },
+    secondary: { fontFamily: 'Roboto !important' },
     h1: { ...textFieldScaling('h1') },
     h2: { ...textFieldScaling('h2') },
     h3: { ...textFieldScaling('h3') },
@@ -49,12 +51,10 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-export const Typography: React.FC<TypographyProps> = ({
-  variant = 'body1',
-  className,
-  ...props
-}) => {
+export const Typography: React.FC<
+  TypographyProps & { font?: 'default' | 'secondary' }
+> = ({ variant = 'body1', font = 'default', className, ...props }) => {
   const cs = useStyles();
 
-  return <MuiTypography className={clsx(className, cs[variant])} {...props} />;
+  return <MuiTypography className={clsx(className, cs[variant], cs[font])} {...props} />;
 };

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
   Drawer,
+  Divider,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -8,10 +10,12 @@ import {
   Theme,
 } from '@material-ui/core';
 import { Icons } from '../definitions';
+import { LanguageDropdown, LanguageDropdownProps } from './LanguageDropdown';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
+      minWidth: 250,
       whiteSpace: 'nowrap',
       [theme.breakpoints.down('sm')]: { ...theme.typography.body2 },
       [theme.breakpoints.only('md')]: { ...theme.typography.body1 },
@@ -22,20 +26,36 @@ const useStyles = makeStyles((theme: Theme) => {
       bottom: 0,
       width: '100%',
     },
+    select: {
+      width: '100%',
+    },
   };
 });
 
-type SettingsDrawerProps = {
+export type SettingsDrawerProps = {
   open: boolean;
   setOpen: (open) => void;
+  navigation?: {
+    browseDecks: () => void;
+    mydecks: () => void;
+    createdeck: () => void;
+    about: () => void;
+    cleardata: () => void;
+  };
 };
 
-export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, setOpen }) => {
+export const SettingsDrawer: React.FC<SettingsDrawerProps & LanguageDropdownProps> = ({
+  open,
+  setOpen,
+  navigation,
+  ...languageProps
+}) => {
   const cs = useStyles();
 
-  const TopRated = Icons.starFilled;
-  const Trending = Icons.trending;
-  const Newest = Icons.new;
+  const Close = Icons.cross;
+  const Language = Icons.translate;
+
+  const BrowseDecks = Icons.browse;
   const MyDecks = Icons.myDecks;
   const CreateDeck = Icons.create;
 
@@ -48,58 +68,59 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ open, setOpen })
   return (
     <Drawer anchor="right" open={open} onClose={close}>
       <div className={cs.root}>
-        <div>
-          <ListItem button key="top-rated">
+        <List>
+          <ListItem key="language-select">
             <ListItemIcon>
-              <TopRated />
+              <Language />
             </ListItemIcon>
-            <ListItemText primary="Top Rated" />
+            <LanguageDropdown {...languageProps} className={cs.select} />
           </ListItem>
-          <ListItem button key="trending">
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key="browse-decks" onClick={navigation?.browseDecks}>
             <ListItemIcon>
-              <Trending />
+              <BrowseDecks />
             </ListItemIcon>
-            <ListItemText primary="Trending" />
+            <ListItemText primary="Browse Decks" />
           </ListItem>
-          <ListItem button key="newest">
-            <ListItemIcon>
-              <Newest />
-            </ListItemIcon>
-            <ListItemText primary="Newest" />
-          </ListItem>
-          <ListItem button key="my-decks">
+          <ListItem button key="my-decks" onClick={navigation?.mydecks}>
             <ListItemIcon>
               <MyDecks />
             </ListItemIcon>
             <ListItemText primary="My Decks" />
           </ListItem>
-          <ListItem button key="create-deck">
+          <ListItem button key="create-deck" onClick={navigation?.createdeck}>
             <ListItemIcon>
               <CreateDeck />
             </ListItemIcon>
             <ListItemText primary="Create Deck" />
           </ListItem>
-        </div>
-        <div className={cs.bottom}>
-          <ListItem button key="about">
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key="about" onClick={navigation?.about}>
             <ListItemIcon>
               <Info />
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
-          {/* <ListItem button key="legal">
+          <ListItem button key="close" onClick={close}>
             <ListItemIcon>
-              <Legal />
+              <Close />
             </ListItemIcon>
-            <ListItemText primary="Legal" />
-          </ListItem> */}
-          <ListItem button key="clear-data">
+            <ListItemText primary="Close" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key="clear-data" onClick={navigation?.cleardata}>
             <ListItemIcon>
               <ClearData />
             </ListItemIcon>
             <ListItemText primary="Clear Data" />
           </ListItem>
-        </div>
+        </List>
       </div>
     </Drawer>
   );
