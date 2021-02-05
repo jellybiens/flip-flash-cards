@@ -3,6 +3,7 @@ import * as SvgIcons from '@material-ui/icons';
 export type IconNames =
   | 'search'
   | 'add'
+  | 'remove'
   | 'addImage'
   | 'image'
   | 'save'

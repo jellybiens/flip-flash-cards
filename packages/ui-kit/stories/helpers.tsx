@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useFormikContext } from 'formik';
+import JSONPretty from 'react-json-pretty';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';
 import { Theme, useTheme } from '@material-ui/core/styles';
@@ -36,6 +38,27 @@ export const Container: React.FC<{ title: string }> = ({ title, children }) => {
         </Grid>
       </Grid>
     </Box>
+  );
+};
+
+export const FormikStateValues = () => {
+  const { values, errors } = useFormikContext();
+
+  return (
+    <div>
+      <pre>
+        Formik values state:
+        <br />
+        <JSONPretty id="values-pretty" data={JSON.stringify(values, null, 2)} />
+      </pre>
+      {!!errors && (
+        <pre>
+          Error values state:
+          <br />
+          <JSONPretty id="error-pretty" data={JSON.stringify(errors, null, 2)} />
+        </pre>
+      )}
+    </div>
   );
 };
 
