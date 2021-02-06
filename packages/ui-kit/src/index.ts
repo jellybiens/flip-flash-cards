@@ -37,3 +37,4 @@ export * from './transitions/LoopingDeckTransition';
 export * from './definitions';
 export { default as theme } from './themes';
 export * from './themes';
+export * from './helpers';
