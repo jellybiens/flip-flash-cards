@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-export const useCreateImage = (
+export function useCreateImage(
   url: string,
 ): {
   image: HTMLImageElement;
   loading: boolean;
   error: ErrorEvent;
-} => {
+} {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<ErrorEvent>();
+  const [error, setError] = React.useState<ErrorEvent>(undefined);
   const [image, setImage] = React.useState<HTMLImageElement>(null);
 
   React.useEffect(() => {
@@ -39,4 +39,4 @@ export const useCreateImage = (
   }, [url]);
 
   return { image, loading, error };
-};
+}

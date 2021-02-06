@@ -2,9 +2,14 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Grid, Slider } from '@material-ui/core';
 import { Container } from '../helpers';
-import { cropImageOnCanvas, ImageCropper, SquareButton, useCreateImage } from '@ui-kit';
+import {
+  CroppingContextProvider,
+  ImageCropperWindow,
+  SquareButton,
+  useCreateImage,
+} from '@ui-kit';
 
-const title = 'ImageCropper';
+const title = 'ImageCropperWindow';
 
 const Story = () => {
   const [croppedImage, setCroppedImage] = React.useState<string>();
@@ -13,15 +18,6 @@ const Story = () => {
   );
   const uploadInput = React.useRef<HTMLInputElement>();
   const { image, loading, error } = useCreateImage(imageToCrop);
-
-  const [scale, setScale] = React.useState({
-    height: image?.height,
-    width: image?.width,
-  });
-  const [position, setPosition] = React.useState({
-    x: 0,
-    y: 0,
-  });
   const [zoom, setZoom] = React.useState(1);
 
   return (
@@ -49,10 +45,14 @@ const Story = () => {
             <>
               <Grid item xs={12}>
                 {!loading && image && (
-                  <ImageCropper
-                    {...{ image, position, setPosition, scale, setScale, zoom }}
-                    px={200}
-                  />
+                  <CroppingContextProvider>
+                    <ImageCropperWindow
+                      {...{ image, zoom }}
+                      zoomIn={() => setZoom(zoom + 0.05 > 2 ? 2 : zoom + 0.05)}
+                      zoomOut={() => setZoom(zoom - 0.05 < 1 ? 1 : zoom - 0.05)}
+                      px={200}
+                    />
+                  </CroppingContextProvider>
                 )}
               </Grid>
               <Grid item xs={12}>
@@ -64,16 +64,6 @@ const Story = () => {
                   aria-labelledby="Zoom"
                   onChange={(_, zoom: number) => setZoom(zoom)}
                 />
-                <SquareButton
-                  colour="turquoise"
-                  onClick={() =>
-                    cropImageOnCanvas(image, position, scale, 200).then((res) =>
-                      setCroppedImage(res),
-                    )
-                  }
-                >
-                  Crop
-                </SquareButton>
               </Grid>
             </>
           ) : (

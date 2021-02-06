@@ -1,40 +1,43 @@
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Draggable from 'react-draggable';
+import { usePreventScroll } from '../helpers';
+import {
+  Position,
+  Scale,
+  useCropDispatch,
+  useCropState,
+} from '../context/CroppingContextProvider';
 
 const useStyles = makeStyles(() => ({
   root: { overflow: 'hidden', outline: 'solid 1px black' },
 }));
 
-type Position = { x: number; y: number };
-type Scale = { width: number; height: number };
-
-type ImageCropperProps = {
+type ImageCropperWindowProps = {
   image: HTMLImageElement;
-  position: Position;
-  setPosition: (p: Position) => void;
-  scale: Scale;
-  setScale: (s: Scale) => void;
   zoom: number;
+  zoomIn: () => void;
+  zoomOut: () => void;
   px?: number;
 };
 
-export const ImageCropper: React.FC<ImageCropperProps> = ({
+export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
   image,
-  position,
-  setPosition,
-  scale,
-  setScale,
   zoom = 1,
+  zoomIn,
+  zoomOut,
   px = 300,
 }) => {
   const cs = useStyles();
+  const { disableScroll, enableScroll } = usePreventScroll();
   const [bounds, setBounds] = React.useState<{
     left: number;
     top: number;
     right: number;
     bottom: number;
   }>(null);
+  const { position, scale } = useCropState();
+  const { setPosition, setScale } = useCropDispatch();
 
   const positionImage = () => {
     let [width, height] = [0, 0];
@@ -105,6 +108,12 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
     });
   };
 
+  const handleWheelEvent = (e: React.WheelEvent<HTMLSpanElement>) => {
+    const dir = Math.sign(e.deltaY);
+    if (dir === -1) zoomIn();
+    if (dir === 1) zoomOut();
+  };
+
   React.useEffect(() => {
     positionImage();
   }, []);
@@ -113,7 +122,13 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
   }, [image, zoom]);
 
   return (
-    <div className={cs.root} style={{ height: px, width: px }}>
+    <div
+      className={cs.root}
+      style={{ height: px, width: px }}
+      onWheel={handleWheelEvent}
+      onMouseEnter={disableScroll}
+      onMouseLeave={enableScroll}
+    >
       <Draggable
         bounds={bounds}
         scale={zoom}
