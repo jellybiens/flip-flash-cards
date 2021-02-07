@@ -7,13 +7,14 @@ import {
   CroppingContextProvider,
   ImageCropper,
   SquareButton,
+  useCropDispatch,
   useCropState,
 } from '@ui-kit';
 
 const title = 'ImageCropper';
 
 const Story = () => {
-  const [imageToCrop, setImageToCrop] = React.useState<string>('');
+  const { setSrc } = useCropDispatch();
   const [croppedImage, setCroppedImage] = React.useState<string>('');
 
   const uploadInput = React.useRef<HTMLInputElement>();
@@ -21,7 +22,6 @@ const Story = () => {
   const { image, position, scale } = useCropState();
   const px = 300;
   const ImageCropperProps = {
-    src: imageToCrop,
     px,
     handleAddImage: () => uploadInput.current.click(),
   };
@@ -38,7 +38,7 @@ const Story = () => {
               type="file"
               accept="image/png, image/jpeg"
               onChange={(e) => {
-                setImageToCrop(URL.createObjectURL(e.target.files[0]));
+                setSrc(URL.createObjectURL(e.target.files[0]));
               }}
             />
           </Grid>

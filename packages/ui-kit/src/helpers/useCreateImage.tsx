@@ -18,7 +18,7 @@ export function useCreateImage(
 
       new Promise<HTMLImageElement>((resolve, reject) => {
         const image = new Image();
-        image.crossOrigin = 'anonymous';
+        image.setAttribute('crossOrigin', 'anonymous');
         image.onload = () => resolve(image);
         image.onerror = reject;
         image.src = url;
@@ -27,17 +27,13 @@ export function useCreateImage(
           if (cancel) return;
           setLoading(false);
           setImage(res);
-          cancel = true;
         },
         (error: Error) => {
-          console.log(typeof error);
           const e = JSON.stringify(error, ['message', 'arguments', 'type', 'name']);
           const err = JSON.parse(e);
-          console.log(err);
           if (cancel) return;
           setLoading(false);
           setError(err);
-          cancel = true;
         },
       );
     }

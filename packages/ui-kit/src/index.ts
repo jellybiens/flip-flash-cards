@@ -28,6 +28,7 @@ export * from './formik/FlipCardInputArray';
 export * from './formik/FlipCardSimpleInputArray';
 export * from './formik/FlipCardSwitch';
 export * from './formik/FormikCreateDeckWrapper';
+export * from './formik/ImageCropperField';
 export * from './formik/TextField';
 
 export * from './modals/Modal';

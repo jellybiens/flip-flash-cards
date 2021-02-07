@@ -2,12 +2,7 @@ import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Draggable from 'react-draggable';
 import { usePreventScroll } from '../helpers';
-import {
-  Position,
-  Scale,
-  useCropDispatch,
-  useCropState,
-} from '../context/CroppingContextProvider';
+import { Position, Scale, useCropDispatch } from '../context/CroppingContextProvider';
 
 const useStyles = makeStyles(() => ({
   root: { overflow: 'hidden', outline: 'solid 1px black' },
@@ -36,10 +31,12 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
     right: number;
     bottom: number;
   }>(null);
-  const { position, scale } = useCropState();
   const { setPosition, setScale } = useCropDispatch();
 
-  const positionImage = () => {
+  const [localPosition, setLocalPosition] = React.useState<Position>({ x: 0, y: 0 });
+  const [localScale, setLocalScale] = React.useState<Scale>({ height: px, width: px });
+
+  const positionImage = (dragPos: Position, stop = false) => {
     let [width, height] = [0, 0];
     if (image.width < image.height) {
       const factor = image.width / px;
@@ -52,11 +49,11 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
     }
 
     const scalePosition = (() => {
-      let pos = { ...position };
+      let pos = { ...dragPos };
       const half = px / 2;
       const [centreX, centreY] = [-pos.x + half, -pos.y + half];
       const [newCentreX, newCentreY] =
-        scale.width < width
+        localScale.width < width
           ? [centreX * (1 + 0.05 / zoom), centreY * (1 + 0.05 / zoom)]
           : [centreX / (1 + 0.05 / zoom), centreY / (1 + 0.05 / zoom)];
       const [offSetX, offSetY] = [newCentreX - half, newCentreY - half];
@@ -93,12 +90,21 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
       return pos;
     })();
 
-    setScale({
+    setLocalPosition(scalePosition);
+    setLocalScale({
       width,
       height,
     });
 
-    setPosition(scalePosition);
+    // when we stop moving so formik values on
+    // of a parent above dont constantly update
+    if (stop) {
+      setPosition(scalePosition);
+      setScale({
+        width,
+        height,
+      });
+    }
 
     setBounds({
       left: px - width,
@@ -115,10 +121,10 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
   };
 
   React.useEffect(() => {
-    positionImage();
+    positionImage(localPosition);
   }, []);
   React.useEffect(() => {
-    positionImage();
+    positionImage(localPosition, true);
   }, [image, zoom]);
 
   return (
@@ -132,50 +138,21 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
       <Draggable
         bounds={bounds}
         scale={zoom}
-        position={position}
-        onDrag={(_, { x, y }) => {
-          setPosition({ x, y });
-          positionImage();
+        position={localPosition}
+        onDrag={(_, dragPos) => {
+          positionImage(dragPos);
         }}
-        onStop={(_, { x, y }) => {
-          setPosition({ x, y });
+        onStop={(_, dragPos) => {
+          positionImage(dragPos, true);
         }}
       >
         <img
           src={image?.src}
-          style={scale}
+          style={localScale}
           onClick={(e) => e.preventDefault()}
           draggable={false}
         />
       </Draggable>
     </div>
   );
-};
-
-export const cropImageOnCanvas = async (
-  image: HTMLImageElement,
-  position: Position,
-  scale: Scale,
-  px: number,
-): Promise<string> => {
-  const { x, y } = position;
-  const { width, height } = scale;
-
-  const [nWidth, nHeight] = [image.naturalWidth, image.naturalHeight];
-  const ratio = Math.min(nWidth, nHeight) / Math.min(width, height);
-  const d = px * ratio;
-  const [posX, posY] = [-x * ratio, -y * ratio];
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  canvas.width = px;
-  canvas.height = px;
-
-  ctx.drawImage(image, posX, posY, d, d, 0, 0, px, px);
-
-  return new Promise<string>((resolve) => {
-    canvas.toBlob((file) => {
-      resolve(URL.createObjectURL(file));
-    }, 'image/png');
-  });
 };
