@@ -1,1 +1,0 @@
-export { CardFaceInput } from './CardFaceInputParent';

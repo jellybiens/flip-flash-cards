@@ -1,13 +1,23 @@
 import * as React from 'react';
-import { Grid, CircularProgress, Typography, makeStyles } from '@material-ui/core';
+import { Grid, CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import { useCreateImage } from '../helpers';
 import { ImageCropperWindow } from '../atoms/ImageCropperWindow';
 import { Slider } from '../atoms/Slider';
 import { useCropDispatch, useCropState } from '../context/CroppingContextProvider';
 import { CircleButton, PasteDropButton } from '../atoms/Buttons';
+import { Typography } from '../atoms/Typography';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   binButton: { position: 'absolute', top: 5, right: 5 },
+  errorResponse: {
+    position: 'relative',
+    bottom: '5%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    textAlign: 'center',
+    color: theme.palette.red.main,
+    width: '100%',
+  },
 }));
 
 export type ImageCropperProps = {
@@ -38,7 +48,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
   }, [cratedImage]);
 
   return (
-    <Grid container spacing={2} justify="center">
+    <Grid container spacing={0} justify="center">
       <Grid item xs={12}>
         {!!loading && <CircularProgress />}
         {!image && !loading && (
@@ -46,6 +56,9 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
             style={{
               height: px,
               width: px,
+              position: 'relative',
+              margin: 'auto',
+              display: 'flex',
             }}
           >
             <PasteDropButton
@@ -54,12 +67,14 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
             />
           </div>
         )}
-        {src &&
-          !!error && // TODO: Translate
-          !loading && (
-            <Typography>
-              There was an error loading your image, please try again.
-            </Typography>
+        {!image &&
+          !loading &&
+          !!error && ( // TODO: Translate
+            <div className={cs.errorResponse}>
+              <Typography>
+                There was an error loading your image, please try again.
+              </Typography>
+            </div>
           )}
         {!!image && !loading && (
           <div
@@ -67,6 +82,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
               height: px,
               width: px,
               position: 'relative',
+              margin: 'auto',
             }}
           >
             <ImageCropperWindow
@@ -89,7 +105,12 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
       </Grid>
       {!!image && !loading && (
         <Grid item xs={12}>
+          <Typography>Zoom</Typography>
+
           <Slider
+            style={{
+              width: px,
+            }}
             value={zoom}
             setValue={setZoom}
             min={min}

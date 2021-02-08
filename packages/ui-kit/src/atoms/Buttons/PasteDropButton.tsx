@@ -6,11 +6,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   buttonContainer: {},
   buttonWrapper: {
     overflow: 'hidden',
-    height: '50%',
-    width: '50%',
-    position: 'relative',
-    top: '25%',
-    left: '25%',
+    width: '80%',
+    height: '80%',
+    margin: '5% auto',
     borderRadius: 15,
     boxShadow: `
       ${theme.palette.silver.dark} 2px 2px 2px, 

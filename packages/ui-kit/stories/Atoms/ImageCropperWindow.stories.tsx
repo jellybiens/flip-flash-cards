@@ -7,6 +7,7 @@ import {
   ImageCropperWindow,
   SquareButton,
   useCreateImage,
+  useCropState,
 } from '@ui-kit';
 
 const title = 'ImageCropperWindow';
@@ -43,19 +44,18 @@ const Story = () => {
           )}
           {!croppedImage && imageToCrop ? (
             <>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 {!loading && image && (
-                  <CroppingContextProvider>
-                    <ImageCropperWindow
-                      {...{ image, zoom }}
-                      zoomIn={() => setZoom(zoom + 0.05 > 2 ? 2 : zoom + 0.05)}
-                      zoomOut={() => setZoom(zoom - 0.05 < 1 ? 1 : zoom - 0.05)}
-                      px={200}
-                    />
-                  </CroppingContextProvider>
+                  <ImageCropperWindow
+                    {...{ image, zoom }}
+                    zoomIn={() => setZoom(zoom + 0.05 > 2 ? 2 : zoom + 0.05)}
+                    zoomOut={() => setZoom(zoom - 0.05 < 1 ? 1 : zoom - 0.05)}
+                    px={200}
+                  />
                 )}
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}></Grid>
+              <Grid item xs={6}>
                 <Slider
                   value={zoom}
                   min={1}
@@ -93,4 +93,8 @@ const Story = () => {
   );
 };
 
-storiesOf('Core/Atoms', module).add(title, Story);
+storiesOf('Core/Atoms', module).add(title, () => (
+  <CroppingContextProvider>
+    <Story />
+  </CroppingContextProvider>
+));

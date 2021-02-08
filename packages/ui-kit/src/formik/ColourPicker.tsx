@@ -98,12 +98,12 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({ name }) => {
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <PaperCard onMouseLeave={handleClose}>
+        <div onMouseLeave={handleClose}>
           <Grid container className={cs.container}>
             {Object.keys(Hues).map((c: CustomColours, i) => {
-              if (i > 11) return <></>;
+              if (i > 11) return <React.Fragment key={`${c}-${i}`}></React.Fragment>;
               return (
-                <Grid key={i} item xs={3} className={cs.wrapper}>
+                <Grid key={`${c}-${i}`} item xs={3} className={cs.wrapper}>
                   <ButtonBase
                     onClick={() => {
                       helpers.setValue(c);
@@ -116,7 +116,7 @@ export const ColourPicker: React.FC<ColourPickerProps> = ({ name }) => {
               );
             })}
           </Grid>
-        </PaperCard>
+        </div>
       </Menu>
     </div>
   );

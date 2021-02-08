@@ -6,11 +6,13 @@ import { Position, Scale, useCropDispatch } from '../context/CroppingContextProv
 
 const useStyles = makeStyles(() => ({
   root: { overflow: 'hidden', outline: 'solid 1px black' },
+  image: { cursor: 'grab', '&:active': { cursor: 'grabbing' } },
 }));
 
 type ImageCropperWindowProps = {
   image: HTMLImageElement;
-  zoom: number;
+  zoom?: number;
+  step?: number;
   zoomIn: () => void;
   zoomOut: () => void;
   px?: number;
@@ -19,6 +21,7 @@ type ImageCropperWindowProps = {
 export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
   image,
   zoom = 1,
+  step = 0.05,
   zoomIn,
   zoomOut,
   px = 300,
@@ -50,18 +53,21 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
 
     const scalePosition = (() => {
       let pos = { ...dragPos };
-      const half = px / 2;
-      const [centreX, centreY] = [-pos.x + half, -pos.y + half];
-      const [newCentreX, newCentreY] =
-        localScale.width < width
-          ? [centreX * (1 + 0.05 / zoom), centreY * (1 + 0.05 / zoom)]
-          : [centreX / (1 + 0.05 / zoom), centreY / (1 + 0.05 / zoom)];
-      const [offSetX, offSetY] = [newCentreX - half, newCentreY - half];
 
-      pos = {
-        x: -offSetX,
-        y: -offSetY,
-      };
+      if (localScale.width !== width) {
+        const half = px / 2;
+        const [centreX, centreY] = [-pos.x + half, -pos.y + half];
+        const [newCentreX, newCentreY] =
+          localScale.width < width
+            ? [centreX * (1 + step / zoom), centreY * (1 + step / zoom)]
+            : [centreX / (1 + step / zoom), centreY / (1 + step / zoom)];
+        const [offSetX, offSetY] = [newCentreX - half, newCentreY - half];
+
+        pos = {
+          x: -offSetX,
+          y: -offSetY,
+        };
+      }
 
       if (px - width > pos.x) {
         pos = {
@@ -96,6 +102,13 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
       height,
     });
 
+    setBounds({
+      left: px - width,
+      top: px - height,
+      right: 0,
+      bottom: 0,
+    });
+
     // when we stop moving so formik values on
     // of a parent above dont constantly update
     if (stop) {
@@ -105,13 +118,6 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
         height,
       });
     }
-
-    setBounds({
-      left: px - width,
-      top: px - height,
-      right: 0,
-      bottom: 0,
-    });
   };
 
   const handleWheelEvent = (e: React.WheelEvent<HTMLSpanElement>) => {
@@ -124,8 +130,19 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
     positionImage(localPosition);
   }, []);
   React.useEffect(() => {
-    positionImage(localPosition, true);
+    positionImage(localPosition);
   }, [image, zoom]);
+
+  let zoomTimeout = null;
+  React.useEffect(() => {
+    clearTimeout(zoomTimeout);
+    zoomTimeout = setTimeout(() => positionImage(localPosition, true), 600);
+
+    // this will clear Timeout when component unmount like in willComponentUnmount
+    return () => {
+      clearTimeout(zoomTimeout);
+    };
+  }, [zoom]);
 
   return (
     <div
@@ -140,14 +157,17 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
         scale={zoom}
         position={localPosition}
         onDrag={(_, dragPos) => {
-          positionImage(dragPos);
+          setLocalPosition({ x: dragPos.x, y: dragPos.y });
+          //positionImage(dragPos);
         }}
         onStop={(_, dragPos) => {
+          setLocalPosition({ x: dragPos.x, y: dragPos.y });
           positionImage(dragPos, true);
         }}
       >
         <img
           src={image?.src}
+          className={cs.image}
           style={localScale}
           onClick={(e) => e.preventDefault()}
           draggable={false}

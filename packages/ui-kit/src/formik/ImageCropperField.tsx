@@ -1,4 +1,4 @@
-import { useField } from 'formik';
+import { FastField, useField } from 'formik';
 import * as React from 'react';
 import {
   CroppingContextProvider,
@@ -32,7 +32,11 @@ const ImageCropperChild: React.FC<ImageCropperFieldProps> = ({
 
   return (
     <>
-      <ImageCropper handleAddImage={() => uploadInput.current.click()} {...props} />
+      <ImageCropper
+        handleAddImage={() => uploadInput.current.click()}
+        px={px}
+        {...props}
+      />
       <input
         hidden
         ref={uploadInput}
@@ -48,6 +52,6 @@ const ImageCropperChild: React.FC<ImageCropperFieldProps> = ({
 
 export const ImageCropperField: React.FC<ImageCropperFieldProps> = (props) => (
   <CroppingContextProvider>
-    <ImageCropperChild {...props} />
+    <FastField name={props.name}>{() => <ImageCropperChild {...props} />}</FastField>
   </CroppingContextProvider>
 );

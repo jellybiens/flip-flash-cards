@@ -41,8 +41,8 @@ const Story = () => {
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} justify="center">
-              {colours.map((c) => (
-                <Grid item xs={6}>
+              {colours.map((c, i) => (
+                <Grid item xs={6} key={i}>
                   <FlipCardWrapper>
                     <CardFaceInput cardIndex={0} name={`frontface-${c}`} front />
                     <CardFaceInput cardIndex={0} name="backface" back />
