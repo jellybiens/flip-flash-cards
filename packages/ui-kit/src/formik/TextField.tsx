@@ -5,7 +5,7 @@ import {
   TextFieldProps as MuiTextFieldProps,
   Theme,
 } from '@material-ui/core';
-import { Field } from 'formik';
+import { FastField, FastFieldProps } from 'formik';
 import clsx from 'clsx';
 import { CustomColours } from '@types';
 import { textFieldColours } from '../definitions/textField';
@@ -21,19 +21,28 @@ const useStyles = makeStyles((theme: Theme) => {
       width: 'fit-content',
       margin: 'auto',
     },
+    inputFullWidth: {
+      width: 'calc(100% - 14px)',
+      margin: 'auto',
+    },
     fullWidth: {
       width: 'calc(100% - 14px)',
+    },
+    fullHeight: {
+      height: 'calc(100% - 14px)',
     },
   };
 });
 
-type TextFieldProps = MuiTextFieldProps & {
+export type TextFieldProps = MuiTextFieldProps & {
   colour?: CustomColours;
+  fullHeight?: boolean;
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
   className,
   colour = 'white',
+  fullHeight = false,
   ...props
 }) => {
   const cs = useStyles();
@@ -48,6 +57,7 @@ export const TextField: React.FC<TextFieldProps> = ({
             [cs.root]: outlined,
             [cs[`root-${colour}-bg`]]: outlined,
             [cs.fullWidth]: props.fullWidth,
+            [cs.fullHeight]: fullHeight,
           },
           cs.input,
           cs[`root-${colour}`],
@@ -60,16 +70,15 @@ export const TextField: React.FC<TextFieldProps> = ({
   }
 
   return (
-    <Field name={props.name}>
+    <FastField name={props.name}>
       {({
-        field: { name, onChange, onBlur, onFocus, ...field },
+        field: { name, onChange, onBlur, ...field },
         form: { isSubmitting },
         meta: { touched, error },
-      }) => {
+      }: FastFieldProps<string>) => {
         const fieldProps = {
           onChange: props.onChange ?? onChange,
           onBlur: props.onBlur ?? onBlur,
-          onFocus: props.onFocus ?? onFocus,
           ...field,
         };
 
@@ -77,22 +86,32 @@ export const TextField: React.FC<TextFieldProps> = ({
           <div
             className={clsx(
               { [cs.root]: outlined, [cs[`root-${colour}-bg`]]: outlined },
-              cs.input,
+
               cs[`root-${colour}`],
               className,
+              {
+                [cs.inputFullWidth]: props.fullWidth,
+                [cs.input]: !props.fullWidth,
+                [cs.fullHeight]: fullHeight,
+              },
             )}
           >
             <MuiTextField
               {...props}
               {...fieldProps}
               name={name}
+              style={{ height: fullHeight && '100%' }}
               error={touched && !!error}
               helperText={error}
               disabled={props.disabled ?? isSubmitting}
+              InputProps={{
+                style: { height: fullHeight && '100%', ...props?.InputProps?.style },
+                ...props?.InputProps,
+              }}
             />
           </div>
         );
       }}
-    </Field>
+    </FastField>
   );
 };

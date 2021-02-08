@@ -40,7 +40,6 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
   cardFace: {
     height: '100%',
     width: '100%',
-    padding: '1%',
     textAlign: 'center',
   },
   bottomContainer: { height: '20%', width: '100%', display: 'flex' },

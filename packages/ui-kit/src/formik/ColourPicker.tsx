@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles, Grid, Menu, ButtonBase, useTheme, Theme } from '@material-ui/core';
 import { CustomColours } from '@types';
 import { Hues } from '../themes';
-import { PaperCard } from '../atoms/PaperCard';
 import { useField } from 'formik';
 import clsx from 'clsx';
 

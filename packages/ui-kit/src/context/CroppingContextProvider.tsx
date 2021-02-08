@@ -1,7 +1,5 @@
 import * as React from 'react';
-
-export type Position = { x: number; y: number };
-export type Scale = { width: number; height: number };
+import { Position, Scale } from '@types';
 
 type State = { src: string; image: HTMLImageElement; position: Position; scale: Scale };
 type Dispatch = {

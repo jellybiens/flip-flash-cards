@@ -39,9 +39,19 @@ export type User = {
   scores: UserScore[];
 };
 
+export type Position = { x: number; y: number };
+export type Scale = { width: number; height: number };
+
+export type ImageCropFieldArgs = {
+  image: File;
+  position: Position;
+  scale: Scale;
+  px: number;
+};
+
 export type CardFaceFieldValues = {
   text: string;
-  imgLink: string;
+  imageCropArgs: ImageCropFieldArgs;
   imgFile: File;
   colour: CustomColours;
 };

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   binButton: { position: 'absolute', top: 5, right: 5 },
   errorResponse: {
     position: 'relative',
-    bottom: '5%',
+    bottom: '10%',
     left: '50%',
     transform: 'translateX(-50%)',
     textAlign: 'center',
@@ -105,8 +105,6 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
       </Grid>
       {!!image && !loading && (
         <Grid item xs={12}>
-          <Typography>Zoom</Typography>
-
           <Slider
             style={{
               width: px,

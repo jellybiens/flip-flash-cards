@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { Position, Scale } from '@types';
 import { makeStyles } from '@material-ui/core';
 import Draggable from 'react-draggable';
 import { usePreventScroll } from '../helpers';
-import { Position, Scale, useCropDispatch } from '../context/CroppingContextProvider';
+import { useCropDispatch } from '../context/CroppingContextProvider';
 
 const useStyles = makeStyles(() => ({
   root: { overflow: 'hidden', outline: 'solid 1px black' },
@@ -57,10 +58,11 @@ export const ImageCropperWindow: React.FC<ImageCropperWindowProps> = ({
       if (localScale.width !== width) {
         const half = px / 2;
         const [centreX, centreY] = [-pos.x + half, -pos.y + half];
+        const zoomFactor: number = 1 + step / zoom;
         const [newCentreX, newCentreY] =
           localScale.width < width
-            ? [centreX * (1 + step / zoom), centreY * (1 + step / zoom)]
-            : [centreX / (1 + step / zoom), centreY / (1 + step / zoom)];
+            ? [centreX * zoomFactor, centreY * zoomFactor]
+            : [centreX / zoomFactor, centreY / zoomFactor];
         const [offSetX, offSetY] = [newCentreX - half, newCentreY - half];
 
         pos = {
