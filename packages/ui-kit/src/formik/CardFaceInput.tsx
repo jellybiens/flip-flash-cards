@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import { CardFaceFieldValues } from '@types';
 import { Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import { PaperCard } from '../atoms/PaperCard';
-import { FastField, FieldInputProps, useField } from 'formik';
-import { TextField, TextFieldProps } from './TextField';
+import { FieldInputProps, useField } from 'formik';
+import { TextFieldInput, TextFieldInputProps } from './TextFieldInput';
 import { FlipCardColours, FlipCardFaceStyles } from '../definitions';
 import { ColourPicker } from './ColourPicker';
 import { ImageCropperField } from './ImageCropperField';
@@ -19,13 +19,6 @@ export const useStyles = makeStyles((theme: Theme) => {
     [theme.breakpoints.only('sm')]: {
       ...theme.typography.body2,
     },
-  };
-
-  const textFieldScaling = {
-    [theme.breakpoints.only('sm')]: { transform: 'scale(0.9)' },
-    [theme.breakpoints.only('md')]: { transform: 'scale(1.2)' },
-    [theme.breakpoints.only('lg')]: { transform: 'scale(1.5)' },
-    [theme.breakpoints.only('xl')]: { transform: 'scale(1.8)' },
   };
 
   return {
@@ -54,55 +47,32 @@ export const useStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.only('lg')]: { top: 2, left: 2 },
       [theme.breakpoints.only('xl')]: { top: 4, left: 4 },
     },
-    evenSplitContainer: {
-      height: '50%',
-      width: '50%',
-    },
-    imageFieldContainer: {
-      height: 'auto',
-      width: 'auto',
-      display: 'flex',
-    },
-    cardTextInputWrapper: {
-      transformOrigin: 'top',
-      margin: '0 auto',
-      [theme.breakpoints.only('xs')]: {
-        transform: 'scale(0.8)',
-        '& input': { padding: 0 },
-        '& p': { margin: 0 },
-      },
-      ...textFieldScaling,
-    },
-    labelRoot: { [theme.breakpoints.only('xs')]: { top: -10 } },
-    labelFocused: {
-      [theme.breakpoints.only('xs')]: { top: 0 },
-    },
-    cardTextInput: {
-      textAlign: 'center',
-    },
   };
 });
+
+export type CardFaceViewOption = 'menu' | 'text' | 'image' | 'both';
 
 type CardFaceInputProps = {
   name: string;
   cardIndex: number;
   front?: boolean;
   back?: boolean;
+  cardFaceView: CardFaceViewOption;
+  setCardFaceView: (view: CardFaceViewOption) => void;
 };
 
 export const CardFaceInput: React.FC<CardFaceInputProps> = ({
   name,
   cardIndex,
   front = false,
+  cardFaceView,
+  setCardFaceView,
 }) => {
   const cs = useStyles();
   const [field, , helpers] = useField<CardFaceFieldValues>(name);
-  const [cardFaceView, setCardFaceView] = React.useState<
-    'menu' | 'text' | 'image' | 'both'
-  >('menu');
 
   const revertFaceValues = () => {
-    helpers.setValue({
+    void helpers.setValue({
       text: '',
       imageCropArgs: {
         image: null,
@@ -113,7 +83,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
       imgFile: null,
       colour: 'white',
     });
-    setCardFaceView('menu');
+    void setCardFaceView('menu');
   };
 
   return (
@@ -189,25 +159,26 @@ type CardFaceTypeProps = {
   field: FieldInputProps<CardFaceFieldValues>;
   front?: boolean;
 };
-
-const CardFaceTextField: React.FC<CardFaceTypeProps & TextFieldProps> = ({
-  name,
-  field,
-  front,
-  ...props
-}) => {
-  const cs = useStyles();
-
+export const useFontSizeStyles = makeStyles((theme: Theme) => ({
+  fontSizes: {
+    [theme.breakpoints.only('xs')]: { fontSize: 12.5 },
+    [theme.breakpoints.only('sm')]: { fontSize: 22.5 },
+    [theme.breakpoints.only('md')]: { fontSize: 32.5 },
+    [theme.breakpoints.only('lg')]: { fontSize: 42.5 },
+    [theme.breakpoints.only('xl')]: { fontSize: 52.5 },
+  },
+}));
+const CardFaceTextField: React.FC<
+  CardFaceTypeProps & Omit<TextFieldInputProps, 'colour' | 'children'>
+> = ({ name, field, front, ...props }) => {
+  const { fontSizes } = useFontSizeStyles();
   return (
-    <TextField
+    <TextFieldInput
+      className={fontSizes}
       name={`${name}.text`}
       fullWidth
       colour={field.value.colour}
-      label={front ? 'Frontside Clue Text' : 'Backside Answer Text'}
-      inputProps={{ className: cs.cardTextInput }}
-      InputLabelProps={{
-        shrink: true,
-      }}
+      placeholder={front ? 'Frontside Clue Text' : 'Backside Answer Text'}
       {...props} //TODO: input and label font sizes
     />
   );
@@ -216,12 +187,7 @@ const CardFaceTextField: React.FC<CardFaceTypeProps & TextFieldProps> = ({
 const TextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front }) => {
   return (
     <Grid item xs={12} style={{ height: '100%', width: '100%' }}>
-      <CardFaceTextField
-        fullHeight={true}
-        {...{ name, field, front }}
-        multiline={true}
-        variant="outlined"
-      />
+      <CardFaceTextField fullWidth multiline={true} {...{ name, field, front }} />
     </Grid>
   );
 };

@@ -5,7 +5,7 @@ import { TransitionProps } from 'react-transition-group/Transition';
 import { FlipCardSizing } from '../definitions';
 import { LoopingDeckTransition } from '../transitions/LoopingDeckTransition';
 import { LinearDeckTransition } from '../transitions/LinearDeckTransition';
-import { FlipCardInput } from '../formik/FlipCardInput';
+import { FlipCardInput, FrontBackViewOption } from '../formik/FlipCardInput';
 import { FlipCard } from './FlipCard';
 import { CardAction } from '../definitions/cardDeck';
 
@@ -49,7 +49,19 @@ export const CardDeck: React.FC<CardDeckProps> = ({
   DeckTransitionProps,
 }) => {
   const cs = useStyles();
+  const [inputFacesView, setInputFacesView] = React.useState<{
+    [key: string]: FrontBackViewOption;
+  }>({});
 
+  React.useEffect(() => {
+    console.log(inputFacesView);
+  }, [inputFacesView]);
+
+  const handleSetFacesViewOption = (views: FrontBackViewOption, key: string) => {
+    const allViews = { ...inputFacesView };
+    allViews[key] = views;
+    setInputFacesView(allViews);
+  };
   const cardBehindTop = (() => {
     const i = tci + 1 === deckCards.length ? 0 : tci + 1;
     if (type === 'review' || type === 'challenge') {
@@ -70,6 +82,12 @@ export const CardDeck: React.FC<CardDeckProps> = ({
             index={i}
             rotate={rotate[deckCards[i]._id]}
             colour={deckCards[i].front.colour}
+            facesViewOption={
+              inputFacesView[deckCards[i]._id] || { front: 'menu', back: 'menu' }
+            }
+            setFacesViewOption={(views) =>
+              handleSetFacesViewOption(views, deckCards[i]._id)
+            }
           />
         </>
       );
@@ -105,6 +123,12 @@ export const CardDeck: React.FC<CardDeckProps> = ({
                 index={i}
                 rotate={rotate[_id]}
                 colour={deckCards[i].front.colour}
+                facesViewOption={
+                  inputFacesView[deckCards[i]._id] || { front: 'menu', back: 'menu' }
+                }
+                setFacesViewOption={(views) =>
+                  handleSetFacesViewOption(views, deckCards[i]._id)
+                }
               />
             )}
           </DeckTransition>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Container } from '../helpers';
+import { Container, FormikStateValues } from '../helpers';
 import { FormikCreateDeckWrapper, FlipCardInputArray } from '@ui-kit';
 import { FlipCardFieldValues } from '@types';
 import { uniqueId } from 'lodash';
@@ -13,18 +13,19 @@ const generateString = (): string => {
   return uniqueId('card-');
 };
 
-const initialCardValues: FlipCardFieldValues[] = [
+export const initialCardValues: FlipCardFieldValues[] = [
   {
     _id: generateString(),
     front: {
-      text: 'Spongebob',
-      imgLink: 'https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png',
+      text:
+        'Spongebob Oh boy Lefs soo how many characters and lines this is and put it into the formik default',
       imgFile: null,
       colour: 'white',
+      imageCropArgs: null,
     },
     back: {
       text: 'Squarepants',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
@@ -33,13 +34,13 @@ const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '11111',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '11111',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
@@ -48,13 +49,13 @@ const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '2222',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '2222',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
@@ -63,13 +64,13 @@ const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '3333',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '33333',
-      imgLink: '',
+      imageCropArgs: null,
       imgFile: null,
       colour: 'white',
     },
@@ -92,6 +93,7 @@ const Story = () => {
       <FormikCreateDeckWrapper initialValues={initialCardValues} onSubmit={handleSubmit}>
         <FlipCardInputArray />
         <button type="submit">Set Errors</button>
+        <FormikStateValues />
       </FormikCreateDeckWrapper>
     </Container>
   );

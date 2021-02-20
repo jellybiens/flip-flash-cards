@@ -7,7 +7,6 @@ import {
   ImageCropperWindow,
   SquareButton,
   useCreateImage,
-  useCropState,
 } from '@ui-kit';
 
 const title = 'ImageCropperWindow';
@@ -18,7 +17,7 @@ const Story = () => {
     'https://pbs.twimg.com/media/EYCeOH_U4AAk6SS.jpg',
   );
   const uploadInput = React.useRef<HTMLInputElement>();
-  const { image, loading, error } = useCreateImage(imageToCrop);
+  const { image, loading } = useCreateImage(imageToCrop);
   const [zoom, setZoom] = React.useState(1);
 
   return (
