@@ -53,10 +53,6 @@ export const CardDeck: React.FC<CardDeckProps> = ({
     [key: string]: FrontBackViewOption;
   }>({});
 
-  React.useEffect(() => {
-    console.log(inputFacesView);
-  }, [inputFacesView]);
-
   const handleSetFacesViewOption = (views: FrontBackViewOption, key: string) => {
     const allViews = { ...inputFacesView };
     allViews[key] = views;

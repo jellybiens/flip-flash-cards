@@ -1,32 +1,58 @@
 import * as React from 'react';
-import { CustomColours, FlipCardFieldValues } from '@types';
+import { FlipCardFieldValues } from '@types';
 import { initialCardValues } from './FormikCreateDeckWrapper';
 import { Grid, makeStyles, Theme } from '@material-ui/core';
 import { FieldArray, useField } from 'formik';
-import { TextField } from './TextField';
 import { CircleButton, SquareButton } from '../atoms/Buttons';
-import { ColourPicker } from './ColourPicker';
-import { Hues } from '../themes';
+import { FrontBackViewOption } from './FlipCardInput';
+import { CardFaceInput, CardFaceViewOption } from './CardFaceInput';
+import { FlipCardSizing } from '../definitions';
 
-const useStyles = makeStyles((theme: Theme) => {
-  const colours = Object.keys(Hues).map((k: CustomColours) => k);
-  let cardColours = {};
-  colours.map((c) => {
-    cardColours = Object.assign(cardColours, {
-      [`cardColour-${c}`]: {
-        backgroundColor: theme.palette[c].main,
-        padding: theme.spacing(1),
-        borderRadius: theme.spacing(10),
-        marginBottom: theme.spacing(1),
-      },
-    });
-  });
-
-  return cardColours;
-});
+const useStyles = makeStyles((theme: Theme) => ({
+  cardGridContainer: {
+    position: 'relative',
+    ...FlipCardSizing(theme),
+  },
+  removeButtonWrapper: {
+    position: 'absolute',
+    height: `calc(100% - ${theme.spacing(2)}px)`,
+    width: `calc(100% - ${theme.spacing(2)}px)`,
+    display: 'flex',
+  },
+  removeButton: {
+    marginRight: theme.spacing(2), //TODO: needs parent offset width or hight to change this value
+  },
+}));
 
 export const FlipCardSimpleInputArray: React.FC = () => {
   const cs = useStyles();
+
+  const [inputFacesView, setInputFacesView] = React.useState<{
+    [key: string]: FrontBackViewOption;
+  }>({});
+
+  const handleSetFacesViewOption = (
+    key: string,
+    view: CardFaceViewOption,
+    face: 'front' | 'back',
+  ) => {
+    const views = (() => {
+      if (face === 'front') {
+        return {
+          front: view,
+          back: inputFacesView[key]?.back || 'menu',
+        };
+      } else if (face === 'back') {
+        return {
+          back: view,
+          front: inputFacesView[key]?.front || 'menu',
+        };
+      }
+    })();
+    const allViews = { ...inputFacesView };
+    allViews[key] = views;
+    setInputFacesView(allViews);
+  };
 
   const namespace = 'deckCards';
   const [{ value: deckCards }] = useField<FlipCardFieldValues[]>(namespace);
@@ -37,42 +63,52 @@ export const FlipCardSimpleInputArray: React.FC = () => {
       <FieldArray
         name="deckCards"
         render={(arrayHelpers) => (
-          <Grid container spacing={0}>
-            {deckCards.map((field, index) => (
+          <Grid container spacing={2} justify="center">
+            {deckCards.map((field, i) => (
               <Grid
                 item
-                xs={12}
                 container
-                spacing={0}
-                key={index}
-                className={cs[`cardColour-${field.front?.colour}`]}
+                spacing={2}
+                key={i}
+                justify="center"
+                style={{ position: 'relative', width: 'fit-content' }}
               >
-                <Grid item xs={2}>
-                  <ColourPicker name={`${namespace}.${index}.front.colour`} />
+                <Grid item>
+                  <div className={cs.cardGridContainer}>
+                    <CardFaceInput
+                      front
+                      name={`deckCards.${i}.front`}
+                      cardIndex={i}
+                      cardFaceView={inputFacesView[field._id]?.front || 'menu'}
+                      setCardFaceView={(view) =>
+                        handleSetFacesViewOption(field._id, view, 'front')
+                      }
+                    />
+                  </div>
                 </Grid>
-                <Grid item xs={4}>
-                  <SimpleCardFaceInput
-                    side="front"
-                    name={`${namespace}.${index}`}
-                    field={field}
-                  />
+                <Grid item>
+                  <div className={cs.cardGridContainer}>
+                    <CardFaceInput
+                      back
+                      name={`deckCards.${i}.front`}
+                      cardIndex={i}
+                      cardFaceView={inputFacesView[field._id]?.back || 'menu'}
+                      setCardFaceView={(view) =>
+                        handleSetFacesViewOption(field._id, view, 'back')
+                      }
+                    />
+                  </div>
                 </Grid>
-                <Grid item xs={4}>
-                  <SimpleCardFaceInput
-                    side="back"
-                    name={`${namespace}.${index}`}
-                    field={field}
-                  />
-                </Grid>
-                <Grid item xs={2}>
-                  {totalCards > 3 && (
+                {totalCards > 3 && (
+                  <div className={cs.removeButtonWrapper}>
                     <CircleButton
+                      className={cs.removeButton}
                       colour="red"
-                      onClick={() => arrayHelpers.remove(index)}
+                      onClick={() => arrayHelpers.remove(i)}
                       iconName="remove"
                     />
-                  )}
-                </Grid>
+                  </div>
+                )}
               </Grid>
             ))}
             <Grid item xs={12}>
@@ -87,49 +123,5 @@ export const FlipCardSimpleInputArray: React.FC = () => {
         )}
       />
     </>
-  );
-};
-
-type SimpleCardFaceInputProps = {
-  name: string;
-  side: 'front' | 'back';
-  field: FlipCardFieldValues;
-};
-
-const SimpleCardFaceInput: React.FC<SimpleCardFaceInputProps> = ({
-  name,
-  side,
-  field,
-}) => {
-  const [addImage, showAddImage] = React.useState(false);
-
-  const label = side === 'front' ? 'Frontside Clue Text' : 'Backside Answer Text';
-
-  return (
-    <div>
-      <CircleButton
-        iconName="addImage"
-        colour="green"
-        onClick={() => showAddImage(!addImage)}
-      />
-      {addImage ? (
-        <TextField
-          colour={field.front?.colour}
-          variant="outlined"
-          label={label}
-          name={`${name}.${side}.text`}
-          InputProps={{ multiline: true, rows: 5 }}
-          InputLabelProps={{ shrink: true }}
-        />
-      ) : (
-        <TextField
-          colour={field.front?.colour}
-          variant="outlined"
-          label={label}
-          name={`${name}.${side}.text`}
-          InputLabelProps={{ shrink: true }}
-        />
-      )}
-    </div>
   );
 };
