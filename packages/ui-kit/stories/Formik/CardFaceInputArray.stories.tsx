@@ -13,6 +13,13 @@ const generateString = (): string => {
   return uniqueId('card-');
 };
 
+const imageCropArgs = {
+  image: null,
+  position: { x: 0, y: 0 },
+  scale: { width: 300, height: 300 },
+  px: 1,
+};
+
 export const initialCardValues: FlipCardFieldValues[] = [
   {
     _id: generateString(),
@@ -21,11 +28,11 @@ export const initialCardValues: FlipCardFieldValues[] = [
         'Spongebob Oh boy Lefs soo how many characters and lines this is and put it into the formik default',
       imgFile: null,
       colour: 'white',
-      imageCropArgs: null,
+      imageCropArgs,
     },
     back: {
       text: 'Squarepants',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
@@ -34,13 +41,13 @@ export const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '11111',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '11111',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
@@ -49,13 +56,13 @@ export const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '2222',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '2222',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
@@ -64,13 +71,13 @@ export const initialCardValues: FlipCardFieldValues[] = [
     _id: generateString(),
     front: {
       text: '3333',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },
     back: {
       text: '33333',
-      imageCropArgs: null,
+      imageCropArgs,
       imgFile: null,
       colour: 'white',
     },

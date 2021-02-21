@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { darken, makeStyles, Theme } from '@material-ui/core';
+import { darken, makeStyles, Theme, Typography } from '@material-ui/core';
 import { Field, FieldProps, useField } from 'formik';
 import clsx from 'clsx';
 import { CustomColours } from '@types';
@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme: Theme) => {
     };
     textFieldColours[`error-${k}-text`] = {
       color: errorText,
+      [theme.breakpoints.only('xs')]: { fontSize: 5 },
+      [theme.breakpoints.only('sm')]: { fontSize: 15 },
+      [theme.breakpoints.only('md')]: { fontSize: 25 },
+      [theme.breakpoints.only('lg')]: { fontSize: 35 },
+      [theme.breakpoints.only('xl')]: { fontSize: 45 },
     };
   });
 
@@ -42,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => {
     ...textFieldColours,
     rootWrapper: {
       padding: theme.spacing(1),
-      borderRadius: theme.spacing(2),
+      borderRadius: theme.spacing(1),
     },
     inputRoot: {
       overflow: 'hidden',
@@ -51,16 +56,16 @@ const useStyles = makeStyles((theme: Theme) => {
       textAlign: 'center',
       fontFamily:
         'OliverRegular,PumpkinCheesecake,Roboto,"Helvetica Neue",Arial,sans-serif',
-      padding: theme.spacing(1),
+      padding: theme.spacing(0.25),
       borderStyle: 'solid',
-      borderRadius: theme.spacing(2),
+      borderRadius: theme.spacing(1),
       outline: 'none',
       '&:active': {
         outline: 'none',
       },
     },
-    fullWidthInput: { width: `calc(100% - ${theme.spacing(2.5)}px)` },
-    fullHeightInput: { height: `calc(100% - ${theme.spacing(2.5)}px)` },
+    fullWidthInput: { width: `calc(100% - ${theme.spacing(1)}px)` },
+    fullHeightInput: { height: `calc(100% - ${theme.spacing(1)}px)` },
     fullWidth: { width: `calc(100% - ${theme.spacing(2)}px)` },
     fullHeight: { height: `calc(100% - ${theme.spacing(2)}px)` },
   };
@@ -100,10 +105,12 @@ export const TextFieldInput: React.FC<TextFieldInputProps> = ({
                   [cs.fullWidthInput]: fullWidth,
                 })}
               />
+              {touched && !!error && (
+                <Typography className={clsx(cs[`error-${colour}-text`])}>
+                  {error}
+                </Typography>
+              )}
             </div>
-            {touched && !!error && (
-              <span className={clsx(cs[`error-${colour}-text`])}>{error}</span>
-            )}
           </>
         );
       }}

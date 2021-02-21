@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { CardFaceFieldValues } from '@types';
+import { CardFaceFieldValues, CustomColours } from '@types';
 import { Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import { PaperCard } from '../atoms/PaperCard';
 import { FieldInputProps, useField } from 'formik';
@@ -35,6 +35,13 @@ export const useStyles = makeStyles((theme: Theme) => {
       top: 3,
       right: 2,
       zIndex: 25,
+    },
+    fontSizes: {
+      [theme.breakpoints.only('xs')]: { fontSize: 12.5 },
+      [theme.breakpoints.only('sm')]: { fontSize: 22.5 },
+      [theme.breakpoints.only('md')]: { fontSize: 32.5 },
+      [theme.breakpoints.only('lg')]: { fontSize: 42.5 },
+      [theme.breakpoints.only('xl')]: { fontSize: 52.5 },
     },
     backButton: {
       position: 'absolute',
@@ -86,19 +93,42 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
     void setCardFaceView('menu');
   };
 
+  const buttonColours = (() => {
+    const rotateHues = {
+      default: ['blue', 'green', 'cyan', 'turquoise'],
+      green: ['blue', 'purple', 'cyan', 'violet'],
+      lime: ['blue', 'purple', 'cyan', 'violet'],
+      turquoise: ['lime', 'purple', 'cyan', 'violet'],
+      cyan: ['lime', 'purple', 'green', 'violet'],
+      blue: ['lime', 'purple', 'green', 'violet'],
+    };
+    if (Object.keys(rotateHues).includes(field.value.colour)) {
+      return rotateHues[field.value.colour] as CustomColours[];
+    } else {
+      return rotateHues.default as CustomColours[];
+    }
+  })();
+
   return (
     <PaperCard className={clsx(cs[`${field.value.colour}Card`], cs.cardFace)}>
-      <div className={cs.backButton}>
-        <CircleButton iconName="prev" colour="blue" onClick={revertFaceValues} />
-      </div>
-
       <Typography variant="subtitle1" className={cs.numberText}>
         Card #{cardIndex + 1}
       </Typography>
 
-      <div className={cs.colourPicker}>
-        <ColourPicker name={`${name}.colour`} />
-      </div>
+      {cardFaceView !== 'menu' && (
+        <>
+          <div className={cs.backButton}>
+            <CircleButton
+              iconName="prev"
+              colour={buttonColours[0]}
+              onClick={revertFaceValues}
+            />
+          </div>
+          <div className={cs.colourPicker}>
+            <ColourPicker name={`${name}.colour`} />
+          </div>
+        </>
+      )}
 
       <div style={{ height: '100%', width: '100%' }}>
         <Grid container style={{ height: '100%', width: '100%', padding: '8%' }}>
@@ -106,9 +136,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
             <Grid item xs={12} container spacing={0}>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  style={{ height: '80%' }}
+                  className={cs.fontSizes}
                   fullWidth
-                  colour="green"
+                  colour={buttonColours[1]}
                   onClick={() => setCardFaceView('text')}
                 >
                   Text Only
@@ -116,9 +146,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
               </Grid>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  style={{ height: '80%' }} //TODO: button heights and font sizes
+                  className={cs.fontSizes}
                   fullWidth
-                  colour="cyan"
+                  colour={buttonColours[2]}
                   onClick={() => setCardFaceView('image')}
                 >
                   Image Only
@@ -126,9 +156,9 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
               </Grid>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  style={{ height: '80%' }}
+                  className={cs.fontSizes}
                   fullWidth
-                  colour="turquoise"
+                  colour={buttonColours[3]}
                   onClick={() => setCardFaceView('both')}
                 >
                   Text and Image
@@ -159,19 +189,11 @@ type CardFaceTypeProps = {
   field: FieldInputProps<CardFaceFieldValues>;
   front?: boolean;
 };
-export const useFontSizeStyles = makeStyles((theme: Theme) => ({
-  fontSizes: {
-    [theme.breakpoints.only('xs')]: { fontSize: 12.5 },
-    [theme.breakpoints.only('sm')]: { fontSize: 22.5 },
-    [theme.breakpoints.only('md')]: { fontSize: 32.5 },
-    [theme.breakpoints.only('lg')]: { fontSize: 42.5 },
-    [theme.breakpoints.only('xl')]: { fontSize: 52.5 },
-  },
-}));
+
 const CardFaceTextField: React.FC<
   CardFaceTypeProps & Omit<TextFieldInputProps, 'colour' | 'children'>
 > = ({ name, field, front, ...props }) => {
-  const { fontSizes } = useFontSizeStyles();
+  const { fontSizes } = useStyles();
   return (
     <TextFieldInput
       className={fontSizes}
@@ -208,7 +230,6 @@ const ImageCardFace: React.FC<CardFaceTypeProps> = ({ name }) => {
 };
 
 const ImageAndTextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front }) => {
-  const cs = useStyles();
   const CropperParent = React.useRef<HTMLDivElement>();
   const [px, setPx] = React.useState(150);
   React.useEffect(() => {
@@ -218,11 +239,11 @@ const ImageAndTextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front 
 
   return (
     <>
-      <Grid item xs={12} ref={CropperParent}>
+      <Grid item xs={12} ref={CropperParent} style={{ height: '70%' }}>
         <ImageCropperField px={px} max={3} name={`${name}.imageCropArgs`} />
       </Grid>
 
-      <Grid item xs={12} className={cs.bottomContainer}>
+      <Grid item xs={12} style={{ height: '30%' }}>
         <CardFaceTextField {...{ name, field, front }} />
       </Grid>
     </>

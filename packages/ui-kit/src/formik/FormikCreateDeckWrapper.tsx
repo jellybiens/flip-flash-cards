@@ -1,22 +1,27 @@
 import * as React from 'react';
 import { FlipCardFieldValues } from '@types';
 import { Formik, Form, FormikConfig } from 'formik';
-import { uniqueId } from 'lodash';
+import { v4 } from 'uuid';
+
+const imageCropArgs = {
+  image: null,
+  position: { x: 0, y: 0 },
+  scale: { width: 300, height: 300 },
+  px: 1,
+};
 
 export const initialCardValues = (): FlipCardFieldValues => ({
-  // TODO: ID unique
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  _id: uniqueId('card-'),
+  _id: v4(),
   front: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    text: uniqueId('card-'),
-    imgLink: '',
+    text: '',
+    imageCropArgs,
     imgFile: null,
     colour: 'white',
   },
   back: {
     text: '',
-    imgLink: '',
+    imageCropArgs,
     imgFile: null,
     colour: 'white',
   },
