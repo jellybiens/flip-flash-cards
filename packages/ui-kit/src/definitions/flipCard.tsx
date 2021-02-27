@@ -41,6 +41,7 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
     height: '100%',
     width: '100%',
     textAlign: 'center',
+    position: 'relative',
   },
   bottomContainer: { height: '20%', width: '100%', display: 'flex' },
   bottomWrapper: { margin: 'auto', height: 'auto', width: 'auto' },

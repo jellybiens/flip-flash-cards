@@ -9,6 +9,7 @@ import { FlipCardColours, FlipCardFaceStyles } from '../definitions';
 import { ColourPicker } from './ColourPicker';
 import { ImageCropperField } from './ImageCropperField';
 import { SquareButton, CircleButton } from '../atoms/Buttons';
+import { useWindowSize } from '../helpers';
 
 export const useStyles = makeStyles((theme: Theme) => {
   const typographySizing = {
@@ -35,6 +36,9 @@ export const useStyles = makeStyles((theme: Theme) => {
       top: 3,
       right: 2,
       zIndex: 25,
+    },
+    menuButtons: {
+      whiteSpace: 'nowrap',
     },
     fontSizes: {
       [theme.breakpoints.only('xs')]: { fontSize: 12.5 },
@@ -112,7 +116,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
   return (
     <PaperCard className={clsx(cs[`${field.value.colour}Card`], cs.cardFace)}>
       <Typography variant="subtitle1" className={cs.numberText}>
-        Card #{cardIndex + 1}
+        {`Card #${cardIndex + 1} ${front ? 'Frontface' : 'Backface'}`}
       </Typography>
 
       {cardFaceView !== 'menu' && (
@@ -136,7 +140,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
             <Grid item xs={12} container spacing={0}>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  className={cs.fontSizes}
+                  className={clsx(cs.menuButtons, cs.fontSizes)}
                   fullWidth
                   colour={buttonColours[1]}
                   onClick={() => setCardFaceView('text')}
@@ -146,7 +150,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
               </Grid>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  className={cs.fontSizes}
+                  className={clsx(cs.menuButtons, cs.fontSizes)}
                   fullWidth
                   colour={buttonColours[2]}
                   onClick={() => setCardFaceView('image')}
@@ -156,7 +160,7 @@ export const CardFaceInput: React.FC<CardFaceInputProps> = ({
               </Grid>
               <Grid item xs={12} style={{ margin: 'auto' }}>
                 <SquareButton
-                  className={cs.fontSizes}
+                  className={clsx(cs.menuButtons, cs.fontSizes)}
                   fullWidth
                   colour={buttonColours[3]}
                   onClick={() => setCardFaceView('both')}
@@ -201,7 +205,7 @@ const CardFaceTextField: React.FC<
       fullWidth
       colour={field.value.colour}
       placeholder={front ? 'Frontside Clue Text' : 'Backside Answer Text'}
-      {...props} //TODO: input and label font sizes
+      {...props}
     />
   );
 };
@@ -215,12 +219,13 @@ const TextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front }) => {
 };
 
 const ImageCardFace: React.FC<CardFaceTypeProps> = ({ name }) => {
+  const { width: windowInnerWidth } = useWindowSize();
   const CropperParent = React.useRef<HTMLDivElement>();
   const [px, setPx] = React.useState(150);
   React.useEffect(() => {
     if (CropperParent?.current)
-      setPx(Math.round(CropperParent?.current.offsetWidth * 0.95));
-  }, [CropperParent]);
+      setPx(Math.round(CropperParent?.current.offsetWidth * 0.9));
+  }, [windowInnerWidth]);
 
   return (
     <Grid item xs={12} ref={CropperParent}>
@@ -230,12 +235,13 @@ const ImageCardFace: React.FC<CardFaceTypeProps> = ({ name }) => {
 };
 
 const ImageAndTextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front }) => {
+  const { width: windowInnerWidth } = useWindowSize();
   const CropperParent = React.useRef<HTMLDivElement>();
   const [px, setPx] = React.useState(150);
   React.useEffect(() => {
     if (CropperParent?.current)
       setPx(Math.round(CropperParent?.current.offsetWidth * 0.62));
-  }, [CropperParent]);
+  }, [windowInnerWidth]);
 
   return (
     <>

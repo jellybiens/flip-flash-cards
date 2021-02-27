@@ -5,6 +5,7 @@ import {
   useCropDispatch,
   useCropState,
 } from '../context/CroppingContextProvider';
+import { useWindowSize } from '../helpers';
 import { ImageCropper, ImageCropperProps } from '../molecules/ImageCropper';
 
 type ImageCropperFieldProps = Omit<ImageCropperProps, 'src' | 'handleAddImage'> & {
@@ -16,6 +17,7 @@ const ImageCropperChild: React.FC<ImageCropperFieldProps> = ({
   px = 300,
   ...props
 }) => {
+  const { width: windowInnerWidth } = useWindowSize();
   const { image, position, scale } = useCropState();
   const { setSrc } = useCropDispatch();
 
@@ -28,6 +30,7 @@ const ImageCropperChild: React.FC<ImageCropperFieldProps> = ({
     position,
     scale,
     px,
+    windowInnerWidth,
   ]);
 
   return (

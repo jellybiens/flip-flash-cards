@@ -1,31 +1,38 @@
 import * as React from 'react';
 import { FlipCardFieldValues } from '@types';
 import { initialCardValues } from './FormikCreateDeckWrapper';
-import { Grid, makeStyles, Theme } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { FieldArray, useField } from 'formik';
 import { CircleButton, SquareButton } from '../atoms/Buttons';
 import { FrontBackViewOption } from './FlipCardInput';
 import { CardFaceInput, CardFaceViewOption } from './CardFaceInput';
-import { FlipCardSizing } from '../definitions';
+import { useWindowSize } from '../helpers';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   cardGridContainer: {
     position: 'relative',
-    ...FlipCardSizing(theme),
+  },
+  cardContainer: {
+    margin: 'auto',
   },
   removeButtonWrapper: {
-    position: 'absolute',
-    height: `calc(100% - ${theme.spacing(2)}px)`,
-    width: `calc(100% - ${theme.spacing(2)}px)`,
     display: 'flex',
   },
   removeButton: {
-    marginRight: theme.spacing(2), //TODO: needs parent offset width or hight to change this value
+    margin: 'auto 0',
   },
 }));
 
 export const FlipCardSimpleInputArray: React.FC = () => {
   const cs = useStyles();
+
+  const cardFaceContainerRef = React.useRef<HTMLDivElement>();
+  const { width: windowInnerWidth } = useWindowSize();
+  const [cardSizing, setCardSizing] = React.useState({ height: 200, width: 200 });
+  React.useEffect(() => {
+    const w = cardFaceContainerRef?.current?.offsetWidth * 0.8;
+    setCardSizing({ height: w, width: w });
+  }, [windowInnerWidth]);
 
   const [inputFacesView, setInputFacesView] = React.useState<{
     [key: string]: FrontBackViewOption;
@@ -65,49 +72,49 @@ export const FlipCardSimpleInputArray: React.FC = () => {
         render={(arrayHelpers) => (
           <Grid container spacing={2} justify="center">
             {deckCards.map((field, i) => (
-              <Grid
-                item
-                container
-                spacing={2}
-                key={i}
-                justify="center"
-                style={{ position: 'relative', width: 'fit-content' }}
-              >
-                <Grid item>
-                  <div className={cs.cardGridContainer}>
-                    <CardFaceInput
-                      front
-                      name={`deckCards.${i}.front`}
-                      cardIndex={i}
-                      cardFaceView={inputFacesView[field._id]?.front || 'menu'}
-                      setCardFaceView={(view) =>
-                        handleSetFacesViewOption(field._id, view, 'front')
-                      }
-                    />
-                  </div>
-                </Grid>
-                <Grid item>
-                  <div className={cs.cardGridContainer}>
-                    <CardFaceInput
-                      back
-                      name={`deckCards.${i}.front`}
-                      cardIndex={i}
-                      cardFaceView={inputFacesView[field._id]?.back || 'menu'}
-                      setCardFaceView={(view) =>
-                        handleSetFacesViewOption(field._id, view, 'back')
-                      }
-                    />
-                  </div>
+              <Grid container item justify="center" key={i}>
+                <Grid item container spacing={2} xs={totalCards > 3 ? 11 : 12}>
+                  <Grid
+                    item
+                    xs={6}
+                    className={cs.cardGridContainer}
+                    ref={cardFaceContainerRef}
+                  >
+                    <div className={cs.cardContainer} style={cardSizing}>
+                      <CardFaceInput
+                        front
+                        name={`deckCards.${i}.front`}
+                        cardIndex={i}
+                        cardFaceView={inputFacesView[field._id]?.front || 'menu'}
+                        setCardFaceView={(view) =>
+                          handleSetFacesViewOption(field._id, view, 'front')
+                        }
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} className={cs.cardGridContainer}>
+                    <div className={cs.cardContainer} style={cardSizing}>
+                      <CardFaceInput
+                        back
+                        name={`deckCards.${i}.front`}
+                        cardIndex={i}
+                        cardFaceView={inputFacesView[field._id]?.back || 'menu'}
+                        setCardFaceView={(view) =>
+                          handleSetFacesViewOption(field._id, view, 'back')
+                        }
+                      />
+                    </div>
+                  </Grid>
                 </Grid>
                 {totalCards > 3 && (
-                  <div className={cs.removeButtonWrapper}>
+                  <Grid item xs={1} className={cs.removeButtonWrapper}>
                     <CircleButton
                       className={cs.removeButton}
                       colour="red"
                       onClick={() => arrayHelpers.remove(i)}
                       iconName="remove"
                     />
-                  </div>
+                  </Grid>
                 )}
               </Grid>
             ))}
