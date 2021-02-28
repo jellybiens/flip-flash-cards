@@ -4,6 +4,7 @@ import { CardFace } from '../CardFace';
 import { CardFaceProps } from '@types';
 import { FlipCardColours } from '../../definitions';
 import clsx from 'clsx';
+import { StarRatingTotal, StarRatingTotalProps } from '../StarRatingTotal';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -22,7 +23,14 @@ const useStyles = makeStyles((theme: Theme) => {
         },
       },
     },
+    ratingWrapper: {
+      position: 'absolute',
+      bottom: '22%',
+      right: theme.spacing(2),
+      zIndex: 101,
+    },
     button: {
+      position: 'relative',
       height: '100%',
       width: '100%',
       borderRadius: 5,
@@ -33,12 +41,16 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-type CardFaceButtonProps = ButtonBaseProps & CardFaceProps;
+type CardFaceButtonProps = ButtonBaseProps &
+  CardFaceProps & {
+    ratingProps?: StarRatingTotalProps;
+  };
 
 export const CardFaceButton: React.FC<CardFaceButtonProps> = ({
   text,
   imgLink,
   colour,
+  ratingProps,
   ...props
 }) => {
   const cs = useStyles();
@@ -46,6 +58,11 @@ export const CardFaceButton: React.FC<CardFaceButtonProps> = ({
   return (
     <div className={clsx(cs.root, cs[`${colour}Card`])}>
       <ButtonBase className={cs.button} {...props}>
+        {ratingProps && (
+          <div className={cs.ratingWrapper}>
+            <StarRatingTotal {...ratingProps} />
+          </div>
+        )}
         <CardFace text={text} imgLink={imgLink} colour={colour} />
       </ButtonBase>
     </div>

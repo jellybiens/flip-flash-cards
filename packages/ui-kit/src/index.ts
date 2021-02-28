@@ -17,6 +17,7 @@ export * from './atoms/Typography';
 
 export * from './molecules/AppMenu';
 export * from './molecules/ChallengeDeck';
+export * from './molecules/DeckOverviewCard';
 export * from './molecules/ImageCropper';
 export * from './molecules/ReviewDeck';
 export * from './molecules/FlipCard';

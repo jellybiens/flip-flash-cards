@@ -44,7 +44,7 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
     position: 'relative',
   },
   bottomContainer: { height: '20%', width: '100%', display: 'flex' },
-  bottomWrapper: { margin: 'auto', height: 'auto', width: 'auto' },
+  bottomWrapper: { margin: 'auto', height: '100%', width: '100%' },
   imageArea: {
     height: '80%',
     width: '100%',
@@ -60,7 +60,7 @@ export const FlipCardFaceStyles: FlipCardFaceStyleProps = {
   imageContainer: {
     position: 'relative',
     height: 'calc(100% - 4px)',
-    width: '100%',
+    width: 'calc(100% - 4px)',
     overflow: 'hidden',
     borderRadius: 10,
     borderStyle: 'solid',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles, TypographyVariant } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import { Typography } from './Typography';
 import { useViewportSize } from '../helpers';
@@ -8,20 +8,42 @@ const useStyles = makeStyles(() => {
   return {
     root: {
       height: 'auto',
-      width: 'fit-content',
       display: 'flex',
+      width: 'fit-content',
+    },
+    wrapper: {
+      height: 'fit-content',
+      width: 'fit-content',
+    },
+    icon: {
+      filter: `drop-shadow(1px 1px 0 white) 
+        drop-shadow(-0.5px 1px 0 white) 
+        drop-shadow(1px -0.5px 0 white) 
+        drop-shadow(-0.5px -0.5px 0 white)
+        drop-shadow(-0.5px 0px 0 white) 
+        drop-shadow(0px 1px 0 white) 
+        drop-shadow(1px 0px 0 white) 
+        drop-shadow(0px -0.5px 0 white)`,
     },
     stars: {
       margin: 'auto',
     },
     votes: {
-      height: 'min-content',
       margin: 'auto',
+      color: 'black',
+      filter: `drop-shadow(1px 1px 0 white) 
+        drop-shadow(-0.5px 1px 0 white) 
+        drop-shadow(1px -0.5px 0 white) 
+        drop-shadow(-0.5px -0.5px 0 white)
+        drop-shadow(-0.5px 0px 0 white) 
+        drop-shadow(0px 1px 0 white) 
+        drop-shadow(1px 0px 0 white) 
+        drop-shadow(0px -0.5px 0 white)`,
     },
   };
 });
 
-type StarRatingTotalProps = {
+export type StarRatingTotalProps = {
   avgRating: number;
   totalVotes: number;
 };
@@ -31,26 +53,33 @@ export const StarRatingTotal: React.FC<StarRatingTotalProps> = ({
   totalVotes,
 }) => {
   const cs = useStyles();
-  const vps = useViewportSize();
 
+  const vps = useViewportSize();
   const size =
     vps === 'xs' ? 'small' : vps === 'sm' ? 'small' : vps === 'md' ? 'medium' : 'large';
-  const variant: TypographyVariant =
-    size === 'small' ? 'caption' : size === 'medium' ? 'body2' : 'body1';
+
+  const containerRef = React.useRef<HTMLDivElement>();
+  const [fontHeight, setFontHeight] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    setFontHeight(containerRef?.current?.offsetHeight * 0.7);
+  });
 
   return (
     <div className={cs.root}>
-      <Rating
-        className={cs.stars}
-        value={avgRating}
-        readOnly
-        precision={0.5}
-        size={size}
-      />
-      <Typography variant={variant} className={cs.votes}>
+      <div className={cs.wrapper} ref={containerRef}>
+        <Rating
+          classes={{ icon: cs.icon }}
+          className={cs.stars}
+          value={avgRating}
+          readOnly
+          precision={0.5}
+          size={size}
+        />
+      </div>
+      <Typography variant="body1" className={cs.votes} style={{ fontSize: fontHeight }}>
         ({totalVotes})
       </Typography>
     </div>
   );
 };
-//TODO: font sizes need to be smaller per

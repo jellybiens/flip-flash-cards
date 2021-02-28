@@ -222,7 +222,7 @@ const ImageCardFace: React.FC<CardFaceTypeProps> = ({ name }) => {
   const { width: windowInnerWidth } = useWindowSize();
   const CropperParent = React.useRef<HTMLDivElement>();
   const [px, setPx] = React.useState(150);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (CropperParent?.current)
       setPx(Math.round(CropperParent?.current.offsetWidth * 0.9));
   }, [windowInnerWidth]);
@@ -238,7 +238,7 @@ const ImageAndTextCardFace: React.FC<CardFaceTypeProps> = ({ name, field, front 
   const { width: windowInnerWidth } = useWindowSize();
   const CropperParent = React.useRef<HTMLDivElement>();
   const [px, setPx] = React.useState(150);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (CropperParent?.current)
       setPx(Math.round(CropperParent?.current.offsetWidth * 0.62));
   }, [windowInnerWidth]);

@@ -19,6 +19,12 @@ export const CardFace: React.FC<Omit<CardFaceProps, '_id'>> = ({
   colour = 'white',
 }) => {
   const cs = useStyles(colour);
+  const textContainerRef = React.useRef<HTMLDivElement>();
+  const [textHeight, setTextHeight] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    setTextHeight(textContainerRef?.current?.offsetHeight * 0.8);
+  });
 
   return (
     <Grid
@@ -35,8 +41,10 @@ export const CardFace: React.FC<Omit<CardFaceProps, '_id'>> = ({
       )}
       {text && (
         <Grid item xs={12} className={imgLink ? cs.bottomContainer : cs.fullFace}>
-          <div className={cs.bottomWrapper}>
-            <Typography variant="h4">{text}</Typography>
+          <div className={cs.bottomWrapper} ref={textContainerRef}>
+            <Typography variant="h4" style={{ fontSize: textHeight }}>
+              {text}
+            </Typography>
           </div>
         </Grid>
       )}
