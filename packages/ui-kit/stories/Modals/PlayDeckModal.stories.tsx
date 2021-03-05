@@ -28,7 +28,7 @@ const Story = () => {
     imgLink: 'https://static.wikia.nocookie.net/spongebob/images/2/26/Bubbletown_002.png',
     cards: cardDeck,
     score: 3.5,
-    subject: 'english',
+    tags: ['english'],
     language: 'en',
     totalVotes: 2134,
     createdAt: new Date(),

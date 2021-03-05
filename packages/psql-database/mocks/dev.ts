@@ -89,10 +89,6 @@ export const devMock = () => {
           subtitle: chance.sentence(),
           imgLink: randomPictureUrl.url,
           colour: chance.pickset(colours, 1)[0],
-          subject: chance.pickset(
-            ['Science', 'Trivia', 'Language', 'Sports', 'Moveis'],
-            1,
-          )[0],
           language: chance.pickset(['en', 'en', 'en', 'fr', 'es'], 1)[0],
           score: chance.floating({ fixed: 4, min: 0, max: 5 }),
           totalVotes: chance.integer({ min: 0, max: 20 }),
@@ -106,6 +102,16 @@ export const devMock = () => {
             level: chance.pickset(['easy', 'medium', 'hard'], 1)[0],
             score: chance.integer({ min: 0, max: 100 }),
           });
+
+          for (let t = 0; t < 2; t++) {
+            void Conn.tags.create({
+              deckId: deck._id,
+              text: chance.pickset(
+                ['Science', 'Trivia', 'Language', 'Sports', 'Moveis'],
+                1,
+              )[0],
+            });
+          }
 
           for (let j = 0; j < chance.integer({ min: 10, max: 20 }); j++) {
             void Conn.flipcards

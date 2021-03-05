@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     ratingWrapper: {
       position: 'absolute',
-      bottom: '22%',
-      right: theme.spacing(2),
+      bottom: '20%',
       zIndex: 101,
     },
     button: {

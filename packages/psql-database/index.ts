@@ -9,6 +9,7 @@ import {
 } from './models/CardFace';
 import { FlipCard as _FlipCard, FlipCardModel } from './models/FlipCard';
 import { Deck as _Deck, DeckModel } from './models/Deck';
+import { Tag as _Tag, TagModel } from './models/Tag';
 import { User as _User, UserModel } from './models/User';
 import { UserScores as _UserScores, UserScoresModel } from './models/UserScores';
 import { devMock } from './mocks/dev';
@@ -39,6 +40,7 @@ const FrontFaces = Conn.define('frontface', _FrontFace) as CardFaceModel;
 const BackFaces = Conn.define('backface', _BackFace) as CardFaceModel;
 const FlipCards = Conn.define('flipcards', _FlipCard) as FlipCardModel;
 const Decks = Conn.define('decks', _Deck) as DeckModel;
+const Tags = Conn.define('tags', _Tag) as TagModel;
 const Users = Conn.define('users', _User) as UserModel;
 const UserScores = Conn.define('userscores', _UserScores) as UserScoresModel;
 
@@ -46,6 +48,9 @@ Users.hasMany(UserScores, { as: 'scores' });
 UserScores.belongsTo(Users);
 Decks.hasMany(UserScores);
 UserScores.belongsTo(Decks);
+
+Decks.hasMany(Tags);
+Tags.belongsTo(Decks);
 
 Users.hasMany(Decks);
 Decks.belongsTo(Users);
@@ -93,6 +98,7 @@ export default {
   backfaces: BackFaces,
   flipcards: FlipCards,
   decks: Decks,
+  tags: Tags,
   users: Users,
   userscores: UserScores,
 };

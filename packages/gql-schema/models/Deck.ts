@@ -37,9 +37,9 @@ export const GqlCardDeckModel = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (deck: DeckOverviewProps) => deck.colour,
       },
-      subject: {
-        type: GraphQLString,
-        resolve: (deck: DeckOverviewProps) => deck.subject,
+      tags: {
+        type: new GraphQLList(GraphQLString),
+        resolve: ({ tags }) => (tags as string).split(','),
       },
       language: {
         type: GraphQLString,
@@ -89,8 +89,8 @@ export const GqlDeckInputModal = new GraphQLInputObjectType({
       colour: {
         type: new GraphQLNonNull(GraphQLString),
       },
-      subject: {
-        type: new GraphQLNonNull(GraphQLString),
+      tags: {
+        type: new GraphQLList(GraphQLString),
       },
       language: {
         type: new GraphQLNonNull(GraphQLString),

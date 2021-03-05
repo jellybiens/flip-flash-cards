@@ -81,7 +81,7 @@ export type DeckOverviewProps = {
   imgLink?: string;
   colour?: CustomColours;
   cards: FlipCardProps[];
-  subject?: string;
+  tags: string[];
   language: string;
   score?: number;
   totalVotes?: number;

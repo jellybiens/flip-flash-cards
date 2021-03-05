@@ -5,7 +5,7 @@ import { getDecksNewestQuery } from './getDecks_Newest';
 import { getDecksTopRatedQuery } from './getDecks_TopRated';
 import { getDecksTrendingQuery } from './getDecks_Trending';
 import { getUserDecksQuery } from './getDecks_User';
-import { getSubjectsQuery } from './getSubjects';
+import { getTagsQuery } from './getTags';
 import { getUserQuery } from './getUser';
 
 const QueryDef: GraphQLObjectTypeConfig<unknown, unknown> = {
@@ -19,7 +19,7 @@ const QueryDef: GraphQLObjectTypeConfig<unknown, unknown> = {
     ...getDecksTrendingQuery.fields,
     ...getUserDecksQuery.fields,
     ...getUserQuery.fields,
-    ...getSubjectsQuery.fields,
+    ...getTagsQuery.fields,
   }),
 };
 

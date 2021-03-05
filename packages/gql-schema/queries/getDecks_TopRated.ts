@@ -20,7 +20,7 @@ export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
       resolve: (_, args) => {
         const where = {
           ...(args.language && { language: args.language }),
-          ...(args.subject && { subject: args.subject }),
+          // ...(args.subject && { subject: args.subject }),
           approved: true,
         };
 

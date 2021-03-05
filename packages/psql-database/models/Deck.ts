@@ -28,10 +28,6 @@ export const Deck = {
     type: Sequelize.STRING,
     defaultValue: 'white',
   },
-  subject: {
-    type: Sequelize.STRING,
-    defaultValue: 'Trivia',
-  },
   language: {
     type: Sequelize.STRING,
     defaultValue: 'en',

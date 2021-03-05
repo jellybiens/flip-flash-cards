@@ -9,7 +9,7 @@
     "build": "webpack",
     "build:app": "yarn webpack --config-name clientConfig",
     "build:server": "yarn webpack --config-name serverConfig",
-    "flush:server": "cd dist/server && NODE_ENV=dev FLUSH=true node .",
+    "flush:server": "yarn build:server && cd dist/server && NODE_ENV=dev FLUSH=true node .",
     "storybook": "yarn --cwd packages/ui-kit storybook"
   },
   "author": "ethan watson",

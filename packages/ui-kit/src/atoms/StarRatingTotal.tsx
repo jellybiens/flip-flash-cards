@@ -10,6 +10,14 @@ const useStyles = makeStyles(() => {
       height: 'auto',
       display: 'flex',
       width: 'fit-content',
+      filter: `drop-shadow(1px 1px 0 black) 
+        drop-shadow(-0.5px 1px 0 black) 
+        drop-shadow(1px -0.5px 0 black) 
+        drop-shadow(-0.5px -0.5px 0 black)
+        drop-shadow(-0.5px 0px 0 black) 
+        drop-shadow(0px 1px 0 black) 
+        drop-shadow(1px 0px 0 black) 
+        drop-shadow(0px -0.5px 0 black)`,
     },
     wrapper: {
       height: 'fit-content',
@@ -62,7 +70,7 @@ export const StarRatingTotal: React.FC<StarRatingTotalProps> = ({
   const [fontHeight, setFontHeight] = React.useState(0);
 
   React.useLayoutEffect(() => {
-    setFontHeight(containerRef?.current?.offsetHeight * 0.7);
+    setFontHeight(containerRef?.current?.offsetHeight * 0.8);
   });
 
   return (
