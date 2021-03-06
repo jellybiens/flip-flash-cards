@@ -4,6 +4,7 @@ import { uuidv4 } from '../helpers';
 export type TagAttributes = Sequelize.Model & {
   _id?: string;
   text: string;
+  deckId: string;
 };
 
 export type TagModel = typeof Sequelize.Model & (new () => TagAttributes);

@@ -74,6 +74,11 @@ export type FlipCardProps = {
   back: CardFaceProps;
 };
 
+export type Tag = {
+  _id: string;
+  text: string;
+};
+
 export type DeckOverviewProps = {
   _id: string;
   title: string;
@@ -81,7 +86,7 @@ export type DeckOverviewProps = {
   imgLink?: string;
   colour?: CustomColours;
   cards: FlipCardProps[];
-  tags: string[];
+  tags: Tag[] | string[];
   language: string;
   score?: number;
   totalVotes?: number;

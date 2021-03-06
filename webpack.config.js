@@ -96,11 +96,19 @@ const serverConfig = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'awesome-typescript-loader',
+        exclude: [
+          path.resolve(__dirname, './packages/frontend/**/*'),
+          path.resolve(__dirname, './packages/ui-kit/**/*'),
+        ],
       },
       {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
+        exclude: [
+          path.resolve(__dirname, './packages/frontend/**/*'),
+          path.resolve(__dirname, './packages/ui-kit/**/*'),
+        ],
       },
     ],
   },

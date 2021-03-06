@@ -7,10 +7,12 @@ import {
   GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLScalarType,
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
-import { DeckOverviewProps } from '@types';
+import { DeckOverviewProps, Tag } from '@types';
 import { GqlFlipCardInputModel } from '.';
+import { GqlTagModel } from './Tags';
 
 export const GqlCardDeckModel = new GraphQLObjectType({
   name: 'Deck',
@@ -39,7 +41,8 @@ export const GqlCardDeckModel = new GraphQLObjectType({
       },
       tags: {
         type: new GraphQLList(GraphQLString),
-        resolve: ({ tags }) => (tags as string).split(','),
+        resolve: (deck: DeckOverviewProps) =>
+          (deck.tags as Tag[]).map(({ text }) => text),
       },
       language: {
         type: GraphQLString,
@@ -88,9 +91,6 @@ export const GqlDeckInputModal = new GraphQLInputObjectType({
       },
       colour: {
         type: new GraphQLNonNull(GraphQLString),
-      },
-      tags: {
-        type: new GraphQLList(GraphQLString),
       },
       language: {
         type: new GraphQLNonNull(GraphQLString),
