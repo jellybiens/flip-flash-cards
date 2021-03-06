@@ -1,5 +1,11 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from 'graphql';
-import { User, UserScore } from '@types';
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLList,
+  GraphQLFloat,
+} from 'graphql';
+import { User, UserRatings, UserScore } from '@types';
 
 export const GqlUserModel = new GraphQLObjectType({
   name: 'User',
@@ -13,6 +19,10 @@ export const GqlUserModel = new GraphQLObjectType({
       scores: {
         type: new GraphQLList(GqlPlayedDecksObject),
         resolve: (user: User) => user.scores,
+      },
+      ratings: {
+        type: new GraphQLList(GqlUserRatingsObject),
+        resolve: (user: User) => user.ratings,
       },
     };
   },
@@ -32,8 +42,25 @@ const GqlPlayedDecksObject = new GraphQLObjectType({
         resolve: (played: UserScore) => played.level,
       },
       score: {
-        type: GraphQLString,
+        type: GraphQLFloat,
         resolve: (played: UserScore) => played.score,
+      },
+    };
+  },
+});
+
+const GqlUserRatingsObject = new GraphQLObjectType({
+  name: 'UserRatings',
+  description: 'Ratigns that the user has given decks they have played',
+  fields: () => {
+    return {
+      deckId: {
+        type: GraphQLString,
+        resolve: (rating: UserRatings) => rating.deckId,
+      },
+      rating: {
+        type: GraphQLFloat,
+        resolve: (rating: UserRatings) => rating.rating,
       },
     };
   },

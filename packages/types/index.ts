@@ -34,9 +34,15 @@ export type UserScore = {
   score: number;
 };
 
+export type UserRatings = {
+  deckId: string;
+  rating: number;
+};
+
 export type User = {
   _id: string;
   scores: UserScore[];
+  ratings: UserRatings[];
 };
 
 export type Position = { x: number; y: number };

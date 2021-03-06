@@ -12,6 +12,7 @@ import { Deck as _Deck, DeckModel } from './models/Deck';
 import { Tag as _Tag, TagModel } from './models/Tag';
 import { User as _User, UserModel } from './models/User';
 import { UserScores as _UserScores, UserScoresModel } from './models/UserScores';
+import { UserRatings as _UserRatings, UserRatingsModel } from './models/UserRatings';
 import { devMock } from './mocks/dev';
 
 dotenv.config({ path: path.resolve('../../.env') });
@@ -43,17 +44,25 @@ const Decks = Conn.define('decks', _Deck) as DeckModel;
 const Tags = Conn.define('tags', _Tag) as TagModel;
 const Users = Conn.define('users', _User) as UserModel;
 const UserScores = Conn.define('userscores', _UserScores) as UserScoresModel;
-
-Users.hasMany(UserScores, { as: 'scores' });
-UserScores.belongsTo(Users);
-Decks.hasMany(UserScores);
-UserScores.belongsTo(Decks);
+const UserRatings = Conn.define('userratings', _UserRatings) as UserRatingsModel;
 
 Decks.hasMany(Tags);
 Tags.belongsTo(Decks);
 
 Users.hasMany(Decks);
 Decks.belongsTo(Users);
+
+Users.hasMany(UserScores, { as: 'scores' });
+UserScores.belongsTo(Users);
+Users.belongsToMany(Decks, { through: UserScores });
+Decks.belongsToMany(Users, { through: UserScores });
+
+Users.hasMany(UserRatings, { as: 'ratings' });
+UserRatings.belongsTo(Users);
+Decks.hasMany(UserRatings, { as: 'ratings' });
+UserRatings.belongsTo(Decks);
+Users.belongsToMany(Decks, { through: UserRatings });
+Decks.belongsToMany(Users, { through: UserRatings });
 
 Decks.hasMany(FlipCards, { as: 'cards' });
 FlipCards.belongsTo(Decks);
@@ -101,4 +110,5 @@ export default {
   tags: Tags,
   users: Users,
   userscores: UserScores,
+  userratings: UserRatings,
 };

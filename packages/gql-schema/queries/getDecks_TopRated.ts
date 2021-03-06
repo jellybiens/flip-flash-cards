@@ -13,39 +13,68 @@ export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
         language: {
           type: GraphQLString,
         },
-        subject: {
-          type: GraphQLString,
+        tags: {
+          type: new GraphQLList(GraphQLString),
         },
       },
       resolve: (_, args) => {
-        const where = {
-          ...(args.language && { language: args.language }),
-          // ...(args.subject && { subject: args.subject }),
-          approved: true,
-        };
-
-        return Conn.decks.findAll({
-          where,
-          order: [
-            ['score', 'DESC'],
-            ['totalVotes', 'DESC'],
-          ],
-          group: ['_id'],
-          having: {
-            totalVotes: {
-              [Sequelize.Op.gt]: Sequelize.literal(`(
+        const getDecks = (where = {}) => {
+          return Conn.decks.findAll({
+            where: {
+              ...(where && where),
+              ...(args.language && { language: args.language }),
+              approved: true,
+            },
+            include: [
+              {
+                model: Conn.tags,
+                as: 'tags',
+                attributes: ['_id', 'text'],
+              },
+            ],
+            order: [
+              ['score', 'DESC'],
+              ['totalVotes', 'DESC'],
+            ],
+            group: ['_id'],
+            having: {
+              totalVotes: {
+                [Sequelize.Op.gt]: Sequelize.literal(`(
                     SELECT AVG("totalVotes")
                     FROM decks
                 )`),
-            },
-            score: {
-              [Sequelize.Op.gt]: Sequelize.literal(`(
+              },
+              score: {
+                [Sequelize.Op.gt]: Sequelize.literal(`(
                     SELECT AVG("score")
                     FROM decks
                 )`),
+              },
             },
-          },
-        });
+          });
+        };
+
+        if ((args.tags as string[]).length) {
+          return Conn.tags
+            .findAll({
+              attributes: ['deckId'],
+              where: {
+                text: {
+                  [Sequelize.Op.in]: args.tags,
+                },
+              },
+              group: ['deckId'],
+            })
+            .then((decks) => {
+              return getDecks({
+                _id: {
+                  [Sequelize.Op.in]: decks.map((d) => d.deckId),
+                },
+              });
+            });
+        } else {
+          return getDecks();
+        }
       },
     },
   },

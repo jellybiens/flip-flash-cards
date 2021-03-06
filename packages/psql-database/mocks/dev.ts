@@ -103,6 +103,12 @@ export const devMock = () => {
             score: chance.integer({ min: 0, max: 100 }),
           });
 
+          void Conn.userratings.create({
+            userId: user._id,
+            deckId: deck._id,
+            rating: chance.integer({ min: 0, max: 10 }),
+          });
+
           for (let t = 0; t < 2; t++) {
             void Conn.tags.create({
               deckId: deck._id,

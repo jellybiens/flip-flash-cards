@@ -23,6 +23,12 @@ export const getUserQuery: GraphQLObjectTypeConfig<unknown, unknown> = {
               where: { userId: args.userId },
               as: 'scores',
             },
+            {
+              model: Conn.userratings,
+              attributes: ['deckId', 'rating'],
+              where: { userId: args.userId },
+              as: 'ratings',
+            },
           ],
         }),
     },

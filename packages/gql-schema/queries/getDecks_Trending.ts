@@ -13,15 +13,11 @@ export const getDecksTrendingQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
         language: {
           type: GraphQLString,
         },
-        subject: {
-          type: GraphQLString,
-        },
       },
       resolve: (_, args) => {
         const YESTERDAY = new Date(new Date().getTime() - 60 * 60 * 24 * 1000);
         const where = {
           ...(args.language && { language: args.language }),
-          // ...(args.subject && { subject: args.subject }),
           updatedAt: {
             [Sequelize.Op.gt]: new Date(YESTERDAY),
           },

@@ -7,12 +7,10 @@ import {
   GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLList,
-  GraphQLScalarType,
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { DeckOverviewProps, Tag } from '@types';
 import { GqlFlipCardInputModel } from '.';
-import { GqlTagModel } from './Tags';
 
 export const GqlCardDeckModel = new GraphQLObjectType({
   name: 'Deck',
