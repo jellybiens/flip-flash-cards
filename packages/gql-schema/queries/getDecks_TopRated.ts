@@ -38,6 +38,7 @@ export const getDecksTopRatedQuery: GraphQLObjectTypeConfig<unknown, unknown> = 
             ],
             group: ['_id'],
             having: {
+              // TODO:  change these to only get the most votes of each rating group?
               totalVotes: {
                 [Sequelize.Op.gt]: Sequelize.literal(`(
                     SELECT AVG("totalVotes")
