@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from '../utils';
-import { AppMenu as UiKitAppMenu, AppMenuProps } from '@ui-kit';
+import { AppMenu as UiKitAppMenu, AppMenuProps } from '@components';
 
 export const AppHeader: React.FC = () => {
   const navigate = useNavigate();

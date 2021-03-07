@@ -18,7 +18,7 @@ const clientConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx', 'json'],
     alias: {
-      '@ui-kit': path.resolve(__dirname, './packages/ui-kit/src'),
+      '@components': path.resolve(__dirname, './packages/frontend/components/src'),
       '@types': path.resolve(__dirname, './packages/types'),
     },
   },
@@ -96,19 +96,13 @@ const serverConfig = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'awesome-typescript-loader',
-        exclude: [
-          path.resolve(__dirname, './packages/frontend/**/*'),
-          path.resolve(__dirname, './packages/ui-kit/**/*'),
-        ],
+        exclude: [path.resolve(__dirname, './packages/frontend/**/*')],
       },
       {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
-        exclude: [
-          path.resolve(__dirname, './packages/frontend/**/*'),
-          path.resolve(__dirname, './packages/ui-kit/**/*'),
-        ],
+        exclude: [path.resolve(__dirname, './packages/frontend/**/*')],
       },
     ],
   },

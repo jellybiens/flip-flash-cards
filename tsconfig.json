@@ -8,7 +8,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "paths": {
-      "@ui-kit": ["./packages/ui-kit/src"],
       "@types": ["./packages/types"],
       "@gql-schema": ["./packages/gql-schema"],
       "@database": ["./packages/psql-database"],

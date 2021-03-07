@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { theme } from '@ui-kit';
+import { theme } from '@components';
 
 const apolloClient = new ApolloClient({
   uri: '/graphql',

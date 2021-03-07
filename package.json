@@ -1,5 +1,5 @@
 {
-  "name": "spanishflipcards",
+  "name": "flipflashquiz",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -10,14 +10,12 @@
     "build:app": "yarn webpack --config-name clientConfig",
     "build:server": "yarn webpack --config-name serverConfig",
     "flush:server": "yarn build:server && cd dist/server && NODE_ENV=dev FLUSH=true node .",
-    "storybook": "yarn --cwd packages/ui-kit storybook"
+
+    "storybook": "yarn --cwd packages/frontend storybook"
   },
   "author": "ethan watson",
   "license": "ISC",
   "devDependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@types/dotenv": "^8.2.0",
     "@types/node": "^14.14.22",
     "@types/sequelize": "^4.28.9",
@@ -27,7 +25,6 @@
     "@typescript-eslint/parser": "^4.14.0",
     "awesome-typescript-loader": "^5.2.1",
     "chance": "^1.1.7",
-    "clsx": "^1.1.1",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "css-loader": "^5.0.1",
@@ -59,9 +56,6 @@
     "pg-hstore": "^2.3.3",
     "prettier": "^2.2.1",
     "random-picture": "^4.0.3",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-draggable": "^4.4.3",
     "sequelize": "^6.5.0",
     "source-map-loader": "^2.0.0",
     "style-loader": "^2.0.0",

@@ -9,12 +9,12 @@
     "sourceMap": true,
     "target": "es5",
     "paths": {
-      "@ui-kit": ["../ui-kit/src"],
+      "@components": ["./components/src"],
       "@types": ["../types"]
     }
   },
   "include": [
     "index.tsx",
-    "../ui-kit/src/themes/createPalette.d.ts"
+    "components/src/themes/createPalette.d.ts"
   ]
 }

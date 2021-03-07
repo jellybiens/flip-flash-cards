@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { useNavigate } from '../utils';
 import { NewestDecksQuery } from '../graphql/queries/getDecksNewest';
 import { Grid, makeStyles } from '@material-ui/core';
-import { CardFaceButton } from '@ui-kit';
+import { CardFaceButton } from '@components';
 import { DeckOverviewProps } from '@types';
 
 const useStyles = makeStyles(() => ({

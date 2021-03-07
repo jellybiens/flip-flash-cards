@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { DeckCardsQuery } from '../graphql/queries/getDeckCards';
 import { Grid } from '@material-ui/core';
-import { ChallengeDeck } from '@ui-kit';
+import { ChallengeDeck } from '@components';
 import { FlipCardProps } from '@types';
 
 export const PlayDeckPage: React.FC = () => {

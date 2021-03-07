@@ -3,11 +3,38 @@
   "version": "0.1.0",
   "license": "ISC",
   "private": true,
+  "scripts": {
+    "storybook": "start-storybook -p 6006 -c components/.storybook",
+    "build-storybook": "build-storybook -c components/.storybook"
+  },
   "devDependencies": {
     "@apollo/client": "^3.3.7",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "@babel/core": "^7.12.9",
+    "@storybook/addon-actions": "^6.1.10",
+    "@storybook/addon-essentials": "^6.1.10",
+    "@storybook/addon-links": "^6.1.10",
+    "@storybook/react": "^6.1.10",
+    "@types/js-levenshtein": "^1.1.0",
+    "@types/lodash": "^4.14.167",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "babel-loader": "^8.2.2",
+    "js-levenshtein": "^1.1.6",
+    "lodash": "^4.17.20",
+    "react-json-pretty": "^2.2.0",
+    "react-keyboard-event-handler": "^1.5.4",
+    "react-material-ui-carousel": "^2.1.1",
+    "storybook": "^6.1.10",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "clsx": "^1.1.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-draggable": "^4.4.3"
   }
 }
